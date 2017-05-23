@@ -10,11 +10,11 @@ import okhttp3.Response;
  * @author Manuel Wrage (IVIanuu)
  */
 
-public class AuthInterceptor implements Interceptor {
+class AuthInterceptor implements Interceptor {
 
     private String mAccessToken;
 
-    public AuthInterceptor(String accessToken) {
+    AuthInterceptor(String accessToken) {
         mAccessToken = accessToken;
     }
 
