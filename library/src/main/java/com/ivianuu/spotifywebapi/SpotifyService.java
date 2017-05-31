@@ -469,6 +469,8 @@ public interface SpotifyService {
 
         private OkHttpClient.Builder okHttpClientBuilder;
 
+        private RxJava2CallAdapterFactory rxJava2CallAdapterFactory;
+
         public Builder withAccessToken(String accessToken) {
             this.accessToken = accessToken;
             return this;
@@ -481,6 +483,11 @@ public interface SpotifyService {
 
         public Builder withOkHttpClient(OkHttpClient okHttpClient) {
             this.okHttpClientBuilder = okHttpClient.newBuilder();
+            return this;
+        }
+
+        public Builder withRxJava2CallAdapterFactory(RxJava2CallAdapterFactory rxJava2CallAdapterFactory) {
+            this.rxJava2CallAdapterFactory = rxJava2CallAdapterFactory;
             return this;
         }
 
@@ -497,10 +504,14 @@ public interface SpotifyService {
                 okHttpClientBuilder.addInterceptor(new AuthInterceptor(accessToken));
             }
 
+            if (rxJava2CallAdapterFactory == null) {
+                rxJava2CallAdapterFactory = RxJava2CallAdapterFactory.create();
+            }
+
             Retrofit restAdapter = retrofitBuilder
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addCallAdapterFactory(rxJava2CallAdapterFactory)
                     .client(okHttpClientBuilder.build())
                     .build();
 

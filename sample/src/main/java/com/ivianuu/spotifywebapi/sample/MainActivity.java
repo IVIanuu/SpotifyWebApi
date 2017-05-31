@@ -1,34 +1,22 @@
 package com.ivianuu.spotifywebapi.sample;
 
-import android.arch.lifecycle.LifecycleActivity;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
-import com.ivianuu.dynamiccalladapter.AsyncCall;
-import com.ivianuu.dynamiccalladapter.DynamicCall;
-import com.ivianuu.dynamiccalladapter.Result;
 import com.ivianuu.spotifyauth.AuthenticationClient;
 import com.ivianuu.spotifyauth.AuthenticationRequest;
 import com.ivianuu.spotifyauth.AuthenticationResponse;
 import com.ivianuu.spotifywebapi.SpotifyService;
-import com.ivianuu.spotifywebapi.model.TracksPager;
 import com.ivianuu.spotifywebapi.model.UserPrivate;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
-public class MainActivity extends LifecycleActivity {
+public class MainActivity extends AppCompatActivity {
 
     String CLIENT_ID = "154dba9755364b4e904e5650e9a1134a";
     String REDIRECT_URI = "spotifysample://callback";
@@ -62,22 +50,19 @@ public class MainActivity extends LifecycleActivity {
 
             SpotifyService spotifyService = new SpotifyService.Builder()
                     .withAccessToken(accessToken)
+                    .withRxJava2CallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                     .build();
 
             spotifyService.getMe()
-                    .asV2Single()
-                    .body()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Consumer<UserPrivate>() {
                         @Override
-                        public void accept(@NonNull UserPrivate userPrivate) throws Exception {
-                            Toast.makeText(MainActivity.this, userPrivate.display_name, Toast.LENGTH_SHORT).show();
+                        public void accept(UserPrivate userPrivate) throws Exception {
+                            Log.d("webapi", userPrivate.email);
                         }
                     }, new Consumer<Throwable>() {
                         @Override
-                        public void accept(@NonNull Throwable throwable) throws Exception {
-                            throwable.printStackTrace();
+                        public void accept(Throwable throwable) throws Exception {
+                            Log.e("webapi", throwable.getMessage());
                         }
                     });
         }
