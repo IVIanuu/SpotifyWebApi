@@ -1,7 +1,5 @@
 package com.ivianuu.spotifywebapi;
 
-import com.ivianuu.dynamiccalladapter.DynamicCall;
-import com.ivianuu.dynamiccalladapter.DynamicCallAdapterFactory;
 import com.ivianuu.spotifywebapi.model.Album;
 import com.ivianuu.spotifywebapi.model.Albums;
 import com.ivianuu.spotifywebapi.model.AlbumsPager;
@@ -40,8 +38,10 @@ import com.ivianuu.spotifywebapi.model.UserPublic;
 
 import java.util.Map;
 
+import io.reactivex.Single;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -63,359 +63,359 @@ public interface SpotifyService {
      *************/
 
     @GET("albums/{id}")
-    DynamicCall<Album> getAlbum(@Path("id") String albumId);
+    Single<Album> getAlbum(@Path("id") String albumId);
 
     @GET("albums/{id}")
-    DynamicCall<Album> getAlbum(@Path("id") String albumId, @QueryMap Map<String, Object> options);
+    Single<Album> getAlbum(@Path("id") String albumId, @QueryMap Map<String, Object> options);
 
     @GET("albums")
-    DynamicCall<Albums> getAlbums(@Query("ids") String albumIds);
+    Single<Albums> getAlbums(@Query("ids") String albumIds);
 
     @GET("albums")
-    DynamicCall<Albums> getAlbums(@Query("ids") String albumIds, @QueryMap Map<String, Object> options);
+    Single<Albums> getAlbums(@Query("ids") String albumIds, @QueryMap Map<String, Object> options);
 
     @GET("albums/{id}/tracks")
-    DynamicCall<Pager<Track>> getAlbumTracks(@Path("id") String albumId);
+    Single<Pager<Track>> getAlbumTracks(@Path("id") String albumId);
 
     @GET("albums/{id}/tracks")
-    DynamicCall<Pager<Track>> getAlbumTracks(@Path("id") String albumId, @QueryMap Map<String, Object> options);
+    Single<Pager<Track>> getAlbumTracks(@Path("id") String albumId, @QueryMap Map<String, Object> options);
 
     /*************
      * Artists *
      *************/
 
     @GET("artists/{id}")
-    DynamicCall<Artist> getArtist(@Path("id") String artistId);
+    Single<Artist> getArtist(@Path("id") String artistId);
 
     @GET("artists")
-    DynamicCall<Artists> getArtists(@Query("ids") String artistIds);
+    Single<Artists> getArtists(@Query("ids") String artistIds);
 
     @GET("artists/{id}/albums")
-    DynamicCall<Pager<Album>> getArtistAlbums(@Path("id") String artistId);
+    Single<Pager<Album>> getArtistAlbums(@Path("id") String artistId);
 
     @GET("artists/{id}/albums")
-    DynamicCall<Pager<Album>> getArtistAlbums(@Path("id") String artistId, @QueryMap Map<String, Object> options);
+    Single<Pager<Album>> getArtistAlbums(@Path("id") String artistId, @QueryMap Map<String, Object> options);
 
     @GET("artists/{id}/top-tracks")
-    DynamicCall<Tracks> getArtistTopTrack(@Path("id") String artistId, @Query(COUNTRY) String country);
+    Single<Tracks> getArtistTopTrack(@Path("id") String artistId, @Query(COUNTRY) String country);
 
     @GET("artists/{id}/related-artists")
-    DynamicCall<Artists> getRelatedArtists(@Path("id") String artistId);
+    Single<Artists> getRelatedArtists(@Path("id") String artistId);
 
     /*************
      * Browse *
      *************/
 
     @GET("browse/featured-playlists")
-    DynamicCall<FeaturedPlaylists> getFeaturedPlaylists();
+    Single<FeaturedPlaylists> getFeaturedPlaylists();
 
     @GET("browse/featured-playlists")
-    DynamicCall<FeaturedPlaylists> getFeaturedPlaylists(@QueryMap Map<String, Object> options);
+    Single<FeaturedPlaylists> getFeaturedPlaylists(@QueryMap Map<String, Object> options);
 
     @GET("browse/new-releases")
-    DynamicCall<NewReleases> getNewReleases();
+    Single<NewReleases> getNewReleases();
 
     @GET("browse/new-releases")
-    DynamicCall<NewReleases> getNewReleases(@QueryMap Map<String, Object> options);
+    Single<NewReleases> getNewReleases(@QueryMap Map<String, Object> options);
 
     @GET("browse/categories")
-    DynamicCall<CategoriesPager> getCategories(@QueryMap Map<String, Object> options);
+    Single<CategoriesPager> getCategories(@QueryMap Map<String, Object> options);
 
     @GET("browse/categories/{category_id}")
-    DynamicCall<Category> getCategory(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
+    Single<Category> getCategory(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
 
     @GET("browse/categories/{category_id}/playlists")
-    DynamicCall<PlaylistsPager> getPlaylistsForCategory(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
+    Single<PlaylistsPager> getPlaylistsForCategory(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
 
     @GET("recommendations")
-    DynamicCall<Recommendations> getRecommendations(@QueryMap Map<String, Object> options);
+    Single<Recommendations> getRecommendations(@QueryMap Map<String, Object> options);
 
     @GET("recommendations/available-genre-seeds")
-    DynamicCall<SeedsGenres> getSeedsGenres();
+    Single<SeedsGenres> getSeedsGenres();
 
     /*************
      * Follow *
      *************/
 
     @GET("me/following?type=artist")
-    DynamicCall<ArtistsCursorPager> getFollowedArtists();
+    Single<ArtistsCursorPager> getFollowedArtists();
 
     @GET("me/following?type=artist")
-    DynamicCall<ArtistsCursorPager> getFollowedArtists(@QueryMap Map<String, Object> options);
+    Single<ArtistsCursorPager> getFollowedArtists(@QueryMap Map<String, Object> options);
 
     @PUT("me/following?type=artist")
-    DynamicCall<Void> followArtists(@Query("ids") String ids);
+    Single<Void> followArtists(@Query("ids") String ids);
 
     @PUT("me/following?type=user")
-    DynamicCall<Result> followUsers(@Query("ids") String ids);
+    Single<Result> followUsers(@Query("ids") String ids);
 
     @DELETE("me/following?type=artist")
-    DynamicCall<Void> unfollowArtists(@Query("ids") String ids);
+    Single<Void> unfollowArtists(@Query("ids") String ids);
 
     @DELETE("me/following?type=user")
-    DynamicCall<Result> unfollowUsers(@Query("ids") String ids);
+    Single<Result> unfollowUsers(@Query("ids") String ids);
 
     @GET("me/following/contains?type=user")
-    DynamicCall<Boolean[]> isFollowingUsers(@Query("ids") String ids);
+    Single<Boolean[]> isFollowingUsers(@Query("ids") String ids);
 
     @GET("me/following/contains?type=artist")
-    DynamicCall<Boolean[]> isFollowingArtists(@Query("ids") String ids);
+    Single<Boolean[]> isFollowingArtists(@Query("ids") String ids);
 
     @PUT("users/{user_id}/playlists/{playlist_id}/followers")
-    DynamicCall<Result> followPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+    Single<Result> followPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     @PUT("users/{user_id}/playlists/{playlist_id}/followers")
-    DynamicCall<Result> followPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body PlaylistFollowPrivacy playlistFollowPrivacy);
+    Single<Result> followPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body PlaylistFollowPrivacy playlistFollowPrivacy);
 
     @DELETE("users/{user_id}/playlists/{playlist_id}/followers")
-    DynamicCall<Result> unfollowPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+    Single<Result> unfollowPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     @GET("users/{user_id}/playlists/{playlist_id}/followers/contains")
-    DynamicCall<Boolean[]> areFollowingPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("ids") String ids);
+    Single<Boolean[]> areFollowingPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("ids") String ids);
 
     /*************
      * Library *
      *************/
 
     @PUT("me/tracks")
-    DynamicCall<Void> addToMySavedTracks(@Query("ids") String ids);
+    Single<Void> addToMySavedTracks(@Query("ids") String ids);
 
     @GET("me/tracks")
-    DynamicCall<Pager<SavedTrack>> getMySavedTracks();
+    Single<Pager<SavedTrack>> getMySavedTracks();
 
     @GET("me/tracks")
-    DynamicCall<Pager<SavedTrack>> getMySavedTracks(@QueryMap Map<String, Object> options);
+    Single<Pager<SavedTrack>> getMySavedTracks(@QueryMap Map<String, Object> options);
 
     @DELETE("me/tracks")
-    DynamicCall<Void> removeFromMySavedTracks(@Query("ids") String ids);
+    Single<Void> removeFromMySavedTracks(@Query("ids") String ids);
 
     @GET("me/tracks/contains")
-    DynamicCall<Boolean[]> containsMySavedTracks(@Query("ids") String ids);
+    Single<Boolean[]> containsMySavedTracks(@Query("ids") String ids);
 
     @PUT("me/albums")
-    DynamicCall<Void> addToMySavedAlbums(@Query("ids") String ids);
+    Single<Void> addToMySavedAlbums(@Query("ids") String ids);
 
     @GET("me/albums")
-    DynamicCall<Pager<SavedAlbum>> getMySavedAlbums();
+    Single<Pager<SavedAlbum>> getMySavedAlbums();
 
     @GET("me/albums")
-    DynamicCall<Pager<SavedAlbum>> getMySavedAlbums(@QueryMap Map<String, Object> options);
+    Single<Pager<SavedAlbum>> getMySavedAlbums(@QueryMap Map<String, Object> options);
 
     @DELETE("me/albums")
-    DynamicCall<Void> removeFromMySavedAlbums(@Query("ids") String ids);
+    Single<Void> removeFromMySavedAlbums(@Query("ids") String ids);
 
     @GET("me/albums/contains")
-    DynamicCall<Boolean[]> containsMySavedAlbums(@Query("ids") String ids);
+    Single<Boolean[]> containsMySavedAlbums(@Query("ids") String ids);
 
     /*************
      * Personalization *
      *************/
 
     @GET("me/top/artists")
-    DynamicCall<Pager<Artist>> getTopArtists();
+    Single<Pager<Artist>> getTopArtists();
 
     @GET("me/top/artists")
-    DynamicCall<Pager<Artist>> getTopArtists(@QueryMap Map<String, Object> options);
+    Single<Pager<Artist>> getTopArtists(@QueryMap Map<String, Object> options);
 
     @GET("me/top/tracks")
-    DynamicCall<Pager<Track>> getTopTracks();
+    Single<Pager<Track>> getTopTracks();
 
     @GET("me/top/tracks")
-    DynamicCall<Pager<Track>> getTopTracks(@QueryMap Map<String, Object> options);
+    Single<Pager<Track>> getTopTracks(@QueryMap Map<String, Object> options);
 
     @GET("me/player/recently-played")
-    DynamicCall<Pager<PlayHistory>> getRecentlyPlayedTracks();
+    Single<Pager<PlayHistory>> getRecentlyPlayedTracks();
 
     @GET("me/player/recently-played")
-    DynamicCall<Pager<PlayHistory>> getRecentlyPlayedTracks(@QueryMap Map<String, Object> options);
+    Single<Pager<PlayHistory>> getRecentlyPlayedTracks(@QueryMap Map<String, Object> options);
 
     /*************
      * Player *
      *************/
 
     @GET("me/player/devices")
-    DynamicCall<Payload> getUsersAvailableDevices();
+    Single<Payload> getUsersAvailableDevices();
 
     @GET("me/player")
-    DynamicCall<CurrentlyPlayingContext> getCurrentPlayback();
+    Single<CurrentlyPlayingContext> getCurrentPlayback();
 
     @GET("me/player")
-    DynamicCall<CurrentlyPlayingContext> getCurrentPlayback(@QueryMap Map<String, Object> options);
+    Single<CurrentlyPlayingContext> getCurrentPlayback(@QueryMap Map<String, Object> options);
 
     @GET("me/player")
-    DynamicCall<CurrentlyPlayingContext> getCurrentlyPlayingTrack();
+    Single<CurrentlyPlayingContext> getCurrentlyPlayingTrack();
 
     @GET("me/player")
-    DynamicCall<CurrentlyPlayingContext> getCurrentlyPlayingTrack(@QueryMap Map<String, Object> options);
+    Single<CurrentlyPlayingContext> getCurrentlyPlayingTrack(@QueryMap Map<String, Object> options);
 
     @PUT("me/player")
-    DynamicCall<Result> transferUserPlayback(@Body Map<String, Object> body);
+    Single<Result> transferUserPlayback(@Body Map<String, Object> body);
 
     @PUT("me/player/play")
-    DynamicCall<Result> startUserPlayback(@Body TracksToRemove body);
+    Single<Result> startUserPlayback(@Body TracksToRemove body);
 
     @PUT("me/player/play")
-    DynamicCall<Result> startUserPlayback(@Query("device_id") String device_id, @Body Map<String, Object> body);
+    Single<Result> startUserPlayback(@Query("device_id") String device_id, @Body Map<String, Object> body);
 
     @PUT("me/player/play")
-    DynamicCall<Result> resumeUserPlayback();
+    Single<Result> resumeUserPlayback();
 
     @PUT("me/player/play")
-    DynamicCall<Result> resumeUserPlayback(@Query("device_id") String device_id);
+    Single<Result> resumeUserPlayback(@Query("device_id") String device_id);
 
     @PUT("me/player/pause")
-    DynamicCall<Result> pauseUserPlayback();
+    Single<Result> pauseUserPlayback();
 
     @PUT("me/player/pause")
-    DynamicCall<Result> pauseUserPlayback(@Query("device_id") String device_id);
+    Single<Result> pauseUserPlayback(@Query("device_id") String device_id);
 
     @PUT("me/player/next")
-    DynamicCall<Result> skipToTheNextTrack();
+    Single<Result> skipToTheNextTrack();
 
     @PUT("me/player/next")
-    DynamicCall<Result> skipToTheNextTrack(@Query("device_id") String device_id);
+    Single<Result> skipToTheNextTrack(@Query("device_id") String device_id);
 
     @PUT("me/player/previous")
-    DynamicCall<Result> skipToThePreviousTrack();
+    Single<Result> skipToThePreviousTrack();
 
     @PUT("me/player/previous")
-    DynamicCall<Result> skipToThePreviousTrack(@Query("device_id") String device_id);
+    Single<Result> skipToThePreviousTrack(@Query("device_id") String device_id);
 
     @PUT("me/player/seek")
-    DynamicCall<Result> seekToPositionInCurrentTrack(@Query("position_ms") int position_ms);
+    Single<Result> seekToPositionInCurrentTrack(@Query("position_ms") int position_ms);
 
     @PUT("me/player/seek")
-    DynamicCall<Result> seekToPositionInCurrentTrack(@Query("position_ms") int position_ms, @Query("device_id") String device_id);
+    Single<Result> seekToPositionInCurrentTrack(@Query("position_ms") int position_ms, @Query("device_id") String device_id);
 
     @PUT("me/player/repeat")
-    DynamicCall<Result> setRepeatMode(@Query("state") String state);
+    Single<Result> setRepeatMode(@Query("state") String state);
 
     @PUT("me/player/repeat")
-    DynamicCall<Result> setRepeatMode(@Query("state") String state, @Query("device_id") String device_id);
+    Single<Result> setRepeatMode(@Query("state") String state, @Query("device_id") String device_id);
 
     @PUT("me/player/volume")
-    DynamicCall<Result> setVolume(@Query("volume_percent") int volume_percent);
+    Single<Result> setVolume(@Query("volume_percent") int volume_percent);
 
     @PUT("me/player/volume")
-    DynamicCall<Result> setVolume(@Query("volume_percent") int volume_percent, @Query("device_id") String device_id);
+    Single<Result> setVolume(@Query("volume_percent") int volume_percent, @Query("device_id") String device_id);
 
     @PUT("me/player/shuffle")
-    DynamicCall<Result> toggleShuffle(@Query("state") boolean state);
+    Single<Result> toggleShuffle(@Query("state") boolean state);
 
     @PUT("me/player/shuffle")
-    DynamicCall<Result> toggleShuffle(@Query("state") boolean state, @Query("device_id") String device_id);
+    Single<Result> toggleShuffle(@Query("state") boolean state, @Query("device_id") String device_id);
 
     /*************
      * Playlists *
      *************/
 
     @GET("users/{id}/playlists")
-    DynamicCall<Pager<PlaylistSimple>> getPlaylists(@Path("id") String userId, @QueryMap Map<String, Object> options);
+    Single<Pager<PlaylistSimple>> getPlaylists(@Path("id") String userId, @QueryMap Map<String, Object> options);
 
     @GET("users/{id}/playlists")
-    DynamicCall<Pager<PlaylistSimple>> getPlaylists(@Path("id") String userId);
+    Single<Pager<PlaylistSimple>> getPlaylists(@Path("id") String userId);
 
     @GET("me/playlists")
-    DynamicCall<Pager<PlaylistSimple>> getMyPlaylists();
+    Single<Pager<PlaylistSimple>> getMyPlaylists();
 
     @GET("me/playlists")
-    DynamicCall<Pager<Playlist>> getMyPlaylists(@QueryMap Map<String, Object> options);
+    Single<Pager<Playlist>> getMyPlaylists(@QueryMap Map<String, Object> options);
 
     @GET("users/{user_id}/playlists/{playlist_id}")
-    DynamicCall<Playlist> getPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
+    Single<Playlist> getPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
 
     @GET("users/{user_id}/playlists/{playlist_id}")
-    DynamicCall<Playlist> getPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+    Single<Playlist> getPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     @GET("users/{user_id}/playlists/{playlist_id}/tracks")
-    DynamicCall<Pager<PlaylistTrack>> getPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
+    Single<Pager<PlaylistTrack>> getPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
 
     @GET("users/{user_id}/playlists/{playlist_id}/tracks")
-    DynamicCall<Pager<PlaylistTrack>> getPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+    Single<Pager<PlaylistTrack>> getPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     @POST("users/{user_id}/playlists")
-    DynamicCall<Playlist> createPlaylist(@Path("user_id") String userId, @Body Map<String, Object> options);
+    Single<Playlist> createPlaylist(@Path("user_id") String userId, @Body Map<String, Object> options);
 
     @PUT("users/{user_id}/playlists/{playlist_id}")
-    DynamicCall<Result> changePlaylistDetails(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
+    Single<Result> changePlaylistDetails(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
 
     @POST("users/{user_id}/playlists/{playlist_id}/tracks")
-    DynamicCall<SnapshotId> addTracksToPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> queryParameters, @Body Map<String, Object> body);
+    Single<SnapshotId> addTracksToPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> queryParameters, @Body Map<String, Object> body);
 
     @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
-    DynamicCall<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemove tracksToRemove);
+    Single<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemove tracksToRemove);
 
     @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
-    DynamicCall<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveWithPosition tracksToRemoveWithPosition);
+    Single<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveWithPosition tracksToRemoveWithPosition);
 
     @DELETE("/users/{user_id}/playlists/{playlist_id}/tracks")
-    DynamicCall<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveByPosition tracksToRemoveByPosition);
+    Single<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveByPosition tracksToRemoveByPosition);
 
     @PUT("users/{user_id}/playlists/{playlist_id}/tracks")
-    DynamicCall<SnapshotId> reorderPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
+    Single<SnapshotId> reorderPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
 
     @PUT("users/{user_id}/playlists/{playlist_id}/tracks")
-    DynamicCall<Result> replaceTracksInPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("uris") String trackUris, @Body Object body);
+    Single<Result> replaceTracksInPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("uris") String trackUris, @Body Object body);
 
     /************
      * Profiles *
      ************/
 
     @GET("me")
-    DynamicCall<UserPrivate> getMe();
+    Single<UserPrivate> getMe();
 
     @GET("users/{id}")
-    DynamicCall<UserPublic> getUser(@Path("id") String userId);
+    Single<UserPublic> getUser(@Path("id") String userId);
 
     /*************
      * Search *
      *************/
 
     @GET("search?type=track")
-    DynamicCall<TracksPager> searchTracks(@Query("q") String q);
+    Single<TracksPager> searchTracks(@Query("q") String q);
 
     @GET("search?type=track")
-    DynamicCall<TracksPager> searchTracks(@Query("q") String q, @QueryMap Map<String, Object> options);
+    Single<TracksPager> searchTracks(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     @GET("search?type=artist")
-    DynamicCall<ArtistsPager> searchArtists(@Query("q") String q);
+    Single<ArtistsPager> searchArtists(@Query("q") String q);
 
     @GET("search?type=artist")
-    DynamicCall<ArtistsPager> searchArtists(@Query("q") String q, @QueryMap Map<String, Object> options);
+    Single<ArtistsPager> searchArtists(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     @GET("search?type=album")
-    DynamicCall<AlbumsPager> searchAlbums(@Query("q") String q);
+    Single<AlbumsPager> searchAlbums(@Query("q") String q);
 
     @GET("search?type=album")
-    DynamicCall<AlbumsPager> searchAlbums(@Query("q") String q, @QueryMap Map<String, Object> options);
+    Single<AlbumsPager> searchAlbums(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     @GET("search?type=playlist")
-    DynamicCall<PlaylistsPager> searchPlaylists(@Query("q") String q);
+    Single<PlaylistsPager> searchPlaylists(@Query("q") String q);
 
     @GET("search?type=playlist")
-    DynamicCall<PlaylistsPager> searchPlaylists(@Query("q") String q, @QueryMap Map<String, Object> options);
+    Single<PlaylistsPager> searchPlaylists(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /*************
      * Tracks *
      *************/
 
     @GET("tracks/{id}")
-    DynamicCall<Track> getTrack(@Path("id") String trackId);
+    Single<Track> getTrack(@Path("id") String trackId);
 
     @GET("tracks/{id}")
-    DynamicCall<Track> getTrack(@Path("id") String trackId, @QueryMap Map<String, Object> options);
+    Single<Track> getTrack(@Path("id") String trackId, @QueryMap Map<String, Object> options);
 
     @GET("tracks")
-    DynamicCall<Tracks> getTracks(@Query("ids") String trackIds);
+    Single<Tracks> getTracks(@Query("ids") String trackIds);
 
     @GET("tracks")
-    DynamicCall<Tracks> getTracks(@Query("ids") String trackIds, @QueryMap Map<String, Object> options);
+    Single<Tracks> getTracks(@Query("ids") String trackIds, @QueryMap Map<String, Object> options);
 
     @GET("audio-features")
-    DynamicCall<AudioFeaturesTrack> getTracksAudioFeatures(@Query("ids") String ids);
+    Single<AudioFeaturesTrack> getTracksAudioFeatures(@Query("ids") String ids);
 
     @GET("audio-features/{id}")
-    DynamicCall<AudioFeaturesTrack> getTrackAudioFeatures(@Path("id") String id);
+    Single<AudioFeaturesTrack> getTrackAudioFeatures(@Path("id") String id);
 
     interface QUERY_PARAMETER {
         String LIMIT = "limit";
@@ -497,13 +497,10 @@ public interface SpotifyService {
                 okHttpClientBuilder.addInterceptor(new AuthInterceptor(accessToken));
             }
 
-            DynamicCallAdapterFactory dynamicCallAdapterFactory = new DynamicCallAdapterFactory.Builder()
-                    .build();
-
             Retrofit restAdapter = retrofitBuilder
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(dynamicCallAdapterFactory)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(okHttpClientBuilder.build())
                     .build();
 

@@ -25,13 +25,10 @@ dependencies {
     // Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
 
     // Ok http
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
-
-    // Dynamic call adapter
-    compile 'com.github.IVIanuu:DynamicCallAdapter:16ca40cdd7'
 
     // Compile Libs
     compile fileTree(dir: 'libs', include: ['*.jar'])
