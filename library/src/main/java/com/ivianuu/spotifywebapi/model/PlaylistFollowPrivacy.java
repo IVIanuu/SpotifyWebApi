@@ -6,8 +6,24 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 public class PlaylistFollowPrivacy implements Parcelable {
+    public static final Parcelable.Creator<PlaylistFollowPrivacy> CREATOR = new Parcelable.Creator<PlaylistFollowPrivacy>() {
+        public PlaylistFollowPrivacy createFromParcel(Parcel source) {
+            return new PlaylistFollowPrivacy(source);
+        }
+
+        public PlaylistFollowPrivacy[] newArray(int size) {
+            return new PlaylistFollowPrivacy[size];
+        }
+    };
     @SerializedName("public")
     public Boolean is_public;
+
+    public PlaylistFollowPrivacy() {
+    }
+
+    protected PlaylistFollowPrivacy(Parcel in) {
+        this.is_public = (Boolean) in.readValue(Boolean.class.getClassLoader());
+    }
 
     @Override
     public int describeContents() {
@@ -18,21 +34,4 @@ public class PlaylistFollowPrivacy implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(this.is_public);
     }
-
-    public PlaylistFollowPrivacy() {
-    }
-
-    protected PlaylistFollowPrivacy(Parcel in) {
-        this.is_public = (Boolean) in.readValue(Boolean.class.getClassLoader());
-    }
-
-    public static final Parcelable.Creator<PlaylistFollowPrivacy> CREATOR = new Parcelable.Creator<PlaylistFollowPrivacy>() {
-        public PlaylistFollowPrivacy createFromParcel(Parcel source) {
-            return new PlaylistFollowPrivacy(source);
-        }
-
-        public PlaylistFollowPrivacy[] newArray(int size) {
-            return new PlaylistFollowPrivacy[size];
-        }
-    };
 }

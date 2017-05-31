@@ -5,6 +5,17 @@ import android.os.Parcelable;
 
 public class AudioFeaturesTrack implements Parcelable {
 
+    public static final Creator<AudioFeaturesTrack> CREATOR = new Creator<AudioFeaturesTrack>() {
+        @Override
+        public AudioFeaturesTrack createFromParcel(Parcel in) {
+            return new AudioFeaturesTrack(in);
+        }
+
+        @Override
+        public AudioFeaturesTrack[] newArray(int size) {
+            return new AudioFeaturesTrack[size];
+        }
+    };
     public float acousticness;
     public String analysis_url;
     public float danceability;
@@ -74,16 +85,4 @@ public class AudioFeaturesTrack implements Parcelable {
     public int describeContents() {
         return 0;
     }
-
-    public static final Creator<AudioFeaturesTrack> CREATOR = new Creator<AudioFeaturesTrack>() {
-        @Override
-        public AudioFeaturesTrack createFromParcel(Parcel in) {
-            return new AudioFeaturesTrack(in);
-        }
-
-        @Override
-        public AudioFeaturesTrack[] newArray(int size) {
-            return new AudioFeaturesTrack[size];
-        }
-    };
 }

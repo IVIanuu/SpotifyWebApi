@@ -7,7 +7,23 @@ import java.util.List;
 
 public class Payload implements Parcelable {
 
+    public static final Parcelable.Creator<Payload> CREATOR = new Parcelable.Creator<Payload>() {
+        public Payload createFromParcel(Parcel source) {
+            return new Payload(source);
+        }
+
+        public Payload[] newArray(int size) {
+            return new Payload[size];
+        }
+    };
     public List<Device> devices;
+
+    public Payload() {
+    }
+
+    protected Payload(Parcel in) {
+        this.devices = in.createTypedArrayList(Device.CREATOR);
+    }
 
     @Override
     public int describeContents() {
@@ -18,21 +34,4 @@ public class Payload implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeTypedList(devices);
     }
-
-    public Payload() {
-    }
-
-    protected Payload(Parcel in) {
-        this.devices = in.createTypedArrayList(Device.CREATOR);
-    }
-
-    public static final Parcelable.Creator<Payload> CREATOR = new Parcelable.Creator<Payload>() {
-        public Payload createFromParcel(Parcel source) {
-            return new Payload(source);
-        }
-
-        public Payload[] newArray(int size) {
-            return new Payload[size];
-        }
-    };
 }

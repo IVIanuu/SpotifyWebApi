@@ -25,6 +25,20 @@ public abstract class PlaylistBase implements Parcelable {
     protected PlaylistBase() {
     }
 
+    protected PlaylistBase(Parcel in) {
+        this.collaborative = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.external_urls = in.readHashMap(Map.class.getClassLoader());
+        this.href = (String) in.readValue(String.class.getClassLoader());
+        this.id = (String) in.readValue(String.class.getClassLoader());
+        this.images = in.createTypedArrayList(Image.CREATOR);
+        this.name = (String) in.readValue(String.class.getClassLoader());
+        this.owner = in.readParcelable(UserPublic.class.getClassLoader());
+        this.is_public = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.snapshot_id = (String) in.readValue(String.class.getClassLoader());
+        this.type = (String) in.readValue(String.class.getClassLoader());
+        this.uri = (String) in.readValue(String.class.getClassLoader());
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -43,19 +57,5 @@ public abstract class PlaylistBase implements Parcelable {
         dest.writeValue(snapshot_id);
         dest.writeValue(type);
         dest.writeValue(uri);
-    }
-
-    protected PlaylistBase(Parcel in) {
-        this.collaborative = (Boolean) in.readValue(Boolean.class.getClassLoader());
-        this.external_urls = in.readHashMap(Map.class.getClassLoader());
-        this.href = (String) in.readValue(String.class.getClassLoader());
-        this.id = (String) in.readValue(String.class.getClassLoader());
-        this.images = in.createTypedArrayList(Image.CREATOR);
-        this.name = (String) in.readValue(String.class.getClassLoader());
-        this.owner = in.readParcelable(UserPublic.class.getClassLoader());
-        this.is_public = (Boolean) in.readValue(Boolean.class.getClassLoader());
-        this.snapshot_id = (String) in.readValue(String.class.getClassLoader());
-        this.type = (String) in.readValue(String.class.getClassLoader());
-        this.uri = (String) in.readValue(String.class.getClassLoader());
     }
 }

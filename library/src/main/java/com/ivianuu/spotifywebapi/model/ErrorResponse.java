@@ -4,7 +4,23 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ErrorResponse implements Parcelable {
+    public static final Parcelable.Creator<ErrorResponse> CREATOR = new Parcelable.Creator<ErrorResponse>() {
+        public ErrorResponse createFromParcel(Parcel source) {
+            return new ErrorResponse(source);
+        }
+
+        public ErrorResponse[] newArray(int size) {
+            return new ErrorResponse[size];
+        }
+    };
     public ErrorDetails error;
+
+    public ErrorResponse() {
+    }
+
+    protected ErrorResponse(Parcel in) {
+        this.error = in.readParcelable(ErrorDetails.class.getClassLoader());
+    }
 
     @Override
     public int describeContents() {
@@ -15,21 +31,4 @@ public class ErrorResponse implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(this.error, 0);
     }
-
-    public ErrorResponse() {
-    }
-
-    protected ErrorResponse(Parcel in) {
-        this.error = in.readParcelable(ErrorDetails.class.getClassLoader());
-    }
-
-    public static final Parcelable.Creator<ErrorResponse> CREATOR = new Parcelable.Creator<ErrorResponse>() {
-        public ErrorResponse createFromParcel(Parcel source) {
-            return new ErrorResponse(source);
-        }
-
-        public ErrorResponse[] newArray(int size) {
-            return new ErrorResponse[size];
-        }
-    };
 }

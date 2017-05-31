@@ -7,6 +7,17 @@ import java.util.List;
 
 public class SeedsGenres implements Parcelable {
 
+    public static final Creator<SeedsGenres> CREATOR = new Creator<SeedsGenres>() {
+        @Override
+        public SeedsGenres createFromParcel(Parcel in) {
+            return new SeedsGenres(in);
+        }
+
+        @Override
+        public SeedsGenres[] newArray(int size) {
+            return new SeedsGenres[size];
+        }
+    };
     public List<String> genres;
 
     public SeedsGenres() {
@@ -25,16 +36,4 @@ public class SeedsGenres implements Parcelable {
     public int describeContents() {
         return 0;
     }
-
-    public static final Creator<SeedsGenres> CREATOR = new Creator<SeedsGenres>() {
-        @Override
-        public SeedsGenres createFromParcel(Parcel in) {
-            return new SeedsGenres(in);
-        }
-
-        @Override
-        public SeedsGenres[] newArray(int size) {
-            return new SeedsGenres[size];
-        }
-    };
 }

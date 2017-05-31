@@ -4,8 +4,25 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class SavedTrack implements Parcelable {
+    public static final Parcelable.Creator<SavedTrack> CREATOR = new Parcelable.Creator<SavedTrack>() {
+        public SavedTrack createFromParcel(Parcel source) {
+            return new SavedTrack(source);
+        }
+
+        public SavedTrack[] newArray(int size) {
+            return new SavedTrack[size];
+        }
+    };
     public String added_at;
     public Track track;
+
+    public SavedTrack() {
+    }
+
+    protected SavedTrack(Parcel in) {
+        this.added_at = in.readString();
+        this.track = in.readParcelable(Track.class.getClassLoader());
+    }
 
     @Override
     public int describeContents() {
@@ -17,22 +34,4 @@ public class SavedTrack implements Parcelable {
         dest.writeString(this.added_at);
         dest.writeParcelable(this.track, 0);
     }
-
-    public SavedTrack() {
-    }
-
-    protected SavedTrack(Parcel in) {
-        this.added_at = in.readString();
-        this.track = in.readParcelable(Track.class.getClassLoader());
-    }
-
-    public static final Parcelable.Creator<SavedTrack> CREATOR = new Parcelable.Creator<SavedTrack>() {
-        public SavedTrack createFromParcel(Parcel source) {
-            return new SavedTrack(source);
-        }
-
-        public SavedTrack[] newArray(int size) {
-            return new SavedTrack[size];
-        }
-    };
 }

@@ -8,6 +8,15 @@ import java.util.Map;
 
 public class TrackSimple implements Parcelable {
 
+    public static final Creator<TrackSimple> CREATOR = new Creator<TrackSimple>() {
+        public TrackSimple createFromParcel(Parcel source) {
+            return new TrackSimple(source);
+        }
+
+        public TrackSimple[] newArray(int size) {
+            return new TrackSimple[size];
+        }
+    };
     public List<ArtistSimple> artists;
     public List<String> available_markets;
     public Boolean is_playable;
@@ -24,6 +33,26 @@ public class TrackSimple implements Parcelable {
     public String type;
     public String uri;
 
+    public TrackSimple() {
+    }
+
+    protected TrackSimple(Parcel in) {
+        this.artists = in.createTypedArrayList(ArtistSimple.CREATOR);
+        this.available_markets = in.createStringArrayList();
+        this.is_playable = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.linked_from = in.readParcelable(LinkedTrack.class.getClassLoader());
+        this.disc_number = in.readInt();
+        this.duration_ms = in.readLong();
+        this.explicit = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.external_urls = in.readHashMap(Map.class.getClassLoader());
+        this.href = in.readString();
+        this.id = in.readString();
+        this.name = in.readString();
+        this.preview_url = in.readString();
+        this.track_number = in.readInt();
+        this.type = in.readString();
+        this.uri = in.readString();
+    }
 
     @Override
     public int describeContents() {
@@ -48,35 +77,4 @@ public class TrackSimple implements Parcelable {
         dest.writeString(this.type);
         dest.writeString(this.uri);
     }
-
-    public TrackSimple() {
-    }
-
-    protected TrackSimple(Parcel in) {
-        this.artists = in.createTypedArrayList(ArtistSimple.CREATOR);
-        this.available_markets = in.createStringArrayList();
-        this.is_playable = (Boolean) in.readValue(Boolean.class.getClassLoader());
-        this.linked_from = in.readParcelable(LinkedTrack.class.getClassLoader());
-        this.disc_number = in.readInt();
-        this.duration_ms = in.readLong();
-        this.explicit = (Boolean) in.readValue(Boolean.class.getClassLoader());
-        this.external_urls = in.readHashMap(Map.class.getClassLoader());
-        this.href = in.readString();
-        this.id = in.readString();
-        this.name = in.readString();
-        this.preview_url = in.readString();
-        this.track_number = in.readInt();
-        this.type = in.readString();
-        this.uri = in.readString();
-    }
-
-    public static final Creator<TrackSimple> CREATOR = new Creator<TrackSimple>() {
-        public TrackSimple createFromParcel(Parcel source) {
-            return new TrackSimple(source);
-        }
-
-        public TrackSimple[] newArray(int size) {
-            return new TrackSimple[size];
-        }
-    };
 }

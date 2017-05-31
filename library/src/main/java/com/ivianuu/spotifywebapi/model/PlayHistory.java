@@ -6,10 +6,19 @@ import android.os.Parcelable;
 
 public class PlayHistory implements Parcelable {
 
+    public static final Creator<PlayHistory> CREATOR = new Creator<PlayHistory>() {
+        @Override
+        public PlayHistory createFromParcel(Parcel in) {
+            return new PlayHistory(in);
+        }
+
+        @Override
+        public PlayHistory[] newArray(int size) {
+            return new PlayHistory[size];
+        }
+    };
     public TrackSimple track;
-
     public String played_at;
-
     public Context context;
 
     public PlayHistory() {
@@ -32,16 +41,4 @@ public class PlayHistory implements Parcelable {
     public int describeContents() {
         return 0;
     }
-
-    public static final Creator<PlayHistory> CREATOR = new Creator<PlayHistory>() {
-        @Override
-        public PlayHistory createFromParcel(Parcel in) {
-            return new PlayHistory(in);
-        }
-
-        @Override
-        public PlayHistory[] newArray(int size) {
-            return new PlayHistory[size];
-        }
-    };
 }

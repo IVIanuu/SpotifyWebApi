@@ -4,9 +4,25 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ErrorDetails implements Parcelable {
+    public static final Parcelable.Creator<ErrorDetails> CREATOR = new Parcelable.Creator<ErrorDetails>() {
+        public ErrorDetails createFromParcel(Parcel source) {
+            return new ErrorDetails(source);
+        }
+
+        public ErrorDetails[] newArray(int size) {
+            return new ErrorDetails[size];
+        }
+    };
     public int status;
     public String message;
 
+    public ErrorDetails() {
+    }
+
+    protected ErrorDetails(Parcel in) {
+        this.status = in.readInt();
+        this.message = in.readString();
+    }
 
     @Override
     public int describeContents() {
@@ -18,22 +34,4 @@ public class ErrorDetails implements Parcelable {
         dest.writeInt(this.status);
         dest.writeString(this.message);
     }
-
-    public ErrorDetails() {
-    }
-
-    protected ErrorDetails(Parcel in) {
-        this.status = in.readInt();
-        this.message = in.readString();
-    }
-
-    public static final Parcelable.Creator<ErrorDetails> CREATOR = new Parcelable.Creator<ErrorDetails>() {
-        public ErrorDetails createFromParcel(Parcel source) {
-            return new ErrorDetails(source);
-        }
-
-        public ErrorDetails[] newArray(int size) {
-            return new ErrorDetails[size];
-        }
-    };
 }

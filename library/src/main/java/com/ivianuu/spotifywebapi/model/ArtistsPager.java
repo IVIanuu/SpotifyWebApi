@@ -4,8 +4,23 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ArtistsPager implements Parcelable {
+    public static final Parcelable.Creator<ArtistsPager> CREATOR = new Parcelable.Creator<ArtistsPager>() {
+        public ArtistsPager createFromParcel(Parcel source) {
+            return new ArtistsPager(source);
+        }
+
+        public ArtistsPager[] newArray(int size) {
+            return new ArtistsPager[size];
+        }
+    };
     public Pager<Artist> artists;
 
+    public ArtistsPager() {
+    }
+
+    protected ArtistsPager(Parcel in) {
+        this.artists = in.readParcelable(Pager.class.getClassLoader());
+    }
 
     @Override
     public int describeContents() {
@@ -16,21 +31,4 @@ public class ArtistsPager implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(this.artists, 0);
     }
-
-    public ArtistsPager() {
-    }
-
-    protected ArtistsPager(Parcel in) {
-        this.artists = in.readParcelable(Pager.class.getClassLoader());
-    }
-
-    public static final Parcelable.Creator<ArtistsPager> CREATOR = new Parcelable.Creator<ArtistsPager>() {
-        public ArtistsPager createFromParcel(Parcel source) {
-            return new ArtistsPager(source);
-        }
-
-        public ArtistsPager[] newArray(int size) {
-            return new ArtistsPager[size];
-        }
-    };
 }

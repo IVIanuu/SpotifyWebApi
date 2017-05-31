@@ -6,6 +6,16 @@ import android.os.Parcelable;
 import java.util.Map;
 
 public class ArtistSimple implements Parcelable {
+
+    public static final Creator<ArtistSimple> CREATOR = new Creator<ArtistSimple>() {
+        public ArtistSimple createFromParcel(Parcel source) {
+            return new ArtistSimple(source);
+        }
+
+        public ArtistSimple[] newArray(int size) {
+            return new ArtistSimple[size];
+        }
+    };
     public Map<String, String> external_urls;
     public String href;
     public String id;
@@ -17,6 +27,14 @@ public class ArtistSimple implements Parcelable {
     public ArtistSimple() {
     }
 
+    protected ArtistSimple(Parcel in) {
+        this.external_urls = in.readHashMap(Map.class.getClassLoader());
+        this.href = in.readString();
+        this.id = in.readString();
+        this.name = in.readString();
+        this.type = in.readString();
+        this.uri = in.readString();
+    }
 
     @Override
     public int describeContents() {
@@ -32,23 +50,4 @@ public class ArtistSimple implements Parcelable {
         dest.writeString(this.type);
         dest.writeString(this.uri);
     }
-
-    protected ArtistSimple(Parcel in) {
-        this.external_urls = in.readHashMap(Map.class.getClassLoader());
-        this.href = in.readString();
-        this.id = in.readString();
-        this.name = in.readString();
-        this.type = in.readString();
-        this.uri = in.readString();
-    }
-
-    public static final Creator<ArtistSimple> CREATOR = new Creator<ArtistSimple>() {
-        public ArtistSimple createFromParcel(Parcel source) {
-            return new ArtistSimple(source);
-        }
-
-        public ArtistSimple[] newArray(int size) {
-            return new ArtistSimple[size];
-        }
-    };
 }

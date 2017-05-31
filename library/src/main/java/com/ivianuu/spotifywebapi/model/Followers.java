@@ -4,8 +4,25 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Followers implements Parcelable {
+    public static final Parcelable.Creator<Followers> CREATOR = new Parcelable.Creator<Followers>() {
+        public Followers createFromParcel(Parcel source) {
+            return new Followers(source);
+        }
+
+        public Followers[] newArray(int size) {
+            return new Followers[size];
+        }
+    };
     public String href;
     public Integer total;
+
+    public Followers() {
+    }
+
+    protected Followers(Parcel in) {
+        this.href = in.readString();
+        this.total = in.readInt();
+    }
 
     @Override
     public int describeContents() {
@@ -17,22 +34,4 @@ public class Followers implements Parcelable {
         dest.writeString(this.href);
         dest.writeInt(this.total);
     }
-
-    public Followers() {
-    }
-
-    protected Followers(Parcel in) {
-        this.href = in.readString();
-        this.total = in.readInt();
-    }
-
-    public static final Parcelable.Creator<Followers> CREATOR = new Parcelable.Creator<Followers>() {
-        public Followers createFromParcel(Parcel source) {
-            return new Followers(source);
-        }
-
-        public Followers[] newArray(int size) {
-            return new Followers[size];
-        }
-    };
 }

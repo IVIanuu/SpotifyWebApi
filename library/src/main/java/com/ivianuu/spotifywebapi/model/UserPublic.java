@@ -7,6 +7,15 @@ import java.util.List;
 import java.util.Map;
 
 public class UserPublic implements Parcelable {
+    public static final Creator<UserPublic> CREATOR = new Creator<UserPublic>() {
+        public UserPublic createFromParcel(Parcel source) {
+            return new UserPublic(source);
+        }
+
+        public UserPublic[] newArray(int size) {
+            return new UserPublic[size];
+        }
+    };
     public String display_name;
     public Map<String, String> external_urls;
     public Followers followers;
@@ -17,6 +26,17 @@ public class UserPublic implements Parcelable {
     public String uri;
 
     public UserPublic() {
+    }
+
+    protected UserPublic(Parcel in) {
+        this.display_name = in.readString();
+        this.external_urls = in.readHashMap(Map.class.getClassLoader());
+        this.followers = in.readParcelable(Followers.class.getClassLoader());
+        this.href = in.readString();
+        this.id = in.readString();
+        this.images = in.createTypedArrayList(Image.CREATOR);
+        this.type = in.readString();
+        this.uri = in.readString();
     }
 
     @Override
@@ -35,25 +55,4 @@ public class UserPublic implements Parcelable {
         dest.writeString(this.type);
         dest.writeString(this.uri);
     }
-
-    protected UserPublic(Parcel in) {
-        this.display_name = in.readString();
-        this.external_urls = in.readHashMap(Map.class.getClassLoader());
-        this.followers = in.readParcelable(Followers.class.getClassLoader());
-        this.href = in.readString();
-        this.id = in.readString();
-        this.images = in.createTypedArrayList(Image.CREATOR);
-        this.type = in.readString();
-        this.uri = in.readString();
-    }
-
-    public static final Creator<UserPublic> CREATOR = new Creator<UserPublic>() {
-        public UserPublic createFromParcel(Parcel source) {
-            return new UserPublic(source);
-        }
-
-        public UserPublic[] newArray(int size) {
-            return new UserPublic[size];
-        }
-    };
 }

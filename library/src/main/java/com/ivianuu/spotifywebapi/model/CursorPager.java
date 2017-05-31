@@ -6,13 +6,34 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CursorPager<T> implements Parcelable  {
+public class CursorPager<T> implements Parcelable {
+    public static final Creator<CursorPager> CREATOR = new Creator<CursorPager>() {
+        public CursorPager createFromParcel(Parcel source) {
+            return new CursorPager(source);
+        }
+
+        public CursorPager[] newArray(int size) {
+            return new CursorPager[size];
+        }
+    };
     public String href;
     public List<T> items;
     public int limit;
     public String next;
     public Cursor cursors;
     public int total;
+
+    public CursorPager() {
+    }
+
+    protected CursorPager(Parcel in) {
+        this.href = in.readString();
+        this.items = in.readArrayList(ArrayList.class.getClassLoader());
+        this.limit = in.readInt();
+        this.next = in.readString();
+        this.cursors = in.readParcelable(Cursor.class.getClassLoader());
+        this.total = in.readInt();
+    }
 
     @Override
     public int describeContents() {
@@ -28,27 +49,5 @@ public class CursorPager<T> implements Parcelable  {
         dest.writeParcelable(this.cursors, flags);
         dest.writeInt(total);
     }
-
-    public CursorPager() {
-    }
-
-    protected CursorPager(Parcel in) {
-        this.href = in.readString();
-        this.items = in.readArrayList(ArrayList.class.getClassLoader());
-        this.limit = in.readInt();
-        this.next = in.readString();
-        this.cursors = in.readParcelable(Cursor.class.getClassLoader());
-        this.total = in.readInt();
-    }
-
-    public static final Creator<CursorPager> CREATOR = new Creator<CursorPager>() {
-        public CursorPager createFromParcel(Parcel source) {
-            return new CursorPager(source);
-        }
-
-        public CursorPager[] newArray(int size) {
-            return new CursorPager[size];
-        }
-    };
 
 }

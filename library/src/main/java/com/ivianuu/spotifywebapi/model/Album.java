@@ -8,6 +8,15 @@ import java.util.Map;
 
 public class Album extends AlbumSimple implements Parcelable {
 
+    public static final Parcelable.Creator<Album> CREATOR = new Parcelable.Creator<Album>() {
+        public Album createFromParcel(Parcel source) {
+            return new Album(source);
+        }
+
+        public Album[] newArray(int size) {
+            return new Album[size];
+        }
+    };
     public List<ArtistSimple> artists;
     public List<Copyright> copyrights;
     public Map<String, String> external_ids;
@@ -17,6 +26,20 @@ public class Album extends AlbumSimple implements Parcelable {
     public String release_date_precision;
     public Pager<TrackSimple> tracks;
 
+    public Album() {
+    }
+
+    protected Album(Parcel in) {
+        super(in);
+        this.artists = in.createTypedArrayList(ArtistSimple.CREATOR);
+        this.copyrights = in.createTypedArrayList(Copyright.CREATOR);
+        this.external_ids = in.readHashMap(ClassLoader.getSystemClassLoader());
+        this.genres = in.createStringArrayList();
+        this.popularity = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.release_date = in.readString();
+        this.release_date_precision = in.readString();
+        this.tracks = in.readParcelable(Pager.class.getClassLoader());
+    }
 
     @Override
     public int describeContents() {
@@ -35,29 +58,4 @@ public class Album extends AlbumSimple implements Parcelable {
         dest.writeString(this.release_date_precision);
         dest.writeParcelable(this.tracks, flags);
     }
-
-    public Album() {
-    }
-
-    protected Album(Parcel in) {
-        super(in);
-        this.artists = in.createTypedArrayList(ArtistSimple.CREATOR);
-        this.copyrights = in.createTypedArrayList(Copyright.CREATOR);
-        this.external_ids = in.readHashMap(ClassLoader.getSystemClassLoader());
-        this.genres = in.createStringArrayList();
-        this.popularity = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.release_date = in.readString();
-        this.release_date_precision = in.readString();
-        this.tracks = in.readParcelable(Pager.class.getClassLoader());
-    }
-
-    public static final Parcelable.Creator<Album> CREATOR = new Parcelable.Creator<Album>() {
-        public Album createFromParcel(Parcel source) {
-            return new Album(source);
-        }
-
-        public Album[] newArray(int size) {
-            return new Album[size];
-        }
-    };
 }

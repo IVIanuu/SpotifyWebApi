@@ -8,6 +8,15 @@ import java.util.Map;
 
 public class AlbumSimple implements Parcelable {
 
+    public static final Parcelable.Creator<AlbumSimple> CREATOR = new Parcelable.Creator<AlbumSimple>() {
+        public AlbumSimple createFromParcel(Parcel source) {
+            return new AlbumSimple(source);
+        }
+
+        public AlbumSimple[] newArray(int size) {
+            return new AlbumSimple[size];
+        }
+    };
     public String album_type;
     public List<String> available_markets;
     public Map<String, String> external_urls;
@@ -18,6 +27,20 @@ public class AlbumSimple implements Parcelable {
     public String type;
     public String uri;
 
+    public AlbumSimple() {
+    }
+
+    protected AlbumSimple(Parcel in) {
+        this.album_type = in.readString();
+        this.available_markets = in.createStringArrayList();
+        this.external_urls = in.readHashMap(ClassLoader.getSystemClassLoader());
+        this.href = in.readString();
+        this.id = in.readString();
+        this.images = in.createTypedArrayList(Image.CREATOR);
+        this.name = in.readString();
+        this.type = in.readString();
+        this.uri = in.readString();
+    }
 
     @Override
     public int describeContents() {
@@ -36,29 +59,4 @@ public class AlbumSimple implements Parcelable {
         dest.writeString(this.type);
         dest.writeString(this.uri);
     }
-
-    public AlbumSimple() {
-    }
-
-    protected AlbumSimple(Parcel in) {
-        this.album_type = in.readString();
-        this.available_markets = in.createStringArrayList();
-        this.external_urls = in.readHashMap(ClassLoader.getSystemClassLoader());
-        this.href = in.readString();
-        this.id = in.readString();
-        this.images = in.createTypedArrayList(Image.CREATOR);
-        this.name = in.readString();
-        this.type = in.readString();
-        this.uri = in.readString();
-    }
-
-    public static final Parcelable.Creator<AlbumSimple> CREATOR = new Parcelable.Creator<AlbumSimple>() {
-        public AlbumSimple createFromParcel(Parcel source) {
-            return new AlbumSimple(source);
-        }
-
-        public AlbumSimple[] newArray(int size) {
-            return new AlbumSimple[size];
-        }
-    };
 }

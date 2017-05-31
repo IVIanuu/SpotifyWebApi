@@ -6,7 +6,18 @@ import android.os.Parcelable;
 import java.util.Map;
 
 public class Context implements Parcelable {
-    
+
+    public static final Creator<Context> CREATOR = new Creator<Context>() {
+        @Override
+        public Context createFromParcel(Parcel in) {
+            return new Context(in);
+        }
+
+        @Override
+        public Context[] newArray(int size) {
+            return new Context[size];
+        }
+    };
     public String type;
     public String href;
     public Map<String, String> external_urls;
@@ -34,16 +45,4 @@ public class Context implements Parcelable {
     public int describeContents() {
         return 0;
     }
-
-    public static final Creator<Context> CREATOR = new Creator<Context>() {
-        @Override
-        public Context createFromParcel(Parcel in) {
-            return new Context(in);
-        }
-
-        @Override
-        public Context[] newArray(int size) {
-            return new Context[size];
-        }
-    };
 }

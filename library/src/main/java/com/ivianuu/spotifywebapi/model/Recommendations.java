@@ -7,8 +7,18 @@ import java.util.List;
 
 public class Recommendations implements Parcelable {
 
-    public List<Seed> seeds;
+    public static final Creator<Recommendations> CREATOR = new Creator<Recommendations>() {
+        @Override
+        public Recommendations createFromParcel(Parcel in) {
+            return new Recommendations(in);
+        }
 
+        @Override
+        public Recommendations[] newArray(int size) {
+            return new Recommendations[size];
+        }
+    };
+    public List<Seed> seeds;
     public List<Track> tracks;
 
     public Recommendations() {
@@ -29,16 +39,4 @@ public class Recommendations implements Parcelable {
     public int describeContents() {
         return 0;
     }
-
-    public static final Creator<Recommendations> CREATOR = new Creator<Recommendations>() {
-        @Override
-        public Recommendations createFromParcel(Parcel in) {
-            return new Recommendations(in);
-        }
-
-        @Override
-        public Recommendations[] newArray(int size) {
-            return new Recommendations[size];
-        }
-    };
 }

@@ -4,8 +4,23 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class CategoriesPager implements Parcelable {
+    public static final Parcelable.Creator<CategoriesPager> CREATOR = new Parcelable.Creator<CategoriesPager>() {
+        public CategoriesPager createFromParcel(Parcel source) {
+            return new CategoriesPager(source);
+        }
+
+        public CategoriesPager[] newArray(int size) {
+            return new CategoriesPager[size];
+        }
+    };
     public Pager<Category> categories;
 
+    public CategoriesPager() {
+    }
+
+    protected CategoriesPager(Parcel in) {
+        this.categories = in.readParcelable(Pager.class.getClassLoader());
+    }
 
     @Override
     public int describeContents() {
@@ -16,21 +31,4 @@ public class CategoriesPager implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(this.categories, 0);
     }
-
-    public CategoriesPager() {
-    }
-
-    protected CategoriesPager(Parcel in) {
-        this.categories = in.readParcelable(Pager.class.getClassLoader());
-    }
-
-    public static final Parcelable.Creator<CategoriesPager> CREATOR = new Parcelable.Creator<CategoriesPager>() {
-        public CategoriesPager createFromParcel(Parcel source) {
-            return new CategoriesPager(source);
-        }
-
-        public CategoriesPager[] newArray(int size) {
-            return new CategoriesPager[size];
-        }
-    };
 }

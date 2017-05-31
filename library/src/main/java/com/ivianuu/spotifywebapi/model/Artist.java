@@ -5,11 +5,31 @@ import android.os.Parcel;
 import java.util.List;
 
 public class Artist extends ArtistSimple {
+
+    public static final Creator<Artist> CREATOR = new Creator<Artist>() {
+        public Artist createFromParcel(Parcel source) {
+            return new Artist(source);
+        }
+
+        public Artist[] newArray(int size) {
+            return new Artist[size];
+        }
+    };
     public Followers followers;
     public List<String> genres;
     public List<Image> images;
     public Integer popularity;
 
+    public Artist() {
+    }
+
+    protected Artist(Parcel in) {
+        super(in);
+        this.followers = in.readParcelable(Followers.class.getClassLoader());
+        this.genres = in.createStringArrayList();
+        this.images = in.createTypedArrayList(Image.CREATOR);
+        this.popularity = (Integer) in.readValue(Integer.class.getClassLoader());
+    }
 
     @Override
     public int describeContents() {
@@ -24,25 +44,4 @@ public class Artist extends ArtistSimple {
         dest.writeTypedList(images);
         dest.writeValue(this.popularity);
     }
-
-    public Artist() {
-    }
-
-    protected Artist(Parcel in) {
-        super(in);
-        this.followers = in.readParcelable(Followers.class.getClassLoader());
-        this.genres = in.createStringArrayList();
-        this.images = in.createTypedArrayList(Image.CREATOR);
-        this.popularity = (Integer) in.readValue(Integer.class.getClassLoader());
-    }
-
-    public static final Creator<Artist> CREATOR = new Creator<Artist>() {
-        public Artist createFromParcel(Parcel source) {
-            return new Artist(source);
-        }
-
-        public Artist[] newArray(int size) {
-            return new Artist[size];
-        }
-    };
 }

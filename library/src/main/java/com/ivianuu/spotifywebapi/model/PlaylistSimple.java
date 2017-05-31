@@ -3,7 +3,24 @@ package com.ivianuu.spotifywebapi.model;
 import android.os.Parcel;
 
 public class PlaylistSimple extends PlaylistBase {
+    public static final Creator<PlaylistSimple> CREATOR = new Creator<PlaylistSimple>() {
+        public PlaylistSimple createFromParcel(Parcel source) {
+            return new PlaylistSimple(source);
+        }
+
+        public PlaylistSimple[] newArray(int size) {
+            return new PlaylistSimple[size];
+        }
+    };
     public PlaylistTracksInformation tracks;
+
+    public PlaylistSimple() {
+    }
+
+    protected PlaylistSimple(Parcel in) {
+        super(in);
+        this.tracks = in.readParcelable(PlaylistTracksInformation.class.getClassLoader());
+    }
 
     @Override
     public int describeContents() {
@@ -15,22 +32,4 @@ public class PlaylistSimple extends PlaylistBase {
         super.writeToParcel(dest, flags);
         dest.writeParcelable(this.tracks, flags);
     }
-
-    public PlaylistSimple() {
-    }
-
-    protected PlaylistSimple(Parcel in) {
-        super(in);
-        this.tracks = in.readParcelable(PlaylistTracksInformation.class.getClassLoader());
-    }
-
-    public static final Creator<PlaylistSimple> CREATOR = new Creator<PlaylistSimple>() {
-        public PlaylistSimple createFromParcel(Parcel source) {
-            return new PlaylistSimple(source);
-        }
-
-        public PlaylistSimple[] newArray(int size) {
-            return new PlaylistSimple[size];
-        }
-    };
 }
