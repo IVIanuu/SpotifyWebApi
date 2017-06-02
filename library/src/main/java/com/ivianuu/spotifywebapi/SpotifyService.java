@@ -39,7 +39,6 @@ import com.ivianuu.spotifywebapi.model.UserPublic;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.Single;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
