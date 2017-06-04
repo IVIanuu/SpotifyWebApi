@@ -9,17 +9,17 @@ import com.google.gson.annotations.SerializedName;
  * @author Manuel Wrage (IVIanuu)
  */
 
-public class AuthenticationResponse implements Parcelable {
+public class AccessToken implements Parcelable {
 
-    public static final Creator<AuthenticationResponse> CREATOR = new Creator<AuthenticationResponse>() {
+    public static final Creator<AccessToken> CREATOR = new Creator<AccessToken>() {
         @Override
-        public AuthenticationResponse createFromParcel(Parcel in) {
-            return new AuthenticationResponse(in);
+        public AccessToken createFromParcel(Parcel in) {
+            return new AccessToken(in);
         }
 
         @Override
-        public AuthenticationResponse[] newArray(int size) {
-            return new AuthenticationResponse[size];
+        public AccessToken[] newArray(int size) {
+            return new AccessToken[size];
         }
     };
 
@@ -32,11 +32,11 @@ public class AuthenticationResponse implements Parcelable {
     @SerializedName("refresh_token")
     public String refreshToken;
 
-    public AuthenticationResponse() {
+    public AccessToken() {
 
     }
 
-    protected AuthenticationResponse(Parcel in) {
+    protected AccessToken(Parcel in) {
         this.accessToken = in.readString();
         this.tokenType = in.readString();
         this.expiresIn = in.readInt();

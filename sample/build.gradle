@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.ivianuu.spotifywebapi.sample"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -34,7 +34,7 @@ dependencies {
     compile project(':library')
 
     // Spotify Auth
-    compile 'com.github.IVIanuu:Spotifyauth:feb34a888f'
+    compile 'com.spotify.android:auth:1.0.0-alpha'
 
     // Android Support
     compile 'com.android.support:appcompat-v7:25.3.1'

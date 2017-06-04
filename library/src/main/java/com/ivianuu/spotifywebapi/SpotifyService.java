@@ -40,6 +40,7 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -63,359 +64,674 @@ public interface SpotifyService {
      *************/
 
     @GET("albums/{id}")
-    Observable<Album> getAlbum(@Path("id") String albumId);
+    Call<Album> getAlbum(@Path("id") String albumId);
 
     @GET("albums/{id}")
-    Observable<Album> getAlbum(@Path("id") String albumId, @QueryMap Map<String, Object> options);
+    Observable<Album> getAlbumRx(@Path("id") String albumId);
+
+    @GET("albums/{id}")
+    Call<Album> getAlbum(@Path("id") String albumId, @QueryMap Map<String, Object> options);
+
+    @GET("albums/{id}")
+    Observable<Album> getAlbumRx(@Path("id") String albumId, @QueryMap Map<String, Object> options);
 
     @GET("albums")
-    Observable<Albums> getAlbums(@Query("ids") String albumIds);
+    Call<Albums> getAlbums(@Query("ids") String albumIds);
 
     @GET("albums")
-    Observable<Albums> getAlbums(@Query("ids") String albumIds, @QueryMap Map<String, Object> options);
+    Observable<Albums> getAlbumsRx(@Query("ids") String albumIds);
+
+    @GET("albums")
+    Call<Albums> getAlbums(@Query("ids") String albumIds, @QueryMap Map<String, Object> options);
+
+    @GET("albums")
+    Observable<Albums> getAlbumsRx(@Query("ids") String albumIds, @QueryMap Map<String, Object> options);
 
     @GET("albums/{id}/tracks")
-    Observable<Pager<Track>> getAlbumTracks(@Path("id") String albumId);
+    Call<Pager<Track>> getAlbumTracks(@Path("id") String albumId);
 
     @GET("albums/{id}/tracks")
-    Observable<Pager<Track>> getAlbumTracks(@Path("id") String albumId, @QueryMap Map<String, Object> options);
+    Observable<Pager<Track>> getAlbumTracksRx(@Path("id") String albumId);
+
+    @GET("albums/{id}/tracks")
+    Call<Pager<Track>> getAlbumTracks(@Path("id") String albumId, @QueryMap Map<String, Object> options);
+
+    @GET("albums/{id}/tracks")
+    Observable<Pager<Track>> getAlbumTracksRx(@Path("id") String albumId, @QueryMap Map<String, Object> options);
 
     /*************
      * Artists *
      *************/
 
     @GET("artists/{id}")
-    Observable<Artist> getArtist(@Path("id") String artistId);
+    Call<Artist> getArtist(@Path("id") String artistId);
+
+    @GET("artists/{id}")
+    Observable<Artist> getArtistRx(@Path("id") String artistId);
 
     @GET("artists")
-    Observable<Artists> getArtists(@Query("ids") String artistIds);
+    Call<Artists> getArtists(@Query("ids") String artistIds);
+
+    @GET("artists")
+    Observable<Artists> getArtistsRx(@Query("ids") String artistIds);
 
     @GET("artists/{id}/albums")
-    Observable<Pager<Album>> getArtistAlbums(@Path("id") String artistId);
+    Call<Pager<Album>> getArtistAlbums(@Path("id") String artistId);
 
     @GET("artists/{id}/albums")
-    Observable<Pager<Album>> getArtistAlbums(@Path("id") String artistId, @QueryMap Map<String, Object> options);
+    Observable<Pager<Album>> getArtistAlbumsRx(@Path("id") String artistId);
+
+    @GET("artists/{id}/albums")
+    Call<Pager<Album>> getArtistAlbums(@Path("id") String artistId, @QueryMap Map<String, Object> options);
+
+    @GET("artists/{id}/albums")
+    Observable<Pager<Album>> getArtistAlbumsRx(@Path("id") String artistId, @QueryMap Map<String, Object> options);
 
     @GET("artists/{id}/top-tracks")
-    Observable<Tracks> getArtistTopTrack(@Path("id") String artistId, @Query(COUNTRY) String country);
+    Call<Tracks> getArtistTopTracks(@Path("id") String artistId, @Query(COUNTRY) String country);
+
+    @GET("artists/{id}/top-tracks")
+    Observable<Tracks> getArtistTopTracksRx(@Path("id") String artistId, @Query(COUNTRY) String country);
 
     @GET("artists/{id}/related-artists")
-    Observable<Artists> getRelatedArtists(@Path("id") String artistId);
+    Call<Artists> getRelatedArtists(@Path("id") String artistId);
+
+    @GET("artists/{id}/related-artists")
+    Observable<Artists> getRelatedArtistsRx(@Path("id") String artistId);
 
     /*************
      * Browse *
      *************/
 
     @GET("browse/featured-playlists")
-    Observable<FeaturedPlaylists> getFeaturedPlaylists();
+    Call<FeaturedPlaylists> getFeaturedPlaylists();
 
     @GET("browse/featured-playlists")
-    Observable<FeaturedPlaylists> getFeaturedPlaylists(@QueryMap Map<String, Object> options);
+    Observable<FeaturedPlaylists> getFeaturedPlaylistsRx();
+
+    @GET("browse/featured-playlists")
+    Call<FeaturedPlaylists> getFeaturedPlaylists(@QueryMap Map<String, Object> options);
+
+    @GET("browse/featured-playlists")
+    Observable<FeaturedPlaylists> getFeaturedPlaylistsRx(@QueryMap Map<String, Object> options);
 
     @GET("browse/new-releases")
-    Observable<NewReleases> getNewReleases();
+    Call<NewReleases> getNewReleases();
 
     @GET("browse/new-releases")
-    Observable<NewReleases> getNewReleases(@QueryMap Map<String, Object> options);
+    Observable<NewReleases> getNewReleasesRx();
+
+    @GET("browse/new-releases")
+    Call<NewReleases> getNewReleases(@QueryMap Map<String, Object> options);
+
+    @GET("browse/new-releases")
+    Observable<NewReleases> getNewReleasesRx(@QueryMap Map<String, Object> options);
 
     @GET("browse/categories")
-    Observable<CategoriesPager> getCategories(@QueryMap Map<String, Object> options);
+    Call<CategoriesPager> getCategories(@QueryMap Map<String, Object> options);
+
+    @GET("browse/categories")
+    Observable<CategoriesPager> getCategoriesRx(@QueryMap Map<String, Object> options);
 
     @GET("browse/categories/{category_id}")
-    Observable<Category> getCategory(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
+    Call<Category> getCategory(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
+
+    @GET("browse/categories/{category_id}")
+    Observable<Category> getCategoryRx(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
 
     @GET("browse/categories/{category_id}/playlists")
-    Observable<PlaylistsPager> getPlaylistsForCategory(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
+    Call<PlaylistsPager> getPlaylistsForCategory(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
+
+    @GET("browse/categories/{category_id}/playlists")
+    Observable<PlaylistsPager> getPlaylistsForCategoryRx(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
 
     @GET("recommendations")
-    Observable<Recommendations> getRecommendations(@QueryMap Map<String, Object> options);
+    Call<Recommendations> getRecommendations(@QueryMap Map<String, Object> options);
+
+    @GET("recommendations")
+    Observable<Recommendations> getRecommendationsRx(@QueryMap Map<String, Object> options);
 
     @GET("recommendations/available-genre-seeds")
-    Observable<SeedsGenres> getSeedsGenres();
+    Call<SeedsGenres> getSeedsGenres();
+
+    @GET("recommendations/available-genre-seeds")
+    Observable<SeedsGenres> getSeedsGenresRx();
 
     /*************
      * Follow *
      *************/
 
     @GET("me/following?type=artist")
-    Observable<ArtistsCursorPager> getFollowedArtists();
+    Call<ArtistsCursorPager> getFollowedArtists();
 
     @GET("me/following?type=artist")
-    Observable<ArtistsCursorPager> getFollowedArtists(@QueryMap Map<String, Object> options);
+    Observable<ArtistsCursorPager> getFollowedArtistsRx();
+
+    @GET("me/following?type=artist")
+    Call<ArtistsCursorPager> getFollowedArtists(@QueryMap Map<String, Object> options);
+
+    @GET("me/following?type=artist")
+    Observable<ArtistsCursorPager> getFollowedArtistsRx(@QueryMap Map<String, Object> options);
 
     @PUT("me/following?type=artist")
-    Observable<Void> followArtists(@Query("ids") String ids);
+    Call<Result> followArtists(@Query("ids") String ids);
+
+    @PUT("me/following?type=artist")
+    Observable<Result> followArtistsRx(@Query("ids") String ids);
 
     @PUT("me/following?type=user")
-    Observable<Result> followUsers(@Query("ids") String ids);
+    Call<Result> followUsers(@Query("ids") String ids);
+
+    @PUT("me/following?type=user")
+    Observable<Result> followUsersRx(@Query("ids") String ids);
 
     @DELETE("me/following?type=artist")
-    Observable<Void> unfollowArtists(@Query("ids") String ids);
+    Call<Result> unfollowArtists(@Query("ids") String ids);
+
+    @DELETE("me/following?type=artist")
+    Observable<Result> unfollowArtistsRx(@Query("ids") String ids);
 
     @DELETE("me/following?type=user")
-    Observable<Result> unfollowUsers(@Query("ids") String ids);
+    Call<Result> unfollowUsers(@Query("ids") String ids);
+
+    @DELETE("me/following?type=user")
+    Observable<Result> unfollowUsersRx(@Query("ids") String ids);
 
     @GET("me/following/contains?type=user")
-    Observable<Boolean[]> isFollowingUsers(@Query("ids") String ids);
+    Call<Boolean[]> isFollowingUsers(@Query("ids") String ids);
+
+    @GET("me/following/contains?type=user")
+    Observable<Boolean[]> isFollowingUsersRx(@Query("ids") String ids);
 
     @GET("me/following/contains?type=artist")
-    Observable<Boolean[]> isFollowingArtists(@Query("ids") String ids);
+    Call<Boolean[]> isFollowingArtists(@Query("ids") String ids);
+
+    @GET("me/following/contains?type=artist")
+    Observable<Boolean[]> isFollowingArtistsRx(@Query("ids") String ids);
 
     @PUT("users/{user_id}/playlists/{playlist_id}/followers")
-    Observable<Result> followPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+    Call<Result> followPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     @PUT("users/{user_id}/playlists/{playlist_id}/followers")
-    Observable<Result> followPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body PlaylistFollowPrivacy playlistFollowPrivacy);
+    Observable<Result> followPlaylistRx(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+
+    @PUT("users/{user_id}/playlists/{playlist_id}/followers")
+    Call<Result> followPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body PlaylistFollowPrivacy playlistFollowPrivacy);
+
+    @PUT("users/{user_id}/playlists/{playlist_id}/followers")
+    Observable<Result> followPlaylistRx(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body PlaylistFollowPrivacy playlistFollowPrivacy);
 
     @DELETE("users/{user_id}/playlists/{playlist_id}/followers")
-    Observable<Result> unfollowPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+    Call<Result> unfollowPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+
+    @DELETE("users/{user_id}/playlists/{playlist_id}/followers")
+    Observable<Result> unfollowPlaylistRx(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     @GET("users/{user_id}/playlists/{playlist_id}/followers/contains")
-    Observable<Boolean[]> areFollowingPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("ids") String ids);
+    Call<Boolean[]> areFollowingPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("ids") String ids);
+
+    @GET("users/{user_id}/playlists/{playlist_id}/followers/contains")
+    Observable<Boolean[]> areFollowingPlaylistRx(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("ids") String ids);
 
     /*************
      * Library *
      *************/
 
     @PUT("me/tracks")
-    Observable<Void> addToMySavedTracks(@Query("ids") String ids);
+    Call<Result> addToMySavedTracks(@Query("ids") String ids);
+
+    @PUT("me/tracks")
+    Observable<Result> addToMySavedTracksRx(@Query("ids") String ids);
 
     @GET("me/tracks")
-    Observable<Pager<SavedTrack>> getMySavedTracks();
+    Call<Pager<SavedTrack>> getMySavedTracks();
 
     @GET("me/tracks")
-    Observable<Pager<SavedTrack>> getMySavedTracks(@QueryMap Map<String, Object> options);
+    Observable<Pager<SavedTrack>> getMySavedTracksRx();
+
+    @GET("me/tracks")
+    Call<Pager<SavedTrack>> getMySavedTracks(@QueryMap Map<String, Object> options);
+
+    @GET("me/tracks")
+    Observable<Pager<SavedTrack>> getMySavedTracksRx(@QueryMap Map<String, Object> options);
 
     @DELETE("me/tracks")
-    Observable<Void> removeFromMySavedTracks(@Query("ids") String ids);
+    Call<Result> removeFromMySavedTracks(@Query("ids") String ids);
+
+    @DELETE("me/tracks")
+    Observable<Result> removeFromMySavedTracksRx(@Query("ids") String ids);
 
     @GET("me/tracks/contains")
-    Observable<Boolean[]> containsMySavedTracks(@Query("ids") String ids);
+    Call<Boolean[]> containsMySavedTracks(@Query("ids") String ids);
+
+    @GET("me/tracks/contains")
+    Observable<Boolean[]> containsMySavedTracksRx(@Query("ids") String ids);
 
     @PUT("me/albums")
-    Observable<Void> addToMySavedAlbums(@Query("ids") String ids);
+    Call<Result> addToMySavedAlbums(@Query("ids") String ids);
+
+    @PUT("me/albums")
+    Observable<Result> addToMySavedAlbumsRx(@Query("ids") String ids);
 
     @GET("me/albums")
-    Observable<Pager<SavedAlbum>> getMySavedAlbums();
+    Call<Pager<SavedAlbum>> getMySavedAlbums();
 
     @GET("me/albums")
-    Observable<Pager<SavedAlbum>> getMySavedAlbums(@QueryMap Map<String, Object> options);
+    Observable<Pager<SavedAlbum>> getMySavedAlbumsRx();
+
+    @GET("me/albums")
+    Call<Pager<SavedAlbum>> getMySavedAlbums(@QueryMap Map<String, Object> options);
+
+    @GET("me/albums")
+    Observable<Pager<SavedAlbum>> getMySavedAlbumsRx(@QueryMap Map<String, Object> options);
 
     @DELETE("me/albums")
-    Observable<Void> removeFromMySavedAlbums(@Query("ids") String ids);
+    Call<Result> removeFromMySavedAlbums(@Query("ids") String ids);
+
+    @DELETE("me/albums")
+    Observable<Result> removeFromMySavedAlbumsRx(@Query("ids") String ids);
 
     @GET("me/albums/contains")
-    Observable<Boolean[]> containsMySavedAlbums(@Query("ids") String ids);
+    Call<Boolean[]> containsMySavedAlbums(@Query("ids") String ids);
+
+    @GET("me/albums/contains")
+    Observable<Boolean[]> containsMySavedAlbumsRx(@Query("ids") String ids);
 
     /*************
      * Personalization *
      *************/
 
     @GET("me/top/artists")
-    Observable<Pager<Artist>> getTopArtists();
+    Call<Pager<Artist>> getTopArtists();
 
     @GET("me/top/artists")
-    Observable<Pager<Artist>> getTopArtists(@QueryMap Map<String, Object> options);
+    Observable<Pager<Artist>> getTopArtistsRx();
+
+    @GET("me/top/artists")
+    Call<Pager<Artist>> getTopArtists(@QueryMap Map<String, Object> options);
+
+    @GET("me/top/artists")
+    Observable<Pager<Artist>> getTopArtistsRx(@QueryMap Map<String, Object> options);
 
     @GET("me/top/tracks")
-    Observable<Pager<Track>> getTopTracks();
+    Call<Pager<Track>> getTopTracks();
 
     @GET("me/top/tracks")
-    Observable<Pager<Track>> getTopTracks(@QueryMap Map<String, Object> options);
+    Observable<Pager<Track>> getTopTracksRx();
+
+    @GET("me/top/tracks")
+    Call<Pager<Track>> getTopTracks(@QueryMap Map<String, Object> options);
+
+    @GET("me/top/tracks")
+    Observable<Pager<Track>> getTopTracksRx(@QueryMap Map<String, Object> options);
 
     @GET("me/player/recently-played")
-    Observable<Pager<PlayHistory>> getRecentlyPlayedTracks();
+    Call<Pager<PlayHistory>> getRecentlyPlayedTracks();
 
     @GET("me/player/recently-played")
-    Observable<Pager<PlayHistory>> getRecentlyPlayedTracks(@QueryMap Map<String, Object> options);
+    Observable<Pager<PlayHistory>> getRecentlyPlayedTracksRx();
+
+    @GET("me/player/recently-played")
+    Call<Pager<PlayHistory>> getRecentlyPlayedTracks(@QueryMap Map<String, Object> options);
+
+    @GET("me/player/recently-played")
+    Observable<Pager<PlayHistory>> getRecentlyPlayedTracksRx(@QueryMap Map<String, Object> options);
 
     /*************
      * Player *
      *************/
 
     @GET("me/player/devices")
-    Observable<Payload> getUsersAvailableDevices();
+    Call<Payload> getUsersAvailableDevices();
+
+    @GET("me/player/devices")
+    Observable<Payload> getUsersAvailableDevicesRx();
 
     @GET("me/player")
-    Observable<CurrentlyPlayingContext> getCurrentPlayback();
+    Call<CurrentlyPlayingContext> getCurrentPlayback();
 
     @GET("me/player")
-    Observable<CurrentlyPlayingContext> getCurrentPlayback(@QueryMap Map<String, Object> options);
+    Observable<CurrentlyPlayingContext> getCurrentPlaybackRx();
 
     @GET("me/player")
-    Observable<CurrentlyPlayingContext> getCurrentlyPlayingTrack();
+    Call<CurrentlyPlayingContext> getCurrentPlayback(@QueryMap Map<String, Object> options);
 
     @GET("me/player")
-    Observable<CurrentlyPlayingContext> getCurrentlyPlayingTrack(@QueryMap Map<String, Object> options);
+    Observable<CurrentlyPlayingContext> getCurrentPlaybackRx(@QueryMap Map<String, Object> options);
+
+    @GET("me/player")
+    Call<CurrentlyPlayingContext> getCurrentlyPlayingTrack();
+
+    @GET("me/player")
+    Observable<CurrentlyPlayingContext> getCurrentlyPlayingTrackRx();
+
+    @GET("me/player")
+    Call<CurrentlyPlayingContext> getCurrentlyPlayingTrack(@QueryMap Map<String, Object> options);
+
+    @GET("me/player")
+    Observable<CurrentlyPlayingContext> getCurrentlyPlayingTrackRx(@QueryMap Map<String, Object> options);
 
     @PUT("me/player")
-    Observable<Result> transferUserPlayback(@Body Map<String, Object> body);
+    Call<Result> transferUserPlayback(@Body Map<String, Object> body);
+
+    @PUT("me/player")
+    Observable<Result> transferUserPlaybackRx(@Body Map<String, Object> body);
 
     @PUT("me/player/play")
-    Observable<Result> startUserPlayback(@Body TracksToRemove body);
+    Call<Result> startUserPlayback(@Body TracksToRemove body);
 
     @PUT("me/player/play")
-    Observable<Result> startUserPlayback(@Query("device_id") String device_id, @Body Map<String, Object> body);
+    Observable<Result> startUserPlaybackRx(@Body TracksToRemove body);
 
     @PUT("me/player/play")
-    Observable<Result> resumeUserPlayback();
+    Call<Result> startUserPlayback(@Query("device_id") String device_id, @Body Map<String, Object> body);
 
     @PUT("me/player/play")
-    Observable<Result> resumeUserPlayback(@Query("device_id") String device_id);
+    Observable<Result> startUserPlaybackRx(@Query("device_id") String device_id, @Body Map<String, Object> body);
+
+    @PUT("me/player/play")
+    Call<Result> resumeUserPlayback();
+
+    @PUT("me/player/play")
+    Observable<Result> resumeUserPlaybackRx();
+
+    @PUT("me/player/play")
+    Call<Result> resumeUserPlayback(@Query("device_id") String device_id);
+
+    @PUT("me/player/play")
+    Observable<Result> resumeUserPlaybackRx(@Query("device_id") String device_id);
 
     @PUT("me/player/pause")
-    Observable<Result> pauseUserPlayback();
+    Call<Result> pauseUserPlayback();
 
     @PUT("me/player/pause")
-    Observable<Result> pauseUserPlayback(@Query("device_id") String device_id);
+    Observable<Result> pauseUserPlaybackRx();
+
+    @PUT("me/player/pause")
+    Call<Result> pauseUserPlayback(@Query("device_id") String device_id);
+
+    @PUT("me/player/pause")
+    Observable<Result> pauseUserPlaybackRx(@Query("device_id") String device_id);
 
     @PUT("me/player/next")
-    Observable<Result> skipToTheNextTrack();
+    Call<Result> skipToTheNextTrack();
 
     @PUT("me/player/next")
-    Observable<Result> skipToTheNextTrack(@Query("device_id") String device_id);
+    Observable<Result> skipToTheNextTrackRx();
+
+    @PUT("me/player/next")
+    Call<Result> skipToTheNextTrack(@Query("device_id") String device_id);
+
+    @PUT("me/player/next")
+    Observable<Result> skipToTheNextTrackRx(@Query("device_id") String device_id);
 
     @PUT("me/player/previous")
-    Observable<Result> skipToThePreviousTrack();
+    Call<Result> skipToThePreviousTrack();
 
     @PUT("me/player/previous")
-    Observable<Result> skipToThePreviousTrack(@Query("device_id") String device_id);
+    Observable<Result> skipToThePreviousTrackRx();
+
+    @PUT("me/player/previous")
+    Call<Result> skipToThePreviousTrack(@Query("device_id") String device_id);
+
+    @PUT("me/player/previous")
+    Observable<Result> skipToThePreviousTrackRx(@Query("device_id") String device_id);
 
     @PUT("me/player/seek")
-    Observable<Result> seekToPositionInCurrentTrack(@Query("position_ms") int position_ms);
+    Call<Result> seekToPositionInCurrentTrack(@Query("position_ms") int position_ms);
 
     @PUT("me/player/seek")
-    Observable<Result> seekToPositionInCurrentTrack(@Query("position_ms") int position_ms, @Query("device_id") String device_id);
+    Observable<Result> seekToPositionInCurrentTrackRx(@Query("position_ms") int position_ms);
+
+    @PUT("me/player/seek")
+    Call<Result> seekToPositionInCurrentTrack(@Query("position_ms") int position_ms, @Query("device_id") String device_id);
+
+    @PUT("me/player/seek")
+    Observable<Result> seekToPositionInCurrentTrackRx(@Query("position_ms") int position_ms, @Query("device_id") String device_id);
 
     @PUT("me/player/repeat")
-    Observable<Result> setRepeatMode(@Query("state") String state);
+    Call<Result> setRepeatMode(@Query("state") String state);
 
     @PUT("me/player/repeat")
-    Observable<Result> setRepeatMode(@Query("state") String state, @Query("device_id") String device_id);
+    Observable<Result> setRepeatModeRx(@Query("state") String state);
+
+    @PUT("me/player/repeat")
+    Call<Result> setRepeatMode(@Query("state") String state, @Query("device_id") String device_id);
+
+    @PUT("me/player/repeat")
+    Observable<Result> setRepeatModeRx(@Query("state") String state, @Query("device_id") String device_id);
 
     @PUT("me/player/volume")
-    Observable<Result> setVolume(@Query("volume_percent") int volume_percent);
+    Call<Result> setVolume(@Query("volume_percent") int volume_percent);
 
     @PUT("me/player/volume")
-    Observable<Result> setVolume(@Query("volume_percent") int volume_percent, @Query("device_id") String device_id);
+    Observable<Result> setVolumeRx(@Query("volume_percent") int volume_percent);
+
+    @PUT("me/player/volume")
+    Call<Result> setVolume(@Query("volume_percent") int volume_percent, @Query("device_id") String device_id);
+
+    @PUT("me/player/volume")
+    Observable<Result> setVolumeRx(@Query("volume_percent") int volume_percent, @Query("device_id") String device_id);
 
     @PUT("me/player/shuffle")
-    Observable<Result> toggleShuffle(@Query("state") boolean state);
+    Call<Result> toggleShuffle(@Query("state") boolean state);
 
     @PUT("me/player/shuffle")
-    Observable<Result> toggleShuffle(@Query("state") boolean state, @Query("device_id") String device_id);
+    Observable<Result> toggleShuffleRx(@Query("state") boolean state);
+
+    @PUT("me/player/shuffle")
+    Call<Result> toggleShuffle(@Query("state") boolean state, @Query("device_id") String device_id);
+
+    @PUT("me/player/shuffle")
+    Observable<Result> toggleShuffleRx(@Query("state") boolean state, @Query("device_id") String device_id);
 
     /*************
      * Playlists *
      *************/
 
     @GET("users/{id}/playlists")
-    Observable<Pager<PlaylistSimple>> getPlaylists(@Path("id") String userId, @QueryMap Map<String, Object> options);
+    Call<Pager<PlaylistSimple>> getPlaylists(@Path("id") String userId, @QueryMap Map<String, Object> options);
 
     @GET("users/{id}/playlists")
-    Observable<Pager<PlaylistSimple>> getPlaylists(@Path("id") String userId);
+    Observable<Pager<PlaylistSimple>> getPlaylistsRx(@Path("id") String userId, @QueryMap Map<String, Object> options);
+
+    @GET("users/{id}/playlists")
+    Call<Pager<PlaylistSimple>> getPlaylists(@Path("id") String userId);
+
+    @GET("users/{id}/playlists")
+    Observable<Pager<PlaylistSimple>> getPlaylistsRx(@Path("id") String userId);
 
     @GET("me/playlists")
-    Observable<Pager<PlaylistSimple>> getMyPlaylists();
+    Call<Pager<PlaylistSimple>> getMyPlaylists();
 
     @GET("me/playlists")
-    Observable<Pager<Playlist>> getMyPlaylists(@QueryMap Map<String, Object> options);
+    Observable<Pager<PlaylistSimple>> getMyPlaylistsRx();
+
+    @GET("me/playlists")
+    Call<Pager<Playlist>> getMyPlaylists(@QueryMap Map<String, Object> options);
+
+    @GET("me/playlists")
+    Observable<Pager<Playlist>> getMyPlaylistsRx(@QueryMap Map<String, Object> options);
 
     @GET("users/{user_id}/playlists/{playlist_id}")
-    Observable<Playlist> getPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
+    Call<Playlist> getPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
 
     @GET("users/{user_id}/playlists/{playlist_id}")
-    Observable<Playlist> getPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+    Observable<Playlist> getPlaylistRx(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
+
+    @GET("users/{user_id}/playlists/{playlist_id}")
+    Call<Playlist> getPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+
+    @GET("users/{user_id}/playlists/{playlist_id}")
+    Observable<Playlist> getPlaylistRx(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     @GET("users/{user_id}/playlists/{playlist_id}/tracks")
-    Observable<Pager<PlaylistTrack>> getPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
+    Call<Pager<PlaylistTrack>> getPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
 
     @GET("users/{user_id}/playlists/{playlist_id}/tracks")
-    Observable<Pager<PlaylistTrack>> getPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+    Observable<Pager<PlaylistTrack>> getPlaylistTracksRx(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
+
+    @GET("users/{user_id}/playlists/{playlist_id}/tracks")
+    Call<Pager<PlaylistTrack>> getPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+
+    @GET("users/{user_id}/playlists/{playlist_id}/tracks")
+    Observable<Pager<PlaylistTrack>> getPlaylistTracksRx(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     @POST("users/{user_id}/playlists")
-    Observable<Playlist> createPlaylist(@Path("user_id") String userId, @Body Map<String, Object> options);
+    Call<Playlist> createPlaylist(@Path("user_id") String userId, @Body Map<String, Object> options);
+
+    @POST("users/{user_id}/playlists")
+    Observable<Playlist> createPlaylistRx(@Path("user_id") String userId, @Body Map<String, Object> options);
 
     @PUT("users/{user_id}/playlists/{playlist_id}")
-    Observable<Result> changePlaylistDetails(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
+    Call<Result> changePlaylistDetails(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
+
+    @PUT("users/{user_id}/playlists/{playlist_id}")
+    Observable<Result> changePlaylistDetailsRx(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
 
     @POST("users/{user_id}/playlists/{playlist_id}/tracks")
-    Observable<SnapshotId> addTracksToPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> queryParameters, @Body Map<String, Object> body);
+    Call<SnapshotId> addTracksToPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> queryParameters, @Body Map<String, Object> body);
+
+    @POST("users/{user_id}/playlists/{playlist_id}/tracks")
+    Observable<SnapshotId> addTracksToPlaylistRx(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> queryParameters, @Body Map<String, Object> body);
 
     @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
-    Observable<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemove tracksToRemove);
+    Call<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemove tracksToRemove);
 
     @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
-    Observable<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveWithPosition tracksToRemoveWithPosition);
+    Observable<SnapshotId> removeTracksFromPlaylistRx(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemove tracksToRemove);
+
+    @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
+    Call<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveWithPosition tracksToRemoveWithPosition);
+
+    @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
+    Observable<SnapshotId> removeTracksFromPlaylistRx(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveWithPosition tracksToRemoveWithPosition);
 
     @DELETE("/users/{user_id}/playlists/{playlist_id}/tracks")
-    Observable<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveByPosition tracksToRemoveByPosition);
+    Call<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveByPosition tracksToRemoveByPosition);
+
+    @DELETE("/users/{user_id}/playlists/{playlist_id}/tracks")
+    Observable<SnapshotId> removeTracksFromPlaylistRx(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveByPosition tracksToRemoveByPosition);
 
     @PUT("users/{user_id}/playlists/{playlist_id}/tracks")
-    Observable<SnapshotId> reorderPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
+    Call<SnapshotId> reorderPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
 
     @PUT("users/{user_id}/playlists/{playlist_id}/tracks")
-    Observable<Result> replaceTracksInPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("uris") String trackUris, @Body Object body);
+    Observable<SnapshotId> reorderPlaylistTracksRx(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
+
+    @PUT("users/{user_id}/playlists/{playlist_id}/tracks")
+    Call<Result> replaceTracksInPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("uris") String trackUris, @Body Object body);
+
+    @PUT("users/{user_id}/playlists/{playlist_id}/tracks")
+    Observable<Result> replaceTracksInPlaylistRx(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("uris") String trackUris, @Body Object body);
 
     /************
      * Profiles *
      ************/
 
     @GET("me")
-    Observable<UserPrivate> getMe();
+    Call<UserPrivate> getMe();
+
+    @GET("me")
+    Observable<UserPrivate> getMeRx();
 
     @GET("users/{id}")
-    Observable<UserPublic> getUser(@Path("id") String userId);
+    Call<UserPublic> getUser(@Path("id") String userId);
+
+    @GET("users/{id}")
+    Observable<UserPublic> getUserRx(@Path("id") String userId);
 
     /*************
      * Search *
      *************/
 
     @GET("search?type=track")
-    Observable<TracksPager> searchTracks(@Query("q") String q);
+    Call<TracksPager> searchTracks(@Query("q") String q);
 
     @GET("search?type=track")
-    Observable<TracksPager> searchTracks(@Query("q") String q, @QueryMap Map<String, Object> options);
+    Observable<TracksPager> searchTracksRx(@Query("q") String q);
+
+    @GET("search?type=track")
+    Call<TracksPager> searchTracks(@Query("q") String q, @QueryMap Map<String, Object> options);
+
+    @GET("search?type=track")
+    Observable<TracksPager> searchTracksRx(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     @GET("search?type=artist")
-    Observable<ArtistsPager> searchArtists(@Query("q") String q);
+    Call<ArtistsPager> searchArtists(@Query("q") String q);
 
     @GET("search?type=artist")
-    Observable<ArtistsPager> searchArtists(@Query("q") String q, @QueryMap Map<String, Object> options);
+    Observable<ArtistsPager> searchArtistsRx(@Query("q") String q);
+
+    @GET("search?type=artist")
+    Call<ArtistsPager> searchArtists(@Query("q") String q, @QueryMap Map<String, Object> options);
+
+    @GET("search?type=artist")
+    Observable<ArtistsPager> searchArtistsRx(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     @GET("search?type=album")
-    Observable<AlbumsPager> searchAlbums(@Query("q") String q);
+    Call<AlbumsPager> searchAlbums(@Query("q") String q);
 
     @GET("search?type=album")
-    Observable<AlbumsPager> searchAlbums(@Query("q") String q, @QueryMap Map<String, Object> options);
+    Observable<AlbumsPager> searchAlbumsRx(@Query("q") String q);
+
+    @GET("search?type=album")
+    Call<AlbumsPager> searchAlbums(@Query("q") String q, @QueryMap Map<String, Object> options);
+
+    @GET("search?type=album")
+    Observable<AlbumsPager> searchAlbumsRx(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     @GET("search?type=playlist")
-    Observable<PlaylistsPager> searchPlaylists(@Query("q") String q);
+    Call<PlaylistsPager> searchPlaylists(@Query("q") String q);
 
     @GET("search?type=playlist")
-    Observable<PlaylistsPager> searchPlaylists(@Query("q") String q, @QueryMap Map<String, Object> options);
+    Observable<PlaylistsPager> searchPlaylistsRx(@Query("q") String q);
+
+    @GET("search?type=playlist")
+    Call<PlaylistsPager> searchPlaylists(@Query("q") String q, @QueryMap Map<String, Object> options);
+
+    @GET("search?type=playlist")
+    Observable<PlaylistsPager> searchPlaylistsRx(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /*************
      * Tracks *
      *************/
 
     @GET("tracks/{id}")
-    Observable<Track> getTrack(@Path("id") String trackId);
+    Call<Track> getTrack(@Path("id") String trackId);
 
     @GET("tracks/{id}")
-    Observable<Track> getTrack(@Path("id") String trackId, @QueryMap Map<String, Object> options);
+    Observable<Track> getTrackRx(@Path("id") String trackId);
+
+    @GET("tracks/{id}")
+    Call<Track> getTrack(@Path("id") String trackId, @QueryMap Map<String, Object> options);
+
+    @GET("tracks/{id}")
+    Observable<Track> getTrackRx(@Path("id") String trackId, @QueryMap Map<String, Object> options);
 
     @GET("tracks")
-    Observable<Tracks> getTracks(@Query("ids") String trackIds);
+    Call<Tracks> getTracks(@Query("ids") String trackIds);
 
     @GET("tracks")
-    Observable<Tracks> getTracks(@Query("ids") String trackIds, @QueryMap Map<String, Object> options);
+    Observable<Tracks> getTracksRx(@Query("ids") String trackIds);
+
+    @GET("tracks")
+    Call<Tracks> getTracks(@Query("ids") String trackIds, @QueryMap Map<String, Object> options);
+
+    @GET("tracks")
+    Observable<Tracks> getTracksRx(@Query("ids") String trackIds, @QueryMap Map<String, Object> options);
 
     @GET("audio-features")
-    Observable<AudioFeaturesTrack> getTracksAudioFeatures(@Query("ids") String ids);
+    Call<AudioFeaturesTrack> getTracksAudioFeatures(@Query("ids") String ids);
+
+    @GET("audio-features")
+    Observable<AudioFeaturesTrack> getTracksAudioFeaturesRx(@Query("ids") String ids);
 
     @GET("audio-features/{id}")
-    Observable<AudioFeaturesTrack> getTrackAudioFeatures(@Path("id") String id);
+    Call<AudioFeaturesTrack> getTrackAudioFeatures(@Path("id") String id);
+
+    @GET("audio-features/{id}")
+    Observable<AudioFeaturesTrack> getTrackAudioFeaturesRx(@Path("id") String id);
 
     interface QUERY_PARAMETER {
         String LIMIT = "limit";
