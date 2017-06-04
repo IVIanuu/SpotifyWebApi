@@ -1,4 +1,4 @@
-package com.ivianuu.spotifywebapi;
+package com.ivianuu.spotifyextensions;
 
 import org.junit.Test;
 

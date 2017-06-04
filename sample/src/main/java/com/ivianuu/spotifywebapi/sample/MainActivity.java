@@ -3,42 +3,40 @@ package com.ivianuu.spotifywebapi.sample;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.ivianuu.spotifywebapi.SpotifyAuthenticationService;
-import com.ivianuu.spotifywebapi.SpotifyService;
 import com.ivianuu.spotifywebapi.model.AccessToken;
-import com.ivianuu.spotifywebapi.model.UserPrivate;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
-import io.reactivex.ObservableSource;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
+import static com.ivianuu.spotifywebapi.sample.App.CLIENT_ID;
+import static com.ivianuu.spotifywebapi.sample.App.CLIENT_SECRET;
+import static com.ivianuu.spotifywebapi.sample.App.REDIRECT_URI;
+import static com.ivianuu.spotifywebapi.sample.App.SCOPES;
 
 public class MainActivity extends AppCompatActivity {
 
-    String CLIENT_ID = "paste your client id here";
-    String CLIENT_SECRET = "paste your client secret here";
-    String REDIRECT_URI = "paste your redirect uri here";
-    String[] SCOPES = new String[]{"user-read-private"};
-
     private static final int AUTH_REQUEST_CODE = 100;
+
+    private SpotifyAuthenticationService spotifyAuthenticationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        spotifyAuthenticationService = ((App) getApplicationContext()).getSpotifyAuthenticationService();
+
         final AuthenticationRequest request = getAuthenticationRequest();
         AuthenticationClient.openLoginActivity(this, AUTH_REQUEST_CODE, request);
     }
 
     private AuthenticationRequest getAuthenticationRequest() {
-        return new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI)
+        return new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.CODE, REDIRECT_URI)
                 .setShowDialog(false)
                 .setScopes(SCOPES)
                 .build();
@@ -54,39 +52,17 @@ public class MainActivity extends AppCompatActivity {
 
             switch (response.getType()) {
                 case CODE:
-                    // we have our code
-
-                    // build authentication service
-                    SpotifyAuthenticationService spotifyAuthenticationService = new SpotifyAuthenticationService.Builder()
-                            .build();
-
                     // get access token
                     spotifyAuthenticationService.getAccessTokenRx(
                             "authorization_code", response.getCode(), REDIRECT_URI, CLIENT_ID, CLIENT_SECRET)
-                            .switchMap(new Function<AccessToken, ObservableSource<UserPrivate>>() {
+                            .subscribeOn(Schedulers.io())
+                            .subscribe(new Consumer<AccessToken>() {
                                 @Override
-                                public ObservableSource<UserPrivate> apply(AccessToken accessToken) throws Exception {
-                                    // build spotify service
-                                    SpotifyService spotifyService = new SpotifyService.Builder()
-                                            .withAccessToken(accessToken.accessToken)
-                                            .withRxJava2CallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-                                            .build();
+                                public void accept(AccessToken accessToken) throws Exception {
+                                    ((App) getApplicationContext()).setAccessToken(accessToken.accessToken);
+                                    ((App) getApplicationContext()).setRefreshToken(accessToken.refreshToken);
 
-                                    // get user
-                                    return spotifyService.getMeRx();
-                                }
-                            })
-                            .subscribe(new Consumer<UserPrivate>() {
-                                @Override
-                                public void accept(UserPrivate userPrivate) throws Exception {
-                                    // successfully received user
-                                    Log.d("webapi", userPrivate.email);
-                                }
-                            }, new Consumer<Throwable>() {
-                                @Override
-                                public void accept(Throwable throwable) throws Exception {
-                                    // handle error
-                                    Log.e("webapi", throwable.getMessage());
+                                    startActivity(new Intent(MainActivity.this, PaginationActivity.class));
                                 }
                             });
 
@@ -97,4 +73,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 }

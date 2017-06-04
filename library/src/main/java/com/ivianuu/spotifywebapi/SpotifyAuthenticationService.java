@@ -13,25 +13,66 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 /**
- * @author Manuel Wrage (IVIanuu)
+ * Authentication service to get or refresh access tokens
  */
-
 public interface SpotifyAuthenticationService {
 
     String BASE_URL = "https://accounts.spotify.com/api/";
 
+    /**
+     * Get's access token
+     *
+     * @param grantType should always be "authorization_code"
+     * @param code the code
+     * @param redirectUri your redirect uri
+     * @param clientId your client id
+     * @param clientSecret your client secret
+     * @return The access token wrapped in a object
+     * @see <a href="https://developer.spotify.com/web-api/authorization-guide/#authorization-code-flow">Authorization code flow</a>
+     */
     @FormUrlEncoded
     @POST("token")
     Call<AccessToken> getAccessToken(@Field("grant_type") String grantType, @Field("code") String code, @Field("redirect_uri") String redirectUri, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
 
+    /**
+     * Get's an access token
+     *
+     * @param grantType should always be "authorization_code"
+     * @param code the code
+     * @param redirectUri your redirect uri
+     * @param clientId your client id
+     * @param clientSecret your client secret
+     * @return The access token wrapped in a object
+     * @see <a href="https://developer.spotify.com/web-api/authorization-guide/#authorization-code-flow">Authorization code flow</a>
+     */
     @FormUrlEncoded
     @POST("token")
     Observable<AccessToken> getAccessTokenRx(@Field("grant_type") String grantType, @Field("code") String code, @Field("redirect_uri") String redirectUri, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
 
+    /**
+     * Get an refreshed token
+     *
+     * @param grantType should always be "refresh_token"
+     * @param refreshToken the refresh token
+     * @param clientId your client id
+     * @param clientSecret your client secret
+     * @return The access token wrapped in a object
+     * @see <a href="https://developer.spotify.com/web-api/authorization-guide/#authorization-code-flow">Authorization code flow</a>
+     */
     @FormUrlEncoded
     @POST("token")
     Call<AccessToken> refreshAccessToken(@Field("grant_type") String grantType, @Field("refresh_token") String refreshToken, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
 
+    /**
+     * Get an refreshed token
+     *
+     * @param grantType should always be "refresh_token"
+     * @param refreshToken the refresh token
+     * @param clientId your client id
+     * @param clientSecret your client secret
+     * @return The access token wrapped in a object
+     * @see <a href="https://developer.spotify.com/web-api/authorization-guide/#authorization-code-flow">Authorization code flow</a>
+     */
     @FormUrlEncoded
     @POST("token")
     Observable<AccessToken> refreshAccessTokenRx(@Field("grant_type") String grantType, @Field("refresh_token") String refreshToken, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);

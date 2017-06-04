@@ -1,4 +1,4 @@
-package com.ivianuu.spotifywebapi;
+package com.ivianuu.spotifyextensions;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.ivianuu.spotifywebapi.test", appContext.getPackageName());
+        assertEquals("com.ivianuu.spotifyextensions.test", appContext.getPackageName());
     }
 }
