@@ -1,6 +1,22 @@
+/*
+ * Copyright 2017 Manuel Wrage
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
 package com.ivianuu.spotifyextensions;
 
-import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -24,17 +40,6 @@ import io.reactivex.subjects.PublishSubject;
 public final class PaginationHelper<T extends Parcelable> {
 
     private static final String TAG = PaginationHelper.class.getSimpleName();
-
-    // make sure to not interfere with user's keys
-    private static final String KEY_PREFIX = PaginationHelper.class.getSimpleName() + "_";
-
-    private static final String KEY_LIMIT = KEY_PREFIX + "limit";
-    private static final String KEY_OFFSET = KEY_PREFIX + "offset";
-    private static final String KEY_TOTAL = KEY_PREFIX + "total";
-    private static final String KEY_ALL_RECEIVED = KEY_PREFIX + "all_received";
-    private static final String KEY_FIRST_PAGE_FETCHED = KEY_PREFIX + "first_page_fetched";
-    private static final String KEY_ALL_ITEMS = KEY_PREFIX + "all_items";
-    private static final String KEY_LATEST_ITEMS = KEY_PREFIX + "latest_items";
 
     private HashMap<String, Object> options;
 
@@ -84,11 +89,9 @@ public final class PaginationHelper<T extends Parcelable> {
                         Log.d(TAG, "fetch success");
                         // update lists
                         allItems.addAll(tPager.items);
-                        allItemsPublisher.onNext(allItems);
 
                         latestItems.clear();
                         latestItems.addAll(tPager.items);
-                        latestItemsPublisher.onNext(latestItems);
 
                         allReceived = tPager.next == null;
                         if (!firstPageFetched) firstPageFetched = true;
@@ -98,6 +101,9 @@ public final class PaginationHelper<T extends Parcelable> {
                         // update options
                         offset += limit;
                         options.put(SpotifyService.QUERY_PARAMETER.OFFSET, offset);
+
+                        allItemsPublisher.onNext(allItems);
+                        latestItemsPublisher.onNext(latestItems);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -214,32 +220,6 @@ public final class PaginationHelper<T extends Parcelable> {
 
     public boolean isFirstPageFetched() {
         return firstPageFetched;
-    }
-
-    public void saveInstanceState(Bundle outState) {
-        if (outState == null) return;
-        outState.putInt(KEY_LIMIT, limit);
-        outState.putInt(KEY_OFFSET, offset);
-        outState.putInt(KEY_TOTAL, total);
-        outState.putBoolean(KEY_ALL_RECEIVED, allReceived);
-        outState.putBoolean(KEY_FIRST_PAGE_FETCHED, firstPageFetched);
-        outState.putParcelableArrayList(KEY_ALL_ITEMS, (ArrayList<? extends Parcelable>) allItems);
-        outState.putParcelableArrayList(KEY_LATEST_ITEMS, (ArrayList<? extends Parcelable>) latestItems);
-    }
-
-    public void restoreInstanceState(Bundle savedInstanceState) {
-        if (savedInstanceState == null) return;
-        limit = savedInstanceState.getInt(KEY_LIMIT);
-        offset = savedInstanceState.getInt(KEY_OFFSET);
-        total = savedInstanceState.getInt(KEY_TOTAL);
-        allReceived = savedInstanceState.getBoolean(KEY_ALL_RECEIVED);
-        firstPageFetched = savedInstanceState.getBoolean(KEY_FIRST_PAGE_FETCHED);
-        allItems = savedInstanceState.getParcelableArrayList(KEY_ALL_ITEMS);
-        latestItems = savedInstanceState.getParcelableArrayList(KEY_LATEST_ITEMS);
-
-        // restore options
-        options.put(SpotifyService.QUERY_PARAMETER.LIMIT, limit);
-        options.put(SpotifyService.QUERY_PARAMETER.OFFSET, offset);
     }
 
     public static class Builder<T extends Parcelable> {

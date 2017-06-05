@@ -3,6 +3,7 @@ package com.ivianuu.spotifywebapi.sample;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
+import com.ivianuu.spotifyextensions.RateLimitingInterceptor;
 import com.ivianuu.spotifyextensions.auth.SpotifyAuthenticator;
 import com.ivianuu.spotifyextensions.auth.SpotifyTokenInterceptor;
 import com.ivianuu.spotifyextensions.auth.TokenHandler;
@@ -12,7 +13,7 @@ import com.ivianuu.spotifywebapi.SpotifyService;
 import okhttp3.OkHttpClient;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
-import static com.ivianuu.spotifyextensions.auth.SpotifyScopes.USER_READ_EMAIL;
+import static com.ivianuu.spotifyextensions.auth.Scopes.USER_READ_EMAIL;
 
 /**
  * @author Manuel Wrage (IVIanuu)
@@ -77,8 +78,9 @@ public class App extends Application implements TokenHandler {
 
     private OkHttpClient provideHttpClient() {
         return new OkHttpClient.Builder()
-                .addInterceptor(provideTokenInterceptor())
                 .authenticator(provideAuthenticator())
+                .addInterceptor(provideTokenInterceptor())
+                .addInterceptor(provideRateLimitingInterceptor())
                 .build();
     }
 
@@ -97,5 +99,9 @@ public class App extends Application implements TokenHandler {
 
     private SpotifyAuthenticationService provideAuthenticationService() {
         return new SpotifyAuthenticationService.Builder().build();
+    }
+
+    private RateLimitingInterceptor provideRateLimitingInterceptor() {
+        return new RateLimitingInterceptor.Builder().maxRetries(5).build();
     }
 }

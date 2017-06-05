@@ -64,6 +64,12 @@ public class MainActivity extends AppCompatActivity {
 
                                     startActivity(new Intent(MainActivity.this, PaginationActivity.class));
                                 }
+                            }, new Consumer<Throwable>() {
+                                @Override
+                                public void accept(Throwable throwable) throws Exception {
+                                    throwable.printStackTrace();
+                                    // handle error
+                                }
                             });
 
                     break;

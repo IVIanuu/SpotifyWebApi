@@ -85,21 +85,8 @@ public class PaginationActivity extends AppCompatActivity {
                     }
                 });
 
-        // restore instance state
-        paginationHelper.restoreInstanceState(savedInstanceState);
-        if (paginationHelper.isFirstPageFetched()) {
-            // repopulate list
-            albumAdapter.addAlbums(paginationHelper.getAllItems());
-        } else {
-            // load first page
-            paginationHelper.nextPage();
-        }
+        // load first page
+        paginationHelper.nextPage();
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        // save instance if you want to persist the instance
-        paginationHelper.saveInstanceState(outState);
-    }
 }
