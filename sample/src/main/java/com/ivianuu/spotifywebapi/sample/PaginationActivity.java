@@ -50,7 +50,7 @@ public class PaginationActivity extends AppCompatActivity {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     if (!recyclerView.canScrollVertically(1)) {
-                        paginationHelper.nextPage();
+                        paginationHelper.fetchNextPage();
                     }
                 }
             }
@@ -86,7 +86,7 @@ public class PaginationActivity extends AppCompatActivity {
                 });
 
         // load first page
-        paginationHelper.nextPage();
+        paginationHelper.fetchNextPage();
     }
 
 }

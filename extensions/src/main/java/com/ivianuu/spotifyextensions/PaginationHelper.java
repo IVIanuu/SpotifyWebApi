@@ -44,7 +44,7 @@ public final class PaginationHelper<T extends Parcelable> {
     private HashMap<String, Object> options;
 
     private int limit;
-    private int offset = 0;
+    private int offset;
     private int total = -1;
 
     private Fetcher<T> fetcher;
@@ -59,7 +59,7 @@ public final class PaginationHelper<T extends Parcelable> {
 
     private PaginationHelper(Builder<T> builder) {
         this.options = builder.defaultOptions;
-        if (options == null) options = new HashMap<>();
+        if (options == null) options = new HashMap<>(); // create options if necessary
         this.limit = builder.limit;
         this.offset = builder.offset;
         this.fetcher = builder.fetcher;
@@ -73,13 +73,17 @@ public final class PaginationHelper<T extends Parcelable> {
     /**
      * Fetches the next page
      */
-    public void nextPage() {
+    public void fetchNextPage() {
         Log.d(TAG, "next page");
         if (allReceived || fetching) {
             Log.d(TAG, "should not fetch next age");
             // load only if not all items are received and we not already fetching a page
             return;
         }
+
+        // update options
+        offset += limit;
+        options.put(SpotifyService.QUERY_PARAMETER.OFFSET, offset);
 
         // fetch
         fetchingDisposable = fetcher.fetch(options)
@@ -98,18 +102,17 @@ public final class PaginationHelper<T extends Parcelable> {
 
                         fetching = false;
 
-                        // update options
-                        offset += limit;
-                        options.put(SpotifyService.QUERY_PARAMETER.OFFSET, offset);
-
                         allItemsPublisher.onNext(allItems);
                         latestItemsPublisher.onNext(latestItems);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        Log.d(TAG, "fetch error");
-                        // notify error
+                        // undo offset change
+                        offset -= limit;
+                        options.put(SpotifyService.QUERY_PARAMETER.OFFSET, offset);
+
+                        // forward errors
                         errorPublisher.onNext(throwable);
                     }
                 });
