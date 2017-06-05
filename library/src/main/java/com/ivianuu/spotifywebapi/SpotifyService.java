@@ -1326,7 +1326,7 @@ public interface SpotifyService {
      * @return List of user's playlists wrapped in a {@code Pager} object
      */
     @GET("me/playlists")
-    Call<Pager<Playlist>> getMyPlaylists(@QueryMap Map<String, Object> options);
+    Call<Pager<PlaylistSimple>> getMyPlaylists(@QueryMap Map<String, Object> options);
 
     /**
      * Get a list of the playlists owned or followed by the current Spotify user.
@@ -1336,7 +1336,7 @@ public interface SpotifyService {
      * @return List of user's playlists wrapped in a {@code Pager} object
      */
     @GET("me/playlists")
-    Observable<Pager<Playlist>> getMyPlaylistsRx(@QueryMap Map<String, Object> options);
+    Observable<Pager<PlaylistSimple>> getMyPlaylistsRx(@QueryMap Map<String, Object> options);
 
     /**
      * Get a playlist owned by a Spotify user.

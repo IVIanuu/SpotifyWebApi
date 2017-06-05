@@ -30,6 +30,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 
@@ -89,6 +90,27 @@ public final class PaginationHelper<T extends Parcelable> {
 
         // fetch
         fetchingDisposable = fetcher.fetch(options)
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        fetching = true;
+                        fetchingPublisher.onNext(true);
+                    }
+                })
+                .doAfterTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        fetching = false;
+                        fetchingPublisher.onNext(false);
+                    }
+                })
+                .doOnComplete(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        allItemsPublisher.onNext(allItems);
+                        latestItemsPublisher.onNext(latestItems);
+                    }
+                })
                 .subscribe(new Consumer<Pager<T>>() {
                     @Override
                     public void accept(Pager<T> tPager) throws Exception {
@@ -101,12 +123,6 @@ public final class PaginationHelper<T extends Parcelable> {
 
                         allReceived = tPager.next == null;
                         if (!firstPageFetched) firstPageFetched = true;
-
-                        fetching = false;
-
-                        allItemsPublisher.onNext(allItems);
-                        latestItemsPublisher.onNext(latestItems);
-
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -171,6 +187,11 @@ public final class PaginationHelper<T extends Parcelable> {
     private final PublishSubject<List<T>> latestItemsPublisher = PublishSubject.create();
     public Observable<List<T>> observeLatestItems() {
         return latestItemsPublisher;
+    }
+
+    private final PublishSubject<Boolean> fetchingPublisher = PublishSubject.create();
+    public Observable<Boolean> observeFetching() {
+        return fetchingPublisher;
     }
 
     // Getter
