@@ -81,9 +81,11 @@ public final class PaginationHelper<T extends Parcelable> {
             return;
         }
 
-        // update options
-        offset += limit;
-        options.put(SpotifyService.QUERY_PARAMETER.OFFSET, offset);
+        if (isFirstPageFetched()) {
+            // update options
+            offset += limit;
+            options.put(SpotifyService.QUERY_PARAMETER.OFFSET, offset);
+        }
 
         // fetch
         fetchingDisposable = fetcher.fetch(options)
@@ -104,6 +106,7 @@ public final class PaginationHelper<T extends Parcelable> {
 
                         allItemsPublisher.onNext(allItems);
                         latestItemsPublisher.onNext(latestItems);
+
                     }
                 }, new Consumer<Throwable>() {
                     @Override
