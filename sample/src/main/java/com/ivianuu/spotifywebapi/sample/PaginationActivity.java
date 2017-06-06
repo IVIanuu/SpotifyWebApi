@@ -59,7 +59,7 @@ public class PaginationActivity extends AppCompatActivity {
         spotifyService = ((App) getApplicationContext()).getSpotifyService();
 
         paginationHelper = new PaginationHelper.Builder<AlbumSimple>()
-                .limit(50)
+                .limit(10)
                 .fetcher(new PaginationHelper.Fetcher<AlbumSimple>() {
                     @Override
                     public Observable<Pager<AlbumSimple>> fetch(@NonNull HashMap<String, Object> options) {
