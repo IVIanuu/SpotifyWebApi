@@ -17,7 +17,6 @@
 
 package com.ivianuu.spotifyextensions;
 
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -38,7 +37,8 @@ import io.reactivex.subjects.PublishSubject;
  * A class which helps with pagination
  */
 
-public final class PaginationHelper<T extends Parcelable> {
+// TODO: 06.06.2017 WIP
+public final class PaginationHelper<T> {
 
     private static final String TAG = PaginationHelper.class.getSimpleName();
 
@@ -46,7 +46,6 @@ public final class PaginationHelper<T extends Parcelable> {
 
     private int limit;
     private int offset;
-    private int total = -1;
 
     private Fetcher<T> fetcher;
     private Disposable fetchingDisposable;
@@ -65,34 +64,36 @@ public final class PaginationHelper<T extends Parcelable> {
         this.offset = builder.offset;
         this.fetcher = builder.fetcher;
 
-        // build options
         options.put(SpotifyService.QUERY_PARAMETER.LIMIT, limit);
-        options.put(SpotifyService.QUERY_PARAMETER.OFFSET, offset);
         Log.d(TAG, "init");
     }
 
     /**
      * Fetches the next page
      */
-    public void fetchNextPage() {
+    public boolean fetchNextPage() {
         Log.d(TAG, "next page");
         if (allReceived || fetching) {
-            Log.d(TAG, "should not fetch next age");
+            Log.d(TAG, "should not fetch next page");
             // load only if not all items are received and we not already fetching a page
-            return;
+            return false;
         }
 
         if (isFirstPageFetched()) {
+            Log.d(TAG, "first page is fetched so apply options");
             // update options
             offset += limit;
             options.put(SpotifyService.QUERY_PARAMETER.OFFSET, offset);
         }
+
+        Log.d(TAG, "start fetching offset: " + offset);
 
         // fetch
         fetchingDisposable = fetcher.fetch(options)
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
+                        Log.d(TAG, "on subscribe");
                         fetching = true;
                         fetchingPublisher.onNext(true);
                     }
@@ -100,6 +101,7 @@ public final class PaginationHelper<T extends Parcelable> {
                 .doAfterTerminate(new Action() {
                     @Override
                     public void run() throws Exception {
+                        Log.d(TAG, "on terminate");
                         fetching = false;
                         fetchingPublisher.onNext(false);
                     }
@@ -107,6 +109,7 @@ public final class PaginationHelper<T extends Parcelable> {
                 .doOnComplete(new Action() {
                     @Override
                     public void run() throws Exception {
+                        Log.d(TAG, "on complete");
                         allItemsPublisher.onNext(allItems);
                         latestItemsPublisher.onNext(latestItems);
                     }
@@ -136,7 +139,7 @@ public final class PaginationHelper<T extends Parcelable> {
                     }
                 });
 
-        fetching = true;
+        return true;
     }
 
     /**
@@ -144,7 +147,6 @@ public final class PaginationHelper<T extends Parcelable> {
      */
     public void reset() {
         offset = 0;
-        total = -1;
         fetching = false;
         allReceived = false;
         firstPageFetched = false;
@@ -211,13 +213,6 @@ public final class PaginationHelper<T extends Parcelable> {
     }
 
     /**
-     * @return total items (-1 if first page not fetched yet)
-     */
-    public int getTotal() {
-        return total;
-    }
-
-    /**
      * @return all items fetched yet
      */
     public List<T> getAllItems() {
@@ -249,7 +244,7 @@ public final class PaginationHelper<T extends Parcelable> {
         return firstPageFetched;
     }
 
-    public static class Builder<T extends Parcelable> {
+    public static class Builder<T> {
 
         private Fetcher<T> fetcher;
         private int limit = -1;
@@ -301,7 +296,7 @@ public final class PaginationHelper<T extends Parcelable> {
         }
     }
 
-    public interface Fetcher<T extends Parcelable> {
+    public interface Fetcher<T> {
         Observable<Pager<T>> fetch(@NonNull HashMap<String, Object> options);
     }
 }

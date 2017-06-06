@@ -69,7 +69,6 @@ public final class RecommendationsBuilder {
 
     /**
      * Adds the artist to the seeds
-     * @param artistId the artist id
      */
     public RecommendationsBuilder artistSeed(@NonNull String artistId) {
         return seed(artistId, VALUES.SEED_TYPES.ARTIST);
@@ -77,7 +76,6 @@ public final class RecommendationsBuilder {
 
     /**
      * Adds the artists to the seeds
-     * @param artistIds the artist ids
      */
     public RecommendationsBuilder artistSeeds(@NonNull String... artistIds) {
         return artistSeeds(Arrays.asList(artistIds));
@@ -85,7 +83,6 @@ public final class RecommendationsBuilder {
 
     /**
      * Adds the artists to the seeds
-     * @param artistIds the artist ids
      */
     public RecommendationsBuilder artistSeeds(@NonNull List<String> artistIds) {
         HashMap<String, String> seeds = new HashMap<>();
@@ -97,7 +94,6 @@ public final class RecommendationsBuilder {
 
     /**
      * Adds the genre to the seeds
-     * @param genreId the genre id
      */
     public RecommendationsBuilder genreSeed(@NonNull String genreId) {
         return seed(genreId, VALUES.SEED_TYPES.GENRE);
@@ -105,7 +101,6 @@ public final class RecommendationsBuilder {
 
     /**
      * Adds the genres to the seeds
-     * @param genreIds the genre ids
      */
     public RecommendationsBuilder genreSeeds(@NonNull String... genreIds) {
         return genreSeeds(Arrays.asList(genreIds));
@@ -113,7 +108,6 @@ public final class RecommendationsBuilder {
 
     /**
      * Adds the genres to the seeds
-     * @param genreIds the genre ids
      */
     public RecommendationsBuilder genreSeeds(@NonNull List<String> genreIds) {
         HashMap<String, String> seeds = new HashMap<>();
@@ -125,7 +119,6 @@ public final class RecommendationsBuilder {
 
     /**
      * Adds the track to the seeds
-     * @param trackId the track id
      */
     public RecommendationsBuilder trackSeed(@NonNull String trackId) {
         return seed(trackId, VALUES.SEED_TYPES.TRACK);
@@ -133,7 +126,6 @@ public final class RecommendationsBuilder {
 
     /**
      * Adds the tracks to the seeds
-     * @param trackIds the track ids
      */
     public RecommendationsBuilder trackSeeds(@NonNull String... trackIds) {
         return trackSeeds(Arrays.asList(trackIds));
@@ -141,7 +133,6 @@ public final class RecommendationsBuilder {
 
     /**
      * Adds the tracks to the seeds
-     * @param trackIds the track ids
      */
     public RecommendationsBuilder trackSeeds(@NonNull List<String> trackIds) {
         HashMap<String, String> seeds = new HashMap<>();

@@ -27,7 +27,7 @@ import okhttp3.Response;
  * Interceptor which automatically handles rate limiting
  */
 
-public class RateLimitingInterceptor implements Interceptor {
+public final class RateLimitingInterceptor implements Interceptor {
 
     private static final String RETRY_HEADER = "Retry-After";
 
@@ -59,7 +59,7 @@ public class RateLimitingInterceptor implements Interceptor {
                 e.printStackTrace();
             }
 
-            // execute request again
+            // retry to get response
             response = chain.proceed(request);
 
             // increase retry count

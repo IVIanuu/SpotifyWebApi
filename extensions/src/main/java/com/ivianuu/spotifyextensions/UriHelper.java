@@ -25,6 +25,8 @@ import static com.ivianuu.spotifyextensions.UriHelper.Uri.ALBUM_URI;
  * Easy manipulate spotify uri's and url's
  */
 
+
+// TODO: 06.06.2017 WIP 
 public final class UriHelper {
 
     public interface Uri {
