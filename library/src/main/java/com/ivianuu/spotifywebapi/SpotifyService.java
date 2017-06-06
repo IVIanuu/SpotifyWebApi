@@ -39,7 +39,6 @@ import com.ivianuu.spotifywebapi.model.PlaylistSimple;
 import com.ivianuu.spotifywebapi.model.PlaylistTrack;
 import com.ivianuu.spotifywebapi.model.PlaylistsPager;
 import com.ivianuu.spotifywebapi.model.Recommendations;
-import com.ivianuu.spotifywebapi.model.Result;
 import com.ivianuu.spotifywebapi.model.SavedAlbum;
 import com.ivianuu.spotifywebapi.model.SavedTrack;
 import com.ivianuu.spotifywebapi.model.SeedsGenres;
@@ -55,6 +54,7 @@ import com.ivianuu.spotifywebapi.model.UserPublic;
 
 import java.util.Map;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -341,7 +341,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/follow-artists-users/">Follow Artists or Users</a>
      */
     @PUT("me/following?type=artist")
-    Observable<Result> followArtists(@Query("ids") String ids);
+    Completable followArtists(@Query("ids") String ids);
 
     /**
      * Add the current user as a follower of one or more Spotify users.
@@ -351,7 +351,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/follow-artists-users/">Follow Artists or Users</a>
      */
     @PUT("me/following?type=user")
-    Observable<Result> followUsers(@Query("ids") String ids);
+    Completable followUsers(@Query("ids") String ids);
 
     /**
      * Remove the current user as a follower of one or more Spotify artists.
@@ -361,7 +361,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/unfollow-artists-users/">Unfollow Artists or Users</a>
      */
     @DELETE("me/following?type=artist")
-    Observable<Result> unfollowArtists(@Query("ids") String ids);
+    Completable unfollowArtists(@Query("ids") String ids);
 
     /**
      * Remove the current user as a follower of one or more Spotify users.
@@ -371,7 +371,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/unfollow-artists-users/">Unfollow Artists or Users</a>
      */
     @DELETE("me/following?type=user")
-    Observable<Result> unfollowUsers(@Query("ids") String ids);
+    Completable unfollowUsers(@Query("ids") String ids);
 
     /**
      * Check to see if the current user is following one or more other Spotify users.
@@ -402,7 +402,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/follow-playlist/">Follow a Playlist</a>
      */
     @PUT("users/{user_id}/playlists/{playlist_id}/followers")
-    Observable<Result> followPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+    Completable followPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
     
     /**
      * Add the current user as a follower of a playlist.
@@ -414,7 +414,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/follow-playlist/">Follow a Playlist</a>
      */
     @PUT("users/{user_id}/playlists/{playlist_id}/followers")
-    Observable<Result> followPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body PlaylistFollowPrivacy playlistFollowPrivacy);
+    Completable followPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body PlaylistFollowPrivacy playlistFollowPrivacy);
 
     /**
      * Unfollow a Playlist
@@ -425,7 +425,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/unfollow-playlist/">Unfollow a Playlist</a>
      */
     @DELETE("users/{user_id}/playlists/{playlist_id}/followers")
-    Observable<Result> unfollowPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+    Completable unfollowPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
     
     /**
      * Check to see if one or more Spotify users are following a specified playlist.
@@ -451,7 +451,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/save-tracks-user/">Save Tracks for User</a>
      */
     @PUT("me/tracks")
-    Observable<Result> addToMySavedTracks(@Query("ids") String ids);
+    Completable addToMySavedTracks(@Query("ids") String ids);
 
     /**
      * Get a list of the songs saved in the current Spotify user’s “Your Music” library.
@@ -481,7 +481,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-user/">Remove User’s Saved Tracks</a>
      */
     @DELETE("me/tracks")
-    Observable<Result> removeFromMySavedTracks(@Query("ids") String ids);
+    Completable removeFromMySavedTracks(@Query("ids") String ids);
     
     /**
      * Check if one or more tracks is already saved in the current Spotify user’s “Your Music” library.
@@ -501,7 +501,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/save-albums-user/">Save Albums for User</a>
      */
     @PUT("me/albums")
-    Observable<Result> addToMySavedAlbums(@Query("ids") String ids);
+    Completable addToMySavedAlbums(@Query("ids") String ids);
 
     /**
      * Get a list of the albums saved in the current Spotify user’s “Your Music” library.
@@ -531,7 +531,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-albums-user/">Remove User’s Saved Albums</a>
      */
     @DELETE("me/albums")
-    Observable<Result> removeFromMySavedAlbums(@Query("ids") String ids);
+    Completable removeFromMySavedAlbums(@Query("ids") String ids);
 
     /**
      * Check if one or more albums is already saved in the current Spotify user’s “Your Music” library.
@@ -623,61 +623,61 @@ public interface SpotifyService {
     Observable<CurrentlyPlayingContext> getCurrentlyPlayingTrack(@QueryMap Map<String, Object> options);
     
     @PUT("me/player")
-    Observable<Result> transferUserPlayback(@Body Map<String, Object> body);
+    Completable transferUserPlayback(@Body Map<String, Object> body);
     
     @PUT("me/player/play")
-    Observable<Result> startUserPlayback(@Body TracksToRemove body);
+    Completable startUserPlayback(@Body TracksToRemove body);
 
     @PUT("me/player/play")
-    Observable<Result> startUserPlayback(@Query("device_id") String device_id, @Body Map<String, Object> body);
+    Completable startUserPlayback(@Query("device_id") String device_id, @Body Map<String, Object> body);
 
     @PUT("me/player/play")
-    Observable<Result> resumeUserPlayback();
+    Completable resumeUserPlayback();
 
     @PUT("me/player/play")
-    Observable<Result> resumeUserPlayback(@Query("device_id") String device_id);
+    Completable resumeUserPlayback(@Query("device_id") String device_id);
 
     @PUT("me/player/pause")
-    Observable<Result> pauseUserPlayback();
+    Completable pauseUserPlayback();
 
     @PUT("me/player/pause")
-    Observable<Result> pauseUserPlayback(@Query("device_id") String device_id);
+    Completable pauseUserPlayback(@Query("device_id") String device_id);
 
     @PUT("me/player/next")
-    Observable<Result> skipToTheNextTrack();
+    Completable skipToTheNextTrack();
     
     @PUT("me/player/next")
-    Observable<Result> skipToTheNextTrack(@Query("device_id") String device_id);
+    Completable skipToTheNextTrack(@Query("device_id") String device_id);
     
     @PUT("me/player/previous")
-    Observable<Result> skipToThePreviousTrack();
+    Completable skipToThePreviousTrack();
     
     @PUT("me/player/previous")
-    Observable<Result> skipToThePreviousTrack(@Query("device_id") String device_id);
+    Completable skipToThePreviousTrack(@Query("device_id") String device_id);
 
     @PUT("me/player/seek")
-    Observable<Result> seekToPositionInCurrentTrack(@Query("position_ms") int position_ms);
+    Completable seekToPositionInCurrentTrack(@Query("position_ms") int position_ms);
     
     @PUT("me/player/seek")
-    Observable<Result> seekToPositionInCurrentTrack(@Query("position_ms") int position_ms, @Query("device_id") String device_id);
+    Completable seekToPositionInCurrentTrack(@Query("position_ms") int position_ms, @Query("device_id") String device_id);
 
     @PUT("me/player/repeat")
-    Observable<Result> setRepeatMode(@Query("state") String state);
+    Completable setRepeatMode(@Query("state") String state);
 
     @PUT("me/player/repeat")
-    Observable<Result> setRepeatMode(@Query("state") String state, @Query("device_id") String device_id);
+    Completable setRepeatMode(@Query("state") String state, @Query("device_id") String device_id);
 
     @PUT("me/player/volume")
-    Observable<Result> setVolume(@Query("volume_percent") int volume_percent);
+    Completable setVolume(@Query("volume_percent") int volume_percent);
     
     @PUT("me/player/volume")
-    Observable<Result> setVolume(@Query("volume_percent") int volume_percent, @Query("device_id") String device_id);
+    Completable setVolume(@Query("volume_percent") int volume_percent, @Query("device_id") String device_id);
     
     @PUT("me/player/shuffle")
-    Observable<Result> toggleShuffle(@Query("state") boolean state);
+    Completable toggleShuffle(@Query("state") boolean state);
 
     @PUT("me/player/shuffle")
-    Observable<Result> toggleShuffle(@Query("state") boolean state, @Query("device_id") String device_id);
+    Completable toggleShuffle(@Query("state") boolean state, @Query("device_id") String device_id);
 
     /*************
      * Playlists *
@@ -792,7 +792,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/change-playlist-details/">Change a Playlist's Details</a>
      */
     @PUT("users/{user_id}/playlists/{playlist_id}")
-    Observable<Result> changePlaylistDetails(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
+    Completable changePlaylistDetails(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
     
     /**
      * Add tracks to a playlist
@@ -866,7 +866,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/replace-playlists-tracks/">Replace a Playlist’s Tracks</a>
      */
     @PUT("users/{user_id}/playlists/{playlist_id}/tracks")
-    Observable<Result> replaceTracksInPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("uris") String trackUris, @Body Object body);
+    Completable replaceTracksInPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("uris") String trackUris, @Body Object body);
 
     /************
      * Profiles *
@@ -1133,6 +1133,7 @@ public interface SpotifyService {
 
             Retrofit restAdapter = retrofitBuilder
                     .baseUrl(BASE_URL)
+                    .addConverterFactory(NullOnEmptyConverterFactory.create()) // fix for "https://github.com/square/retrofit/issues/1554#issuecomment-178633697"
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(rxJava2CallAdapterFactory)
                     .client(okHttpClientBuilder.build())

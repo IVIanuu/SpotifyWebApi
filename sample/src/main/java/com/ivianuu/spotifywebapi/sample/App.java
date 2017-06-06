@@ -13,6 +13,10 @@ import com.ivianuu.spotifywebapi.SpotifyService;
 import okhttp3.OkHttpClient;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import static com.ivianuu.spotifyextensions.auth.Scopes.PLAYLIST_MODIFY_PRIVATE;
+import static com.ivianuu.spotifyextensions.auth.Scopes.PLAYLIST_MODIFY_PUBLIC;
+import static com.ivianuu.spotifyextensions.auth.Scopes.PLAYLIST_READ_COLLABORATIVE;
+import static com.ivianuu.spotifyextensions.auth.Scopes.PLAYLIST_READ_PRIVATE;
 import static com.ivianuu.spotifyextensions.auth.Scopes.USER_READ_EMAIL;
 
 /**
@@ -24,7 +28,7 @@ public class App extends Application implements TokenHandler {
     public static final String CLIENT_ID = "7d264b76c4fb4948a0cf6e61c1700b78";//"paste your client id here";
     public static final String CLIENT_SECRET = "ca8d882037f4457891c7e22012dacbf0";//"paste your client secret here";
     public static final String REDIRECT_URI = "sample://callback";//"paste your redirect uri here";
-    public static final String[] SCOPES = new String[]{USER_READ_EMAIL};
+    public static final String[] SCOPES = new String[]{USER_READ_EMAIL, PLAYLIST_MODIFY_PRIVATE, PLAYLIST_MODIFY_PUBLIC, PLAYLIST_READ_PRIVATE, PLAYLIST_READ_COLLABORATIVE};
 
     private SpotifyService spotifyService;
     private SpotifyAuthenticationService spotifyAuthenticationService;
