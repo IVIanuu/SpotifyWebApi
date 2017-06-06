@@ -56,12 +56,12 @@ public final class SpotifyAuthenticator implements Authenticator {
         }
 
         // get new tokens
-        retrofit2.Response<AccessToken> tokenResponse
+        AccessToken tokenResponse
                 = spotifyAuthenticationService.refreshAccessToken(
-                "refresh_token", tokenHandler.getRefreshToken(), clientId, clientSecret).execute();
-        if (tokenResponse.isSuccessful()) {
+                "refresh_token", tokenHandler.getRefreshToken(), clientId, clientSecret).blockingFirst();
+        if (tokenResponse != null) {
             // save token
-            tokenHandler.setAccessToken(tokenResponse.body().accessToken);
+            tokenHandler.setAccessToken(tokenResponse.accessToken);
         }
 
         return response.request().newBuilder()

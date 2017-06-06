@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             switch (response.getType()) {
                 case CODE:
                     // get access token
-                    spotifyAuthenticationService.getAccessTokenRx(
+                    spotifyAuthenticationService.getAccessToken(
                             "authorization_code", response.getCode(), REDIRECT_URI, CLIENT_ID, CLIENT_SECRET)
                             .subscribeOn(Schedulers.io())
                             .subscribe(new Consumer<AccessToken>() {

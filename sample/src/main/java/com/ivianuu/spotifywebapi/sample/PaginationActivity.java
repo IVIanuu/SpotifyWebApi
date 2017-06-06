@@ -63,7 +63,7 @@ public class PaginationActivity extends AppCompatActivity {
                 .fetcher(new PaginationHelper.Fetcher<AlbumSimple>() {
                     @Override
                     public Observable<Pager<AlbumSimple>> fetch(@NonNull HashMap<String, Object> options) {
-                        return spotifyService.getNewReleasesRx(options)
+                        return spotifyService.getNewReleases(options)
                                 .subscribeOn(Schedulers.io())
                                 .map(new Function<NewReleases, Pager<AlbumSimple>>() {
                                     @Override
