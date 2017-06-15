@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
@@ -89,7 +90,7 @@ public final class PaginationHelper<T> {
         Log.d(TAG, "start fetching offset: " + offset);
 
         // fetch
-        fetchingDisposable = fetcher.fetch(options)
+        fetchingDisposable = fetcher.fetch(options).toObservable()
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
@@ -297,6 +298,6 @@ public final class PaginationHelper<T> {
     }
 
     public interface Fetcher<T> {
-        Observable<Pager<T>> fetch(@NonNull HashMap<String, Object> options);
+        Single<Pager<T>> fetch(@NonNull HashMap<String, Object> options);
     }
 }

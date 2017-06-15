@@ -56,6 +56,7 @@ import java.util.Map;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -89,7 +90,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-album/">Get an Album</a>
      */
     @GET("albums/{id}")
-    Observable<Album> getAlbum(@Path("id") String albumId);
+    Single<Album> getAlbum(@Path("id") String albumId);
 
     /**
      * Get Spotify catalog information for a single album.
@@ -101,7 +102,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-album/">Get an Album</a>
      */
     @GET("albums/{id}")
-    Observable<Album> getAlbum(@Path("id") String albumId, @QueryMap Map<String, Object> options);
+    Single<Album> getAlbum(@Path("id") String albumId, @QueryMap Map<String, Object> options);
     
     /**
      * Get Spotify catalog information for multiple albums identified by their Spotify IDs.
@@ -111,7 +112,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-albums/">Get Several Albums</a>
      */
     @GET("albums")
-    Observable<Albums> getAlbums(@Query("ids") String albumIds);
+    Single<Albums> getAlbums(@Query("ids") String albumIds);
 
     /**
      * Get Spotify catalog information for multiple albums identified by their Spotify IDs.
@@ -123,7 +124,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-albums/">Get Several Albums</a>
      */
     @GET("albums")
-    Observable<Albums> getAlbums(@Query("ids") String albumIds, @QueryMap Map<String, Object> options);
+    Single<Albums> getAlbums(@Query("ids") String albumIds, @QueryMap Map<String, Object> options);
 
     /**
      * Get Spotify catalog information about an album’s tracks.
@@ -133,7 +134,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-albums-tracks/">Get an Album’s Tracks</a>
      */
     @GET("albums/{id}/tracks")
-    Observable<Pager<Track>> getAlbumTracks(@Path("id") String albumId);
+    Single<Pager<Track>> getAlbumTracks(@Path("id") String albumId);
 
     /**
      * Get Spotify catalog information about an album’s tracks.
@@ -145,7 +146,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-albums-tracks/">Get an Album’s Tracks</a>
      */
     @GET("albums/{id}/tracks")
-    Observable<Pager<Track>> getAlbumTracks(@Path("id") String albumId, @QueryMap Map<String, Object> options);
+    Single<Pager<Track>> getAlbumTracks(@Path("id") String albumId, @QueryMap Map<String, Object> options);
 
     /*************
      * Artists *
@@ -159,7 +160,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artist/">Get an Artist</a>
      */
     @GET("artists/{id}")
-    Observable<Artist> getArtist(@Path("id") String artistId);
+    Single<Artist> getArtist(@Path("id") String artistId);
 
     /**
      * Get Spotify catalog information for several artists based on their Spotify IDs.
@@ -169,7 +170,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-artists/">Get Several Artists</a>
      */
     @GET("artists")
-    Observable<Artists> getArtists(@Query("ids") String artistIds);
+    Single<Artists> getArtists(@Query("ids") String artistIds);
 
     /**
      * Get Spotify catalog information about an artist’s albums.
@@ -179,7 +180,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artists-albums/">Get an Artist's Albums</a>
      */
     @GET("artists/{id}/albums")
-    Observable<Pager<Album>> getArtistAlbums(@Path("id") String artistId);
+    Single<Pager<Album>> getArtistAlbums(@Path("id") String artistId);
 
     /**
      * Get Spotify catalog information about an artist’s albums.
@@ -191,7 +192,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artists-albums/">Get an Artist's Albums</a>
      */
     @GET("artists/{id}/albums")
-    Observable<Pager<Album>> getArtistAlbums(@Path("id") String artistId, @QueryMap Map<String, Object> options);
+    Single<Pager<Album>> getArtistAlbums(@Path("id") String artistId, @QueryMap Map<String, Object> options);
 
     /**
      * Get Spotify catalog information about an artist’s top tracks by country.
@@ -202,7 +203,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artists-top-tracks/">Get an Artist’s Top Tracks</a>
      */
     @GET("artists/{id}/top-tracks")
-    Observable<Tracks> getArtistTopTracks(@Path("id") String artistId, @Query(COUNTRY) String country);
+    Single<Tracks> getArtistTopTracks(@Path("id") String artistId, @Query(COUNTRY) String country);
 
     /**
      * Get Spotify catalog information about artists similar to a given artist.
@@ -212,7 +213,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-related-artists/">Get an Artist’s Related Artists</a>
      */
     @GET("artists/{id}/related-artists")
-    Observable<Artists> getRelatedArtists(@Path("id") String artistId);
+    Single<Artists> getRelatedArtists(@Path("id") String artistId);
 
     /*************
      * Browse *
@@ -225,7 +226,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-featured-playlists/">Get a List of Featured Playlists</a>
      */
     @GET("browse/featured-playlists")
-    Observable<FeaturedPlaylists> getFeaturedPlaylists();
+    Single<FeaturedPlaylists> getFeaturedPlaylists();
 
     /**
      * Get a list of Spotify featured playlists (shown, for example, on a Spotify player’s “Browse” tab).
@@ -236,7 +237,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-featured-playlists/">Get a List of Featured Playlists</a>
      */
     @GET("browse/featured-playlists")
-    Observable<FeaturedPlaylists> getFeaturedPlaylists(@QueryMap Map<String, Object> options);
+    Single<FeaturedPlaylists> getFeaturedPlaylists(@QueryMap Map<String, Object> options);
 
     /**
      * Get a list of new album releases featured in Spotify (shown, for example, on a Spotify player’s “Browse” tab).
@@ -245,7 +246,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-new-releases/">Get a List of New Releases</a>
      */
     @GET("browse/new-releases")
-    Observable<NewReleases> getNewReleases();
+    Single<NewReleases> getNewReleases();
 
     /**
      * Get a list of new album releases featured in Spotify (shown, for example, on a Spotify player’s “Browse” tab).
@@ -256,7 +257,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-new-releases/">Get a List of New Releases</a>
      */
     @GET("browse/new-releases")
-    Observable<NewReleases> getNewReleases(@QueryMap Map<String, Object> options);
+    Single<NewReleases> getNewReleases(@QueryMap Map<String, Object> options);
 
     /**
      * Retrieve Spotify categories. Categories used to tag items in
@@ -267,7 +268,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-categories/">Get a List of Categories</a>
      */
     @GET("browse/categories")
-    Observable<CategoriesPager> getCategories(@QueryMap Map<String, Object> options);
+    Single<CategoriesPager> getCategories(@QueryMap Map<String, Object> options);
 
     /**
      * Retrieve a Spotify category.
@@ -278,7 +279,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-category/">Get a Spotify Category</a>
      */
     @GET("browse/categories/{category_id}")
-    Observable<Category> getCategory(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
+    Single<Category> getCategory(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
     
     /**
      * Retrieve playlists for a Spotify Category.
@@ -289,7 +290,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-categorys-playlists/">Get playlists for a Spotify Category</a>
      */
     @GET("browse/categories/{category_id}/playlists")
-    Observable<PlaylistsPager> getPlaylistsForCategory(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
+    Single<PlaylistsPager> getPlaylistsForCategory(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
 
     /**
      * Create a playlist-style listening experience based on seed artists, tracks and genres.
@@ -299,7 +300,7 @@ public interface SpotifyService {
      * @return Recommendations response object
      */
     @GET("recommendations")
-    Observable<Recommendations> getRecommendations(@QueryMap Map<String, Object> options);
+    Single<Recommendations> getRecommendations(@QueryMap Map<String, Object> options);
 
     /**
      * Retrieve a list of available genres seed parameter values for recommendations.
@@ -307,7 +308,7 @@ public interface SpotifyService {
      * @return An object whose key is "genres" and whose value is an array of available genres.
      */
     @GET("recommendations/available-genre-seeds")
-    Observable<SeedsGenres> getSeedsGenres();
+    Single<SeedsGenres> getSeedsGenres();
 
     /*************
      * Follow *
@@ -320,7 +321,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-followed-artists/">Get User's Followed Artists</a>
      */
     @GET("me/following?type=artist")
-    Observable<ArtistsCursorPager> getFollowedArtists();
+    Single<ArtistsCursorPager> getFollowedArtists();
 
     /**
      * Get the current user's followed artists.
@@ -331,7 +332,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-followed-artists/">Get User's Followed Artists</a>
      */
     @GET("me/following?type=artist")
-    Observable<ArtistsCursorPager> getFollowedArtists(@QueryMap Map<String, Object> options);
+    Single<ArtistsCursorPager> getFollowedArtists(@QueryMap Map<String, Object> options);
 
     /**
      * Add the current user as a follower of one or more Spotify artists.
@@ -381,7 +382,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-current-user-follows/">Check if Current User Follows Artists or Users</a>
      */
     @GET("me/following/contains?type=user")
-    Observable<Boolean[]> isFollowingUsers(@Query("ids") String ids);
+    Single<Boolean[]> isFollowingUsers(@Query("ids") String ids);
 
     /**
      * Check to see if the current user is following one or more other Spotify artists.
@@ -391,7 +392,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-current-user-follows/">Check if Current User Follows Artists or Users</a>
      */
     @GET("me/following/contains?type=artist")
-    Observable<Boolean[]> isFollowingArtists(@Query("ids") String ids);
+    Single<Boolean[]> isFollowingArtists(@Query("ids") String ids);
 
     /**
      * Add the current user as a follower of a playlist.
@@ -437,7 +438,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-user-following-playlist/">Check if Users Follow a Playlist</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/followers/contains")
-    Observable<Boolean[]> areFollowingPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("ids") String ids);
+    Single<Boolean[]> areFollowingPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("ids") String ids);
 
     /*************
      * Library *
@@ -460,7 +461,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-tracks/">Get a User’s Saved Tracks</a>
      */
     @GET("me/tracks")
-    Observable<Pager<SavedTrack>> getMySavedTracks();
+    Single<Pager<SavedTrack>> getMySavedTracks();
 
     /**
      * Get a list of the songs saved in the current Spotify user’s “Your Music” library.
@@ -471,7 +472,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-tracks/">Get a User’s Saved Tracks</a>
      */
     @GET("me/tracks")
-    Observable<Pager<SavedTrack>> getMySavedTracks(@QueryMap Map<String, Object> options);
+    Single<Pager<SavedTrack>> getMySavedTracks(@QueryMap Map<String, Object> options);
 
     /**
      * Remove one or more tracks from the current user’s “Your Music” library.
@@ -491,7 +492,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-users-saved-tracks/">Check User’s Saved Tracks</a>
      */
     @GET("me/tracks/contains")
-    Observable<Boolean[]> containsMySavedTracks(@Query("ids") String ids);
+    Single<Boolean[]> containsMySavedTracks(@Query("ids") String ids);
     
     /**
      * Save one or more albums to the current user’s “Your Music” library.
@@ -510,7 +511,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-albums/">Get a User’s Saved Albums</a>
      */
     @GET("me/albums")
-    Observable<Pager<SavedAlbum>> getMySavedAlbums();
+    Single<Pager<SavedAlbum>> getMySavedAlbums();
 
     /**
      * Get a list of the albums saved in the current Spotify user’s “Your Music” library.
@@ -521,7 +522,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-albums/">Get a User’s Saved Albums</a>
      */
     @GET("me/albums")
-    Observable<Pager<SavedAlbum>> getMySavedAlbums(@QueryMap Map<String, Object> options);
+    Single<Pager<SavedAlbum>> getMySavedAlbums(@QueryMap Map<String, Object> options);
 
     /**
      * Remove one or more albums from the current user’s “Your Music” library.
@@ -541,7 +542,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-users-saved-albums/">Check User’s Saved Albums</a>
      */
     @GET("me/albums/contains")
-    Observable<Boolean[]> containsMySavedAlbums(@Query("ids") String ids);
+    Single<Boolean[]> containsMySavedAlbums(@Query("ids") String ids);
 
     /*************
      * Personalization *
@@ -554,7 +555,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/artists")
-    Observable<Pager<Artist>> getTopArtists();
+    Single<Pager<Artist>> getTopArtists();
 
     /**
      * Get the current user’s top artists based on calculated affinity.
@@ -565,7 +566,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/artists")
-    Observable<Pager<Artist>> getTopArtists(@QueryMap Map<String, Object> options);
+    Single<Pager<Artist>> getTopArtists(@QueryMap Map<String, Object> options);
 
     /**
      * Get the current user’s top tracks based on calculated affinity.
@@ -574,7 +575,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/tracks")
-    Observable<Pager<Track>> getTopTracks();
+    Single<Pager<Track>> getTopTracks();
 
     /**
      * Get the current user’s top tracks based on calculated affinity.
@@ -585,14 +586,14 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/tracks")
-    Observable<Pager<Track>> getTopTracks(@QueryMap Map<String, Object> options);
+    Single<Pager<Track>> getTopTracks(@QueryMap Map<String, Object> options);
 
     /**
      * Get tracks from the current user’s recently played tracks.
      * @return The object in turn contains a paging object of Play history items
      */
     @GET("me/player/recently-played")
-    Observable<Pager<PlayHistory>> getRecentlyPlayedTracks();
+    Single<Pager<PlayHistory>> getRecentlyPlayedTracks();
 
     /**
      * Get tracks from the current user’s recently played tracks.
@@ -601,26 +602,26 @@ public interface SpotifyService {
       * @return The object in turn contains a paging object of Play history items
      */
     @GET("me/player/recently-played")
-    Observable<Pager<PlayHistory>> getRecentlyPlayedTracks(@QueryMap Map<String, Object> options);
+    Single<Pager<PlayHistory>> getRecentlyPlayedTracks(@QueryMap Map<String, Object> options);
 
     /*************
      * Player *
      *************/
 
     @GET("me/player/devices")
-    Observable<Payload> getUsersAvailableDevices();
+    Single<Payload> getUsersAvailableDevices();
 
     @GET("me/player")
-    Observable<CurrentlyPlayingContext> getCurrentPlayback();
+    Single<CurrentlyPlayingContext> getCurrentPlayback();
 
     @GET("me/player")
-    Observable<CurrentlyPlayingContext> getCurrentPlayback(@QueryMap Map<String, Object> options);
+    Single<CurrentlyPlayingContext> getCurrentPlayback(@QueryMap Map<String, Object> options);
     
     @GET("me/player")
-    Observable<CurrentlyPlayingContext> getCurrentlyPlayingTrack();
+    Single<CurrentlyPlayingContext> getCurrentlyPlayingTrack();
 
     @GET("me/player")
-    Observable<CurrentlyPlayingContext> getCurrentlyPlayingTrack(@QueryMap Map<String, Object> options);
+    Single<CurrentlyPlayingContext> getCurrentlyPlayingTrack(@QueryMap Map<String, Object> options);
     
     @PUT("me/player")
     Completable transferUserPlayback(@Body Map<String, Object> body);
@@ -693,7 +694,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-users-playlists/">Get a List of a User’s Playlists</a>
      */
     @GET("users/{id}/playlists")
-    Observable<Pager<PlaylistSimple>> getPlaylists(@Path("id") String userId, @QueryMap Map<String, Object> options);
+    Single<Pager<PlaylistSimple>> getPlaylists(@Path("id") String userId, @QueryMap Map<String, Object> options);
 
     /**
      * Get a list of the playlists owned or followed by a Spotify user.
@@ -703,7 +704,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-users-playlists/">Get a List of a User’s Playlists</a>
      */
     @GET("users/{id}/playlists")
-    Observable<Pager<PlaylistSimple>> getPlaylists(@Path("id") String userId);
+    Single<Pager<PlaylistSimple>> getPlaylists(@Path("id") String userId);
 
     /**
      * Get a list of the playlists owned or followed by the current Spotify user.
@@ -711,7 +712,7 @@ public interface SpotifyService {
      * @return List of user's playlists wrapped in a {@code Pager} object
      */
     @GET("me/playlists")
-    Observable<Pager<PlaylistSimple>> getMyPlaylists();
+    Single<Pager<PlaylistSimple>> getMyPlaylists();
 
     /**
      * Get a list of the playlists owned or followed by the current Spotify user.
@@ -721,7 +722,7 @@ public interface SpotifyService {
      * @return List of user's playlists wrapped in a {@code Pager} object
      */
     @GET("me/playlists")
-    Observable<Pager<PlaylistSimple>> getMyPlaylists(@QueryMap Map<String, Object> options);
+    Single<Pager<PlaylistSimple>> getMyPlaylists(@QueryMap Map<String, Object> options);
     
     /**
      * Get a playlist owned by a Spotify user.
@@ -734,7 +735,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlist/">Get a Playlist</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}")
-    Observable<Playlist> getPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
+    Single<Playlist> getPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
     
     /**
      * Get a playlist owned by a Spotify user.
@@ -745,7 +746,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlist/">Get a Playlist</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}")
-    Observable<Playlist> getPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+    Single<Playlist> getPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
     
     /**
      * Get full details of the tracks of a playlist owned by a Spotify user.
@@ -758,7 +759,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlists-tracks/">Get a Playlist’s Tracks</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/tracks")
-    Observable<Pager<PlaylistTrack>> getPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
+    Single<Pager<PlaylistTrack>> getPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
 
     /**
      * Get full details of the tracks of a playlist owned by a Spotify user.
@@ -769,7 +770,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlists-tracks/">Get a Playlist’s Tracks</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/tracks")
-    Observable<Pager<PlaylistTrack>> getPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+    Single<Pager<PlaylistTrack>> getPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     /**
      * Create a playlist
@@ -780,7 +781,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/create-playlist/">Create a Playlist</a>
      */
     @POST("users/{user_id}/playlists")
-    Observable<Playlist> createPlaylist(@Path("user_id") String userId, @Body Map<String, Object> options);
+    Single<Playlist> createPlaylist(@Path("user_id") String userId, @Body Map<String, Object> options);
     
     /**
      * Change a playlist’s name and public/private state. (The user must, of course, own the playlist.)
@@ -805,7 +806,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/add-tracks-to-playlist/">Add Tracks to a Playlist</a>
      */
     @POST("users/{user_id}/playlists/{playlist_id}/tracks")
-    Observable<SnapshotId> addTracksToPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> queryParameters, @Body Map<String, Object> body);
+    Single<SnapshotId> addTracksToPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> queryParameters, @Body Map<String, Object> body);
     
     /**
      * Remove one or more tracks from a user’s playlist.
@@ -817,7 +818,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
      */
     @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
-    Observable<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemove tracksToRemove);
+    Single<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemove tracksToRemove);
     
     /**
      * Remove one or more tracks from a user’s playlist.
@@ -829,7 +830,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
      */
     @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
-    Observable<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveWithPosition tracksToRemoveWithPosition);
+    Single<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveWithPosition tracksToRemoveWithPosition);
     
     /**
      * Remove one or more tracks from a user’s playlist.
@@ -841,7 +842,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
      */
     @DELETE("/users/{user_id}/playlists/{playlist_id}/tracks")
-    Observable<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveByPosition tracksToRemoveByPosition);
+    Single<SnapshotId> removeTracksFromPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveByPosition tracksToRemoveByPosition);
     
     /**
      * Reorder a Playlist's tracks
@@ -853,7 +854,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/reorder-playlists-tracks/">Reorder a Playlist</a>
      */
     @PUT("users/{user_id}/playlists/{playlist_id}/tracks")
-    Observable<SnapshotId> reorderPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
+    Single<SnapshotId> reorderPlaylistTracks(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
     
     /**
      * Replace all the tracks in a playlist, overwriting its existing tracks. This powerful request can be useful for
@@ -880,7 +881,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-current-users-profile/">Get Current User's Profile</a>
      */
     @GET("me")
-    Observable<UserPrivate> getMe();
+    Single<UserPrivate> getMe();
 
     /**
      * Get a user's profile information.
@@ -890,7 +891,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-profile/">Get User's Public Profile</a>
      */
     @GET("users/{id}")
-    Observable<UserPublic> getUser(@Path("id") String userId);
+    Single<UserPublic> getUser(@Path("id") String userId);
 
     /*************
      * Search *
@@ -904,7 +905,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=track")
-    Observable<TracksPager> searchTracks(@Query("q") String q);
+    Single<TracksPager> searchTracks(@Query("q") String q);
 
     /**
      * Get Spotify catalog information about tracks that match a keyword string.
@@ -916,7 +917,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=track")
-    Observable<TracksPager> searchTracks(@Query("q") String q, @QueryMap Map<String, Object> options);
+    Single<TracksPager> searchTracks(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
      * Get Spotify catalog information about artists that match a keyword string.
@@ -926,7 +927,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=artist")
-    Observable<ArtistsPager> searchArtists(@Query("q") String q);
+    Single<ArtistsPager> searchArtists(@Query("q") String q);
 
     /**
      * Get Spotify catalog information about artists that match a keyword string.
@@ -938,7 +939,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=artist")
-    Observable<ArtistsPager> searchArtists(@Query("q") String q, @QueryMap Map<String, Object> options);
+    Single<ArtistsPager> searchArtists(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
      * Get Spotify catalog information about albums that match a keyword string.
@@ -948,7 +949,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=album")
-    Observable<AlbumsPager> searchAlbums(@Query("q") String q);
+    Single<AlbumsPager> searchAlbums(@Query("q") String q);
 
     /**
      * Get Spotify catalog information about albums that match a keyword string.
@@ -960,7 +961,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=album")
-    Observable<AlbumsPager> searchAlbums(@Query("q") String q, @QueryMap Map<String, Object> options);
+    Single<AlbumsPager> searchAlbums(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
      * Get Spotify catalog information about playlists that match a keyword string.
@@ -970,7 +971,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=playlist")
-    Observable<PlaylistsPager> searchPlaylists(@Query("q") String q);
+    Single<PlaylistsPager> searchPlaylists(@Query("q") String q);
 
     /**
      * Get Spotify catalog information about playlists that match a keyword string.
@@ -982,7 +983,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=playlist")
-    Observable<PlaylistsPager> searchPlaylists(@Query("q") String q, @QueryMap Map<String, Object> options);
+    Single<PlaylistsPager> searchPlaylists(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /*************
      * Tracks *
@@ -996,7 +997,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-track/">Get a Track</a>
      */
     @GET("tracks/{id}")
-    Observable<Track> getTrack(@Path("id") String trackId);
+    Single<Track> getTrack(@Path("id") String trackId);
 
     /**
      * Get Spotify catalog information for a single track identified by their unique Spotify ID.
@@ -1008,7 +1009,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-track/">Get a Track</a>
      */
     @GET("tracks/{id}")
-    Observable<Track> getTrack(@Path("id") String trackId, @QueryMap Map<String, Object> options);
+    Single<Track> getTrack(@Path("id") String trackId, @QueryMap Map<String, Object> options);
 
     /**
      * Get Several Tracks
@@ -1018,7 +1019,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-tracks/">Get Several Tracks</a>
      */
     @GET("tracks")
-    Observable<Tracks> getTracks(@Query("ids") String trackIds);
+    Single<Tracks> getTracks(@Query("ids") String trackIds);
 
     /**
      * Get Several Tracks
@@ -1030,7 +1031,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-tracks/">Get Several Tracks</a>
      */
     @GET("tracks")
-    Observable<Tracks> getTracks(@Query("ids") String trackIds, @QueryMap Map<String, Object> options);
+    Single<Tracks> getTracks(@Query("ids") String trackIds, @QueryMap Map<String, Object> options);
     
     /**
      * Get audio features for multiple tracks based on their Spotify IDs.
@@ -1039,7 +1040,7 @@ public interface SpotifyService {
      * @return An object whose key is "audio_features" and whose value is an array of audio features objects.
      */
     @GET("audio-features")
-    Observable<AudioFeaturesTrack> getTracksAudioFeatures(@Query("ids") String ids);
+    Single<AudioFeaturesTrack> getTracksAudioFeatures(@Query("ids") String ids);
 
     /**
      * Get audio feature information for a single track identified by its unique Spotify ID.
@@ -1048,7 +1049,7 @@ public interface SpotifyService {
      * @return Audio features object
      */
     @GET("audio-features/{id}")
-    Observable<AudioFeaturesTrack> getTrackAudioFeatures(@Path("id") String id);
+    Single<AudioFeaturesTrack> getTrackAudioFeatures(@Path("id") String id);
 
     interface QUERY_PARAMETER {
         String LIMIT = "limit";

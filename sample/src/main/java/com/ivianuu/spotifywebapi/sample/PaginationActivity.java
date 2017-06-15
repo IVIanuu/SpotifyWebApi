@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
@@ -62,7 +63,7 @@ public class PaginationActivity extends AppCompatActivity {
                 .limit(10)
                 .fetcher(new PaginationHelper.Fetcher<AlbumSimple>() {
                     @Override
-                    public Observable<Pager<AlbumSimple>> fetch(@NonNull HashMap<String, Object> options) {
+                    public Single<Pager<AlbumSimple>> fetch(@NonNull HashMap<String, Object> options) {
                         return spotifyService.getNewReleases(options)
                                 .subscribeOn(Schedulers.io())
                                 .map(new Function<NewReleases, Pager<AlbumSimple>>() {

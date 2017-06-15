@@ -20,6 +20,7 @@ package com.ivianuu.spotifywebapi;
 import com.ivianuu.spotifywebapi.model.AccessToken;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -48,7 +49,7 @@ public interface SpotifyAuthenticationService {
      */
     @FormUrlEncoded
     @POST("token")
-    Observable<AccessToken> getAccessToken(@Field("grant_type") String grantType, @Field("code") String code, @Field("redirect_uri") String redirectUri, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
+    Single<AccessToken> getAccessToken(@Field("grant_type") String grantType, @Field("code") String code, @Field("redirect_uri") String redirectUri, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
 
     /**
      * Get an refreshed token
@@ -62,7 +63,7 @@ public interface SpotifyAuthenticationService {
      */
     @FormUrlEncoded
     @POST("token")
-    Observable<AccessToken> refreshAccessToken(@Field("grant_type") String grantType, @Field("refresh_token") String refreshToken, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
+    Single<AccessToken> refreshAccessToken(@Field("grant_type") String grantType, @Field("refresh_token") String refreshToken, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
 
     class Builder {
 
