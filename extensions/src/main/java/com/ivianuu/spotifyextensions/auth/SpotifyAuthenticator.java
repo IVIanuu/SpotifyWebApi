@@ -57,8 +57,8 @@ public final class SpotifyAuthenticator implements Authenticator {
 
         // get new tokens
         AccessToken tokenResponse
-                = spotifyAuthenticationService.refreshAccessToken(
-                "refresh_token", tokenHandler.getRefreshToken(), clientId, clientSecret).blockingFirst();
+                = spotifyAuthenticationService.refreshAccessTokenBody(
+                "refresh_token", tokenHandler.getRefreshToken(), clientId, clientSecret).toObservable().blockingFirst();
         if (tokenResponse != null) {
             // save token
             tokenHandler.setAccessToken(tokenResponse.accessToken);

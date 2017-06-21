@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.ivianuu.spotifyextensions.PaginationHelper;
 import com.ivianuu.spotifywebapi.SpotifyService;
+import com.ivianuu.spotifywebapi.model.Album;
 import com.ivianuu.spotifywebapi.model.AlbumSimple;
 import com.ivianuu.spotifywebapi.model.NewReleases;
 import com.ivianuu.spotifywebapi.model.Pager;
@@ -22,6 +23,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
+import retrofit2.adapter.rxjava2.Result;
 
 /**
  * @author Manuel Wrage (IVIanuu)
@@ -59,12 +62,12 @@ public class PaginationActivity extends AppCompatActivity {
 
         spotifyService = ((App) getApplicationContext()).getSpotifyService();
 
-        paginationHelper = new PaginationHelper.Builder<AlbumSimple>()
+                paginationHelper = new PaginationHelper.Builder<AlbumSimple>()
                 .limit(10)
                 .fetcher(new PaginationHelper.Fetcher<AlbumSimple>() {
                     @Override
                     public Single<Pager<AlbumSimple>> fetch(@NonNull HashMap<String, Object> options) {
-                        return spotifyService.getNewReleases(options)
+                        return spotifyService.getNewReleasesBody(options)
                                 .subscribeOn(Schedulers.io())
                                 .map(new Function<NewReleases, Pager<AlbumSimple>>() {
                                     @Override
