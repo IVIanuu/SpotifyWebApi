@@ -21,6 +21,7 @@ import com.ivianuu.spotifywebapi.model.AccessToken;
 
 import io.reactivex.Single;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.Result;
@@ -80,6 +81,21 @@ public interface SpotifyAuthenticationService {
      */
     @FormUrlEncoded
     @POST("token")
+    Single<ResponseBody> getAccessTokenResponseBody(@Field("grant_type") String grantType, @Field("code") String code, @Field("redirect_uri") String redirectUri, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
+
+    /**
+     * Get's an access token
+     *
+     * @param grantType should always be "authorization_code"
+     * @param code the code
+     * @param redirectUri your redirect uri
+     * @param clientId your client id
+     * @param clientSecret your client secret
+     * @return The access token wrapped in a object
+     * @see <a href="https://developer.spotify.com/web-api/authorization-guide/#authorization-code-flow">Authorization code flow</a>
+     */
+    @FormUrlEncoded
+    @POST("token")
     Single<Result<AccessToken>> getAccessTokenResult(@Field("grant_type") String grantType, @Field("code") String code, @Field("redirect_uri") String redirectUri, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
 
 
@@ -110,6 +126,20 @@ public interface SpotifyAuthenticationService {
     @FormUrlEncoded
     @POST("token")
     Single<Response<AccessToken>> refreshAccessTokenResponse(@Field("grant_type") String grantType, @Field("refresh_token") String refreshToken, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
+
+    /**
+     * Get an refreshed token
+     *
+     * @param grantType should always be "refresh_token"
+     * @param refreshToken the refresh token
+     * @param clientId your client id
+     * @param clientSecret your client secret
+     * @return The access token wrapped in a object
+     * @see <a href="https://developer.spotify.com/web-api/authorization-guide/#authorization-code-flow">Authorization code flow</a>
+     */
+    @FormUrlEncoded
+    @POST("token")
+    Single<ResponseBody> refreshAccessTokenResponseBody(@Field("grant_type") String grantType, @Field("refresh_token") String refreshToken, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
 
     /**
      * Get an refreshed token

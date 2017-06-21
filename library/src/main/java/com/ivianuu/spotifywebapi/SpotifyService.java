@@ -58,6 +58,7 @@ import java.util.Map;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.Result;
@@ -110,6 +111,15 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-album/">Get an Album</a>
      */
     @GET("albums/{id}")
+    Single<ResponseBody> getAlbumResponseBody(@Path("id") String albumId);
+
+    /**
+     * Get Spotify catalog information for a single album.
+     * @param albumId  The Spotify ID for the album.
+     * @return Requested album information
+     * @see <a href="https://developer.spotify.com/web-api/get-album/">Get an Album</a>
+     */
+    @GET("albums/{id}")
     Single<Result<Album>> getAlbumResult(@Path("id") String albumId);
 
     /**
@@ -146,6 +156,18 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-album/">Get an Album</a>
      */
     @GET("albums/{id}")
+    Single<ResponseBody> getAlbumResponseBody(@Path("id") String albumId, @QueryMap Map<String, Object> options);
+
+    /**
+     * Get Spotify catalog information for a single album.
+     *
+     * @param albumId The Spotify ID for the album.
+     * @param options Optional parameters. For list of supported parameters see
+     *                <a href="https://developer.spotify.com/web-api/get-album/">endpoint documentation</a>
+     * @return Requested album information
+     * @see <a href="https://developer.spotify.com/web-api/get-album/">Get an Album</a>
+     */
+    @GET("albums/{id}")
     Single<Result<Album>> getAlbumResult(@Path("id") String albumId, @QueryMap Map<String, Object> options);
     
     /**
@@ -167,6 +189,16 @@ public interface SpotifyService {
      */
     @GET("albums")
     Single<Response<Albums>> getAlbumsResponse(@Query("ids") String albumIds);
+
+    /**
+     * Get Spotify catalog information for multiple albums identified by their Spotify IDs.
+     *
+     * @param albumIds A comma-separated list of the Spotify IDs for the albums
+     * @return Object whose key is "albums" and whose value is an array of album objects .
+     * @see <a href="https://developer.spotify.com/web-api/get-several-albums/">Get Several Albums</a>
+     */
+    @GET("albums")
+    Single<ResponseBody> getAlbumsResponseBody(@Query("ids") String albumIds);
 
     /**
      * Get Spotify catalog information for multiple albums identified by their Spotify IDs.
@@ -212,6 +244,18 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-albums/">Get Several Albums</a>
      */
     @GET("albums")
+    Single<ResponseBody> getAlbumsResponseBody(@Query("ids") String albumIds, @QueryMap Map<String, Object> options);
+
+    /**
+     * Get Spotify catalog information for multiple albums identified by their Spotify IDs.
+     *
+     * @param albumIds A comma-separated list of the Spotify IDs for the albums
+     * @param options  Optional parameters. For list of supported parameters see
+     *                 <a href="https://developer.spotify.com/web-api/get-several-albums/">endpoint documentation</a>
+     * @return Object whose key is "albums" and whose value is an array of album objects .
+     * @see <a href="https://developer.spotify.com/web-api/get-several-albums/">Get Several Albums</a>
+     */
+    @GET("albums")
     Single<Result<Albums>> getAlbumsResult(@Query("ids") String albumIds, @QueryMap Map<String, Object> options);
 
     /**
@@ -233,6 +277,16 @@ public interface SpotifyService {
      */
     @GET("albums/{id}/tracks")
     Single<Response<Pager<Track>>> getAlbumTracksResponse(@Path("id") String albumId);
+
+    /**
+     * Get Spotify catalog information about an album’s tracks.
+     *
+     * @param albumId The Spotify ID for the album.
+     * @return List of simplified album objects wrapped in a Pager object
+     * @see <a href="https://developer.spotify.com/web-api/get-albums-tracks/">Get an Album’s Tracks</a>
+     */
+    @GET("albums/{id}/tracks")
+    Single<ResponseBody> getAlbumTracksResponseBody(@Path("id") String albumId);
 
     /**
      * Get Spotify catalog information about an album’s tracks.
@@ -278,6 +332,18 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-albums-tracks/">Get an Album’s Tracks</a>
      */
     @GET("albums/{id}/tracks")
+    Single<ResponseBody> getAlbumTracksResponseBody(@Path("id") String albumId, @QueryMap Map<String, Object> options);
+
+    /**
+     * Get Spotify catalog information about an album’s tracks.
+     *
+     * @param albumId The Spotify ID for the album.
+     * @param options Optional parameters. For list of supported parameters see
+     *                <a href="https://developer.spotify.com/web-api/get-albums-tracks/">endpoint documentation</a>
+     * @return List of simplified album objects wrapped in a Pager object
+     * @see <a href="https://developer.spotify.com/web-api/get-albums-tracks/">Get an Album’s Tracks</a>
+     */
+    @GET("albums/{id}/tracks")
     Single<Result<Pager<Track>>> getAlbumTracksResult(@Path("id") String albumId, @QueryMap Map<String, Object> options);
 
     /*************
@@ -303,6 +369,16 @@ public interface SpotifyService {
      */
     @GET("artists/{id}")
     Single<Response<Artist>> getArtistResponse(@Path("id") String artistId);
+
+    /**
+     * Get Spotify catalog information for a single artist identified by their unique Spotify ID.
+     *
+     * @param artistId The Spotify ID for the artist.
+     * @return Requested artist information
+     * @see <a href="https://developer.spotify.com/web-api/get-artist/">Get an Artist</a>
+     */
+    @GET("artists/{id}")
+    Single<ResponseBody> getArtistResponseBody(@Path("id") String artistId);
 
     /**
      * Get Spotify catalog information for a single artist identified by their unique Spotify ID.
@@ -342,6 +418,16 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-artists/">Get Several Artists</a>
      */
     @GET("artists")
+    Single<ResponseBody> getArtistsResponseBody(@Query("ids") String artistIds);
+
+    /**
+     * Get Spotify catalog information for several artists based on their Spotify IDs.
+     *
+     * @param artistIds A comma-separated list of the Spotify IDs for the artists
+     * @return An object whose key is "artists" and whose value is an array of artist objects .
+     * @see <a href="https://developer.spotify.com/web-api/get-several-artists/">Get Several Artists</a>
+     */
+    @GET("artists")
     Single<Result<Artists>> getArtistsResult(@Query("ids") String artistIds);
 
     /**
@@ -363,6 +449,16 @@ public interface SpotifyService {
      */
     @GET("artists/{id}/albums")
     Single<Response<Pager<Album>>> getArtistAlbumsResponse(@Path("id") String artistId);
+
+    /**
+     * Get Spotify catalog information about an artist’s albums.
+     *
+     * @param artistId The Spotify ID for the artist.
+     * @return An array of simplified album objects wrapped in a paging object.
+     * @see <a href="https://developer.spotify.com/web-api/get-artists-albums/">Get an Artist's Albums</a>
+     */
+    @GET("artists/{id}/albums")
+    Single<ResponseBody> getArtistAlbumsResponseBody(@Path("id") String artistId);
 
     /**
      * Get Spotify catalog information about an artist’s albums.
@@ -408,6 +504,18 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artists-albums/">Get an Artist's Albums</a>
      */
     @GET("artists/{id}/albums")
+    Single<ResponseBody> getArtistAlbumsResponseBody(@Path("id") String artistId, @QueryMap Map<String, Object> options);
+
+    /**
+     * Get Spotify catalog information about an artist’s albums.
+     *
+     * @param artistId The Spotify ID for the artist.
+     * @param options  Optional parameters. For list of supported parameters see
+     *                 <a href="https://developer.spotify.com/web-api/get-artists-albums/">endpoint documentation</a>
+     * @return An array of simplified album objects wrapped in a paging object.
+     * @see <a href="https://developer.spotify.com/web-api/get-artists-albums/">Get an Artist's Albums</a>
+     */
+    @GET("artists/{id}/albums")
     Single<Result<Pager<Album>>> getArtistAlbumsResult(@Path("id") String artistId, @QueryMap Map<String, Object> options);
 
     /**
@@ -431,6 +539,17 @@ public interface SpotifyService {
      */
     @GET("artists/{id}/top-tracks")
     Single<Response<Tracks>> getArtistTopTracksResponse(@Path("id") String artistId, @Query(COUNTRY) String country);
+
+    /**
+     * Get Spotify catalog information about an artist’s top tracks by country.
+     *
+     * @param artistId The Spotify ID for the artist.
+     * @param country  The country: an ISO 3166-1 alpha-2 country code.
+     * @return An object whose key is "tracks" and whose value is an array of track objects.
+     * @see <a href="https://developer.spotify.com/web-api/get-artists-top-tracks/">Get an Artist’s Top Tracks</a>
+     */
+    @GET("artists/{id}/top-tracks")
+    Single<ResponseBody> getArtistTopTracksResponseBody(@Path("id") String artistId, @Query(COUNTRY) String country);
 
     /**
      * Get Spotify catalog information about an artist’s top tracks by country.
@@ -471,6 +590,16 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-related-artists/">Get an Artist’s Related Artists</a>
      */
     @GET("artists/{id}/related-artists")
+    Single<ResponseBody> getRelatedArtistsResponseBody(@Path("id") String artistId);
+
+    /**
+     * Get Spotify catalog information about artists similar to a given artist.
+     *
+     * @param artistId The Spotify ID for the artist.
+     * @return An object whose key is "artists" and whose value is an array of artist objects.
+     * @see <a href="https://developer.spotify.com/web-api/get-related-artists/">Get an Artist’s Related Artists</a>
+     */
+    @GET("artists/{id}/related-artists")
     Single<Result<Artists>> getRelatedArtistsResult(@Path("id") String artistId);
 
     /*************
@@ -494,6 +623,15 @@ public interface SpotifyService {
      */
     @GET("browse/featured-playlists")
     Single<Response<FeaturedPlaylists>> getFeaturedPlaylistsResponse();
+
+    /**
+     * Get a list of Spotify featured playlists (shown, for example, on a Spotify player’s “Browse” tab).
+     *
+     * @return A FeaturedPlaylists object with the featured playlists
+     * @see <a href="https://developer.spotify.com/web-api/get-list-featured-playlists/">Get a List of Featured Playlists</a>
+     */
+    @GET("browse/featured-playlists")
+    Single<ResponseBody> getFeaturedPlaylistsResponseBody();
 
     /**
      * Get a list of Spotify featured playlists (shown, for example, on a Spotify player’s “Browse” tab).
@@ -535,6 +673,17 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-featured-playlists/">Get a List of Featured Playlists</a>
      */
     @GET("browse/featured-playlists")
+    Single<ResponseBody> getFeaturedPlaylistsResponseBody(@QueryMap Map<String, Object> options);
+
+    /**
+     * Get a list of Spotify featured playlists (shown, for example, on a Spotify player’s “Browse” tab).
+     *
+     * @param options Optional parameters. For list of supported parameters see
+     *                <a href="https://developer.spotify.com/web-api/get-list-featured-playlists/">endpoint documentation</a>
+     * @return n FeaturedPlaylists object with the featured playlists
+     * @see <a href="https://developer.spotify.com/web-api/get-list-featured-playlists/">Get a List of Featured Playlists</a>
+     */
+    @GET("browse/featured-playlists")
     Single<Result<FeaturedPlaylists>> getFeaturedPlaylistsResult(@QueryMap Map<String, Object> options);
 
     /**
@@ -554,6 +703,15 @@ public interface SpotifyService {
      */
     @GET("browse/new-releases")
     Single<Response<NewReleases>> getNewReleasesResponse();
+
+    /**
+     * Get a list of new album releases featured in Spotify (shown, for example, on a Spotify player’s “Browse” tab).
+     *
+     * @return A NewReleases object with the new album releases
+     * @see <a href="https://developer.spotify.com/web-api/get-list-new-releases/">Get a List of New Releases</a>
+     */
+    @GET("browse/new-releases")
+    Single<ResponseBody> getNewReleasesResponseBody();
 
     /**
      * Get a list of new album releases featured in Spotify (shown, for example, on a Spotify player’s “Browse” tab).
@@ -585,6 +743,17 @@ public interface SpotifyService {
      */
     @GET("browse/new-releases")
     Single<Response<NewReleases>> getNewReleasesResponse(@QueryMap Map<String, Object> options);
+
+    /**
+     * Get a list of new album releases featured in Spotify (shown, for example, on a Spotify player’s “Browse” tab).
+     *
+     * @param options Optional parameters. For list of supported parameters see
+     *                <a href="https://developer.spotify.com/web-api/get-list-new-releases/">endpoint documentation</a>
+     * @return A NewReleases object with the new album releases
+     * @see <a href="https://developer.spotify.com/web-api/get-list-new-releases/">Get a List of New Releases</a>
+     */
+    @GET("browse/new-releases")
+    Single<ResponseBody> getNewReleasesResponseBody(@QueryMap Map<String, Object> options);
 
     /**
      * Get a list of new album releases featured in Spotify (shown, for example, on a Spotify player’s “Browse” tab).
@@ -628,6 +797,17 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-categories/">Get a List of Categories</a>
      */
     @GET("browse/categories")
+    Single<ResponseBody> getCategoriesResponseBody(@QueryMap Map<String, Object> options);
+
+    /**
+     * Retrieve Spotify categories. Categories used to tag items in
+     * Spotify (on, for example, the Spotify player’s “Browse” tab).
+     *
+     * @param options Optional parameters.
+     * @return A paging object containing categories.
+     * @see <a href="https://developer.spotify.com/web-api/get-list-categories/">Get a List of Categories</a>
+     */
+    @GET("browse/categories")
     Single<Result<CategoriesPager>> getCategoriesResult(@QueryMap Map<String, Object> options);
 
     /**
@@ -651,6 +831,17 @@ public interface SpotifyService {
      */
     @GET("browse/categories/{category_id}")
     Single<Response<Category>> getCategoryResponse(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
+
+    /**
+     * Retrieve a Spotify category.
+     *
+     * @param categoryId The category's ID.
+     * @param options    Optional parameters.
+     * @return A Spotify category.
+     * @see <a href="https://developer.spotify.com/web-api/get-category/">Get a Spotify Category</a>
+     */
+    @GET("browse/categories/{category_id}")
+    Single<ResponseBody> getCategoryResponseBody(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
 
     /**
      * Retrieve a Spotify category.
@@ -694,6 +885,17 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-categorys-playlists/">Get playlists for a Spotify Category</a>
      */
     @GET("browse/categories/{category_id}/playlists")
+    Single<ResponseBody> getPlaylistsForCategoryResponseBody(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
+
+    /**
+     * Retrieve playlists for a Spotify Category.
+     *
+     * @param categoryId The category's ID.
+     * @param options    Optional parameters.
+     * @return Playlists for a Spotify Category.
+     * @see <a href="https://developer.spotify.com/web-api/get-categorys-playlists/">Get playlists for a Spotify Category</a>
+     */
+    @GET("browse/categories/{category_id}/playlists")
     Single<Result<PlaylistsPager>> getPlaylistsForCategoryResult(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
 
     /**
@@ -724,6 +926,16 @@ public interface SpotifyService {
      * @return Recommendations response object
      */
     @GET("recommendations")
+    Single<ResponseBody> getRecommendationsResponseBody(@QueryMap Map<String, Object> options);
+
+    /**
+     * Create a playlist-style listening experience based on seed artists, tracks and genres.
+     *
+     * @param options Optional parameters. For list of available parameters see
+     *                <a href="https://developer.spotify.com/web-api/get-recommendations/">endpoint documentation</a>
+     * @return Recommendations response object
+     */
+    @GET("recommendations")
     Single<Result<Recommendations>> getRecommendationsResult(@QueryMap Map<String, Object> options);
 
     /**
@@ -741,6 +953,14 @@ public interface SpotifyService {
      */
     @GET("recommendations/available-genre-seeds")
     Single<Response<SeedsGenres>> getSeedsGenresResponse();
+
+    /**
+     * Retrieve a list of available genres seed parameter values for recommendations.
+     *
+     * @return An object whose key is "genres" and whose value is an array of available genres.
+     */
+    @GET("recommendations/available-genre-seeds")
+    Single<ResponseBody> getSeedsGenresResponseBody();
 
     /**
      * Retrieve a list of available genres seed parameter values for recommendations.
@@ -779,6 +999,15 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-followed-artists/">Get User's Followed Artists</a>
      */
     @GET("me/following?type=artist")
+    Single<ResponseBody> getFollowedArtistsResponseBody();
+
+    /**
+     * Get the current user's followed artists.
+     *
+     * @return Object containing a list of artists that user follows wrapped in a cursor object.
+     * @see <a href="https://developer.spotify.com/web-api/get-followed-artists/">Get User's Followed Artists</a>
+     */
+    @GET("me/following?type=artist")
     Single<Result<ArtistsCursorPager>> getFollowedArtistsResult();
 
     /**
@@ -802,6 +1031,17 @@ public interface SpotifyService {
      */
     @GET("me/following?type=artist")
     Single<Response<ArtistsCursorPager>> getFollowedArtistsResponse(@QueryMap Map<String, Object> options);
+
+    /**
+     * Get the current user's followed artists.
+     *
+     * @param options Optional parameters. For list of supported parameters see
+     *                <a href="https://developer.spotify.com/web-api/get-followed-artists/">endpoint documentation</a>
+     * @return Object containing a list of artists that user follows wrapped in a cursor object.
+     * @see <a href="https://developer.spotify.com/web-api/get-followed-artists/">Get User's Followed Artists</a>
+     */
+    @GET("me/following?type=artist")
+    Single<ResponseBody> getFollowedArtistsResponseBody(@QueryMap Map<String, Object> options);
 
     /**
      * Get the current user's followed artists.
@@ -882,6 +1122,16 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-current-user-follows/">Check if Current User Follows Artists or Users</a>
      */
     @GET("me/following/contains?type=user")
+    Single<ResponseBody> isFollowingUsersResponseBody(@Query("ids") String ids);
+
+    /**
+     * Check to see if the current user is following one or more other Spotify users.
+     *
+     * @param ids A comma-separated list of the Spotify IDs for the users
+     * @return An array with boolean values indicating whether the users are followed
+     * @see <a href="https://developer.spotify.com/web-api/check-current-user-follows/">Check if Current User Follows Artists or Users</a>
+     */
+    @GET("me/following/contains?type=user")
     Single<Result<Boolean[]>> isFollowingUsersResult(@Query("ids") String ids);
 
     /**
@@ -903,6 +1153,16 @@ public interface SpotifyService {
      */
     @GET("me/following/contains?type=artist")
     Single<Response<Boolean[]>> isFollowingArtistsResponse(@Query("ids") String ids);
+
+    /**
+     * Check to see if the current user is following one or more other Spotify artists.
+     *
+     * @param ids A comma-separated list of the Spotify IDs for the artists
+     * @return An array with boolean values indicating whether the artists are followed
+     * @see <a href="https://developer.spotify.com/web-api/check-current-user-follows/">Check if Current User Follows Artists or Users</a>
+     */
+    @GET("me/following/contains?type=artist")
+    Single<ResponseBody> isFollowingArtistsResponseBody(@Query("ids") String ids);
 
     /**
      * Check to see if the current user is following one or more other Spotify artists.
@@ -982,6 +1242,18 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-user-following-playlist/">Check if Users Follow a Playlist</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/followers/contains")
+    Single<ResponseBody> areFollowingPlaylistResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("ids") String ids);
+
+    /**
+     * Check to see if one or more Spotify users are following a specified playlist.
+     *
+     * @param userId     The Spotify user ID of the person who owns the playlist.
+     * @param playlistId The Spotify ID of the playlist.
+     * @param ids        A comma-separated list of the Spotify IDs for the users
+     * @return An array with boolean values indicating whether the playlist is followed by the users
+     * @see <a href="https://developer.spotify.com/web-api/check-user-following-playlist/">Check if Users Follow a Playlist</a>
+     */
+    @GET("users/{user_id}/playlists/{playlist_id}/followers/contains")
     Single<Result<Boolean[]>> areFollowingPlaylistResult(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("ids") String ids);
 
     /*************
@@ -1023,6 +1295,15 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-tracks/">Get a User’s Saved Tracks</a>
      */
     @GET("me/tracks")
+    Single<ResponseBody> getMySavedTracksResponseBody();
+
+    /**
+     * Get a list of the songs saved in the current Spotify user’s “Your Music” library.
+     *
+     * @return A paginated list of saved tracks
+     * @see <a href="https://developer.spotify.com/web-api/get-users-saved-tracks/">Get a User’s Saved Tracks</a>
+     */
+    @GET("me/tracks")
     Single<Result<Pager<SavedTrack>>> getMySavedTracksResult();
 
     /**
@@ -1046,6 +1327,17 @@ public interface SpotifyService {
      */
     @GET("me/tracks")
     Single<Response<Pager<SavedTrack>>> getMySavedTracksResponse(@QueryMap Map<String, Object> options);
+
+    /**
+     * Get a list of the songs saved in the current Spotify user’s “Your Music” library.
+     *
+     * @param options Optional parameters. For list of supported parameters see
+     *                <a href="https://developer.spotify.com/web-api/get-users-saved-tracks/">endpoint documentation</a>
+     * @return A paginated list of saved tracks
+     * @see <a href="https://developer.spotify.com/web-api/get-users-saved-tracks/">Get a User’s Saved Tracks</a>
+     */
+    @GET("me/tracks")
+    Single<ResponseBody> getMySavedTracksResponseBody(@QueryMap Map<String, Object> options);
 
     /**
      * Get a list of the songs saved in the current Spotify user’s “Your Music” library.
@@ -1096,6 +1388,16 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-users-saved-tracks/">Check User’s Saved Tracks</a>
      */
     @GET("me/tracks/contains")
+    Single<ResponseBody> containsMySavedTracksResponseBody(@Query("ids") String ids);
+
+    /**
+     * Check if one or more tracks is already saved in the current Spotify user’s “Your Music” library.
+     *
+     * @param ids A comma-separated list of the Spotify IDs for the tracks
+     * @return An array with boolean values that indicate whether the tracks are in the current Spotify user’s “Your Music” library.
+     * @see <a href="https://developer.spotify.com/web-api/check-users-saved-tracks/">Check User’s Saved Tracks</a>
+     */
+    @GET("me/tracks/contains")
     Single<Result<Boolean[]>> containsMySavedTracksResult(@Query("ids") String ids);
     
     /**
@@ -1133,6 +1435,15 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-albums/">Get a User’s Saved Albums</a>
      */
     @GET("me/albums")
+    Single<ResponseBody> getMySavedAlbumsResponseBody();
+
+    /**
+     * Get a list of the albums saved in the current Spotify user’s “Your Music” library.
+     *
+     * @return A paginated list of saved albums
+     * @see <a href="https://developer.spotify.com/web-api/get-users-saved-albums/">Get a User’s Saved Albums</a>
+     */
+    @GET("me/albums")
     Single<Result<Pager<SavedAlbum>>> getMySavedAlbumsResult();
 
     /**
@@ -1156,6 +1467,17 @@ public interface SpotifyService {
      */
     @GET("me/albums")
     Single<Response<Pager<SavedAlbum>>> getMySavedAlbumsResponse(@QueryMap Map<String, Object> options);
+
+    /**
+     * Get a list of the albums saved in the current Spotify user’s “Your Music” library.
+     *
+     * @param options Optional parameters. For list of supported parameters see
+     *                <a href="https://developer.spotify.com/web-api/get-users-saved-albums/">endpoint documentation</a>
+     * @return A paginated list of saved albums
+     * @see <a href="https://developer.spotify.com/web-api/get-users-saved-albums/">Get a User’s Saved Albums</a>
+     */
+    @GET("me/albums")
+    Single<ResponseBody> getMySavedAlbumsResponseBody(@QueryMap Map<String, Object> options);
 
     /**
      * Get a list of the albums saved in the current Spotify user’s “Your Music” library.
@@ -1206,6 +1528,16 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-users-saved-albums/">Check User’s Saved Albums</a>
      */
     @GET("me/albums/contains")
+    Single<ResponseBody> containsMySavedAlbumsResponseBody(@Query("ids") String ids);
+
+    /**
+     * Check if one or more albums is already saved in the current Spotify user’s “Your Music” library.
+     *
+     * @param ids A comma-separated list of the Spotify IDs for the albums
+     * @return An array with boolean values that indicate whether the albums are in the current Spotify user’s “Your Music” library.
+     * @see <a href="https://developer.spotify.com/web-api/check-users-saved-albums/">Check User’s Saved Albums</a>
+     */
+    @GET("me/albums/contains")
     Single<Result<Boolean[]>> containsMySavedAlbumsResult(@Query("ids") String ids);
 
     /*************
@@ -1229,6 +1561,15 @@ public interface SpotifyService {
      */
     @GET("me/top/artists")
     Single<Response<Pager<Artist>>> getTopArtistsResponse();
+
+    /**
+     * Get the current user’s top artists based on calculated affinity.
+     *
+     * @return The objects whose response body contains an artists or tracks object.
+     * The object in turn contains a paging object of Artists or Tracks
+     */
+    @GET("me/top/artists")
+    Single<ResponseBody> getTopArtistsResponseBody();
 
     /**
      * Get the current user’s top artists based on calculated affinity.
@@ -1270,6 +1611,17 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/artists")
+    Single<ResponseBody> getTopArtistsResponseBody(@QueryMap Map<String, Object> options);
+
+    /**
+     * Get the current user’s top artists based on calculated affinity.
+     *
+     * @param options Optional parameters. For list of available parameters see
+     *                <a href="https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/">endpoint documentation</a>
+     * @return The objects whose response body contains an artists or tracks object.
+     * The object in turn contains a paging object of Artists or Tracks
+     */
+    @GET("me/top/artists")
     Single<Result<Pager<Artist>>> getTopArtistsResult(@QueryMap Map<String, Object> options);
 
     /**
@@ -1289,6 +1641,15 @@ public interface SpotifyService {
      */
     @GET("me/top/tracks")
     Single<Response<Pager<Track>>> getTopTracksResponse();
+
+    /**
+     * Get the current user’s top tracks based on calculated affinity.
+     *
+     * @return The objects whose response body contains an artists or tracks object.
+     * The object in turn contains a paging object of Artists or Tracks
+     */
+    @GET("me/top/tracks")
+    Single<ResponseBody> getTopTracksResponseBody();
 
     /**
      * Get the current user’s top tracks based on calculated affinity.
@@ -1330,6 +1691,17 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/tracks")
+    Single<ResponseBody> getTopTracksResponseBody(@QueryMap Map<String, Object> options);
+
+    /**
+     * Get the current user’s top tracks based on calculated affinity.
+     *
+     * @param options Optional parameters. For list of available parameters see
+     *                <a href="https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/">endpoint documentation</a>
+     * @return The objects whose response body contains an artists or tracks object.
+     * The object in turn contains a paging object of Artists or Tracks
+     */
+    @GET("me/top/tracks")
     Single<Result<Pager<Track>>> getTopTracksResult(@QueryMap Map<String, Object> options);
 
     /**
@@ -1345,6 +1717,13 @@ public interface SpotifyService {
      */
     @GET("me/player/recently-played")
     Single<Response<Pager<PlayHistory>>> getRecentlyPlayedTracksResponse();
+
+    /**
+     * Get tracks from the current user’s recently played tracks.
+     * @return The object in turn contains a paging object of Play history items
+     */
+    @GET("me/player/recently-played")
+    Single<ResponseBody> getRecentlyPlayedTracksResponseBody();
 
     /**
      * Get tracks from the current user’s recently played tracks.
@@ -1378,6 +1757,15 @@ public interface SpotifyService {
       * @return The object in turn contains a paging object of Play history items
      */
     @GET("me/player/recently-played")
+    Single<ResponseBody> getRecentlyPlayedTracksResponseBody(@QueryMap Map<String, Object> options);
+
+    /**
+     * Get tracks from the current user’s recently played tracks.
+     @param options Optional parameters. For list of available parameters see
+     <a href="https://developer.spotify.com/web-api/web-api-personalization-endpoints/get-recently-played/">endpoint documentation</a>
+      * @return The object in turn contains a paging object of Play history items
+     */
+    @GET("me/player/recently-played")
     Single<Result<Pager<PlayHistory>>> getRecentlyPlayedTracksResult(@QueryMap Map<String, Object> options);
 
     /*************
@@ -1391,6 +1779,9 @@ public interface SpotifyService {
     Single<Response<Payload>> getUsersAvailableDevicesResponse();
 
     @GET("me/player/devices")
+    Single<ResponseBody> getUsersAvailableDevicesResponseBody();
+
+    @GET("me/player/devices")
     Single<Result<Payload>> getUsersAvailableDevicesResult();
 
     @GET("me/player")
@@ -1398,6 +1789,9 @@ public interface SpotifyService {
 
     @GET("me/player")
     Single<Response<CurrentlyPlayingContext>> getCurrentPlaybackResponse();
+
+    @GET("me/player")
+    Single<ResponseBody> getCurrentPlaybackResponseBody();
 
     @GET("me/player")
     Single<Result<CurrentlyPlayingContext>> getCurrentPlaybackResult();
@@ -1409,6 +1803,9 @@ public interface SpotifyService {
     Single<Response<CurrentlyPlayingContext>> getCurrentPlaybackResponse(@QueryMap Map<String, Object> options);
 
     @GET("me/player")
+    Single<ResponseBody> getCurrentPlaybackResponseBody(@QueryMap Map<String, Object> options);
+
+    @GET("me/player")
     Single<Result<CurrentlyPlayingContext>> getCurrentPlaybackResult(@QueryMap Map<String, Object> options);
     
     @GET("me/player")
@@ -1416,6 +1813,9 @@ public interface SpotifyService {
 
     @GET("me/player")
     Single<Response<CurrentlyPlayingContext>> getCurrentlyPlayingTrackResponse();
+
+    @GET("me/player")
+    Single<ResponseBody> getCurrentlyPlayingTrackResponseBody();
 
     @GET("me/player")
     Single<Result<CurrentlyPlayingContext>> getCurrentlyPlayingTrackResult(@QueryMap Map<String, Object> options);
@@ -1515,6 +1915,18 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-users-playlists/">Get a List of a User’s Playlists</a>
      */
     @GET("users/{id}/playlists")
+    Single<ResponseBody> getPlaylistsResponseBody(@Path("id") String userId, @QueryMap Map<String, Object> options);
+
+    /**
+     * Get a list of the playlists owned or followed by a Spotify user.
+     *
+     * @param userId  The user's Spotify user ID.
+     * @param options Optional parameters. For list of supported parameters see
+     *                <a href="https://developer.spotify.com/web-api/get-list-users-playlists/">endpoint documentation</a>
+     * @return List of user's playlists wrapped in a {@code Pager} object
+     * @see <a href="https://developer.spotify.com/web-api/get-list-users-playlists/">Get a List of a User’s Playlists</a>
+     */
+    @GET("users/{id}/playlists")
     Single<Result<Pager<PlaylistSimple>>> getPlaylistsResult(@Path("id") String userId, @QueryMap Map<String, Object> options);
 
     /**
@@ -1536,6 +1948,16 @@ public interface SpotifyService {
      */
     @GET("users/{id}/playlists")
     Single<Response<Pager<PlaylistSimple>>> getPlaylistsResponse(@Path("id") String userId);
+
+    /**
+     * Get a list of the playlists owned or followed by a Spotify user.
+     *
+     * @param userId The user's Spotify user ID.
+     * @return List of user's playlists wrapped in a {@code Pager} object
+     * @see <a href="https://developer.spotify.com/web-api/get-list-users-playlists/">Get a List of a User’s Playlists</a>
+     */
+    @GET("users/{id}/playlists")
+    Single<ResponseBody> getPlaylistsResponseBody(@Path("id") String userId);
 
     /**
      * Get a list of the playlists owned or followed by a Spotify user.
@@ -1571,6 +1993,14 @@ public interface SpotifyService {
      * @return List of user's playlists wrapped in a {@code Pager} object
      */
     @GET("me/playlists")
+    Single<ResponseBody> getMyPlaylistsResponseBody();
+
+    /**
+     * Get a list of the playlists owned or followed by the current Spotify user.
+     *
+     * @return List of user's playlists wrapped in a {@code Pager} object
+     */
+    @GET("me/playlists")
     Single<Result<Pager<PlaylistSimple>>> getMyPlaylistsResult();
 
     /**
@@ -1592,6 +2022,16 @@ public interface SpotifyService {
      */
     @GET("me/playlists")
     Single<Response<PlaylistSimple>> getMyPlaylistsResponse(@QueryMap Map<String, Object> options);
+
+    /**
+     * Get a list of the playlists owned or followed by the current Spotify user.
+     *
+     * @param options Optional parameters. For list of supported parameters see
+     *                <a href="https://developer.spotify.com/web-api/get-a-list-of-current-users-playlists/">endpoint documentation</a>
+     * @return List of user's playlists wrapped in a {@code Pager} object
+     */
+    @GET("me/playlists")
+    Single<ResponseBody> getMyPlaylistsResponseBody(@QueryMap Map<String, Object> options);
 
     /**
      * Get a list of the playlists owned or followed by the current Spotify user.
@@ -1640,6 +2080,19 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlist/">Get a Playlist</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}")
+    Single<ResponseBody> getPlaylistResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
+
+    /**
+     * Get a playlist owned by a Spotify user.
+     *
+     * @param userId     The user's Spotify user ID.
+     * @param playlistId The Spotify ID for the playlist.
+     * @param options    Optional parameters. For list of supported parameters see
+     *                   <a href="https://developer.spotify.com/web-api/get-playlist/">endpoint documentation</a>
+     * @return Requested Playlist.
+     * @see <a href="https://developer.spotify.com/web-api/get-playlist/">Get a Playlist</a>
+     */
+    @GET("users/{user_id}/playlists/{playlist_id}")
     Single<Result<Playlist>> getPlaylistResult(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
 
     // TODO: 21.06.2017 hahah
@@ -1664,6 +2117,17 @@ public interface SpotifyService {
      */
     @GET("users/{user_id}/playlists/{playlist_id}")
     Single<Response<Playlist>> getPlaylistResponse(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+
+    /**
+     * Get a playlist owned by a Spotify user.
+     *
+     * @param userId     The user's Spotify user ID.
+     * @param playlistId The Spotify ID for the playlist.
+     * @return Requested Playlist.
+     * @see <a href="https://developer.spotify.com/web-api/get-playlist/">Get a Playlist</a>
+     */
+    @GET("users/{user_id}/playlists/{playlist_id}")
+    Single<ResponseBody> getPlaylistResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     /**
      * Get a playlist owned by a Spotify user.
@@ -1713,6 +2177,19 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlists-tracks/">Get a Playlist’s Tracks</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/tracks")
+    Single<ResponseBody> getPlaylistTracksResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
+
+    /**
+     * Get full details of the tracks of a playlist owned by a Spotify user.
+     *
+     * @param userId     The user's Spotify user ID.
+     * @param playlistId The Spotify ID for the playlist.
+     * @param options    Optional parameters. For list of supported parameters see
+     *                   <a href="https://developer.spotify.com/web-api/get-playlists-tracks/">endpoint documentation</a>
+     * @return List of playlist's tracks wrapped in a {@code Pager} object
+     * @see <a href="https://developer.spotify.com/web-api/get-playlists-tracks/">Get a Playlist’s Tracks</a>
+     */
+    @GET("users/{user_id}/playlists/{playlist_id}/tracks")
     Single<Result<Pager<PlaylistTrack>>> getPlaylistTracksResult(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
 
     /**
@@ -1746,6 +2223,17 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlists-tracks/">Get a Playlist’s Tracks</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/tracks")
+    Single<ResponseBody> getPlaylistTracksResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
+
+    /**
+     * Get full details of the tracks of a playlist owned by a Spotify user.
+     *
+     * @param userId     The user's Spotify user ID.
+     * @param playlistId The Spotify ID for the playlist.
+     * @return List of playlist's tracks wrapped in a {@code Pager} object
+     * @see <a href="https://developer.spotify.com/web-api/get-playlists-tracks/">Get a Playlist’s Tracks</a>
+     */
+    @GET("users/{user_id}/playlists/{playlist_id}/tracks")
     Single<Result<Pager<PlaylistTrack>>> getPlaylistTracksResult(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     /**
@@ -1769,6 +2257,17 @@ public interface SpotifyService {
      */
     @POST("users/{user_id}/playlists")
     Single<Response<Playlist>> createPlaylistResponse(@Path("user_id") String userId, @Body Map<String, Object> options);
+
+    /**
+     * Create a playlist
+     *
+     * @param userId  The playlist's owner's User ID
+     * @param options The body parameters
+     * @return The created playlist
+     * @see <a href="https://developer.spotify.com/web-api/create-playlist/">Create a Playlist</a>
+     */
+    @POST("users/{user_id}/playlists")
+    Single<ResponseBody> createPlaylistResponseBody(@Path("user_id") String userId, @Body Map<String, Object> options);
 
     /**
      * Create a playlist
@@ -1830,6 +2329,19 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/add-tracks-to-playlist/">Add Tracks to a Playlist</a>
      */
     @POST("users/{user_id}/playlists/{playlist_id}/tracks")
+    Single<ResponseBody> addTracksToPlaylistResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> queryParameters, @Body Map<String, Object> body);
+
+    /**
+     * Add tracks to a playlist
+     *
+     * @param userId          The owner of the playlist
+     * @param playlistId      The playlist's ID
+     * @param queryParameters Query parameters
+     * @param body            The body parameters
+     * @return A snapshot ID (the version of the playlist)
+     * @see <a href="https://developer.spotify.com/web-api/add-tracks-to-playlist/">Add Tracks to a Playlist</a>
+     */
+    @POST("users/{user_id}/playlists/{playlist_id}/tracks")
     Single<Result<SnapshotId>> addTracksToPlaylistResult(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> queryParameters, @Body Map<String, Object> body);
 
     /**
@@ -1855,6 +2367,18 @@ public interface SpotifyService {
      */
     @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
     Single<Response<SnapshotId>> removeTracksFromPlaylistResponse(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemove tracksToRemove);
+
+    /**
+     * Remove one or more tracks from a user’s playlist.
+     *
+     * @param userId         The owner of the playlist
+     * @param playlistId     The playlist's Id
+     * @param tracksToRemove A list of tracks to remove
+     * @return A snapshot ID (the version of the playlist)
+     * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
+     */
+    @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
+    Single<ResponseBody> removeTracksFromPlaylistResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemove tracksToRemove);
 
     /**
      * Remove one or more tracks from a user’s playlist.
@@ -1902,6 +2426,18 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
      */
     @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
+    Single<ResponseBody> removeTracksFromPlaylistResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveWithPosition tracksToRemoveWithPosition);
+
+    /**
+     * Remove one or more tracks from a user’s playlist.
+     *
+     * @param userId         The owner of the playlist
+     * @param playlistId     The playlist's Id
+     * @param tracksToRemoveWithPosition A list of tracks to remove
+     * @return A snapshot ID (the version of the playlist)
+     * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
+     */
+    @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
     Single<Result<SnapshotId>> removeTracksFromPlaylistResult(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveWithPosition tracksToRemoveWithPosition);
 
     /**
@@ -1938,6 +2474,18 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
      */
     @DELETE("/users/{user_id}/playlists/{playlist_id}/tracks")
+    Single<ResponseBody> removeTracksFromPlaylistResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveByPosition tracksToRemoveByPosition);
+
+    /**
+     * Remove one or more tracks from a user’s playlist.
+     *
+     * @param userId         The owner of the playlist
+     * @param playlistId     The playlist's Id
+     * @param tracksToRemoveByPosition A list of tracks to remove
+     * @return A snapshot ID (the version of the playlist)
+     * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
+     */
+    @DELETE("/users/{user_id}/playlists/{playlist_id}/tracks")
     Single<Result<SnapshotId>> removeTracksFromPlaylistResult(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveByPosition tracksToRemoveByPosition);
 
     /**
@@ -1963,6 +2511,18 @@ public interface SpotifyService {
      */
     @PUT("users/{user_id}/playlists/{playlist_id}/tracks")
     Single<Response<SnapshotId>> reorderPlaylistTracksResponse(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
+
+    /**
+     * Reorder a Playlist's tracks
+     *
+     * @param userId     The Spotify user ID of the user who owns the playlist.
+     * @param playlistId The Spotify ID of the playlist
+     * @param body       The body parameters. For list of supported parameters see <a href="https://developer.spotify.com/web-api/reorder-playlists-tracks/">endpoint documentation</a>
+     * @return A snapshot ID (the version of the playlist)
+     * @see <a href="https://developer.spotify.com/web-api/reorder-playlists-tracks/">Reorder a Playlist</a>
+     */
+    @PUT("users/{user_id}/playlists/{playlist_id}/tracks")
+    Single<ResponseBody> reorderPlaylistTracksResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
 
     /**
      * Reorder a Playlist's tracks
@@ -2021,6 +2581,16 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-current-users-profile/">Get Current User's Profile</a>
      */
     @GET("me")
+    Single<ResponseBody> getMeResponseBody();
+
+    /**
+     * Get the currently logged in user profile information.
+     * The contents of the User object may differ depending on application's scope.
+     *
+     * @return The current user
+     * @see <a href="https://developer.spotify.com/web-api/get-current-users-profile/">Get Current User's Profile</a>
+     */
+    @GET("me")
     Single<Result<UserPrivate>> getMeResult();
 
     /**
@@ -2042,6 +2612,16 @@ public interface SpotifyService {
      */
     @GET("users/{id}")
     Single<Response<UserPublic>> getUserResponse(@Path("id") String userId);
+
+    /**
+     * Get a user's profile information.
+     *
+     * @param userId The user's User ID
+     * @return The user's profile information.
+     * @see <a href="https://developer.spotify.com/web-api/get-users-profile/">Get User's Public Profile</a>
+     */
+    @GET("users/{id}")
+    Single<ResponseBody> getUserResponseBody(@Path("id") String userId);
 
     /**
      * Get a user's profile information.
@@ -2076,6 +2656,16 @@ public interface SpotifyService {
      */
     @GET("search?type=track")
     Single<Response<TracksPager>> searchTracksResponse(@Query("q") String q);
+
+    /**
+     * Get Spotify catalog information about tracks that match a keyword string.
+     *
+     * @param q The search query's keywords (and optional field filters and operators), for example "roadhouse+blues"
+     * @return A paginated list of results
+     * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
+     */
+    @GET("search?type=track")
+    Single<ResponseBody> searchTracksResponseBody(@Query("q") String q);
 
     /**
      * Get Spotify catalog information about tracks that match a keyword string.
@@ -2121,6 +2711,18 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=track")
+    Single<ResponseBody> searchTracksResponseBody(@Query("q") String q, @QueryMap Map<String, Object> options);
+
+    /**
+     * Get Spotify catalog information about tracks that match a keyword string.
+     *
+     * @param q       The search query's keywords (and optional field filters and operators), for example "roadhouse+blues"
+     * @param options Optional parameters. For list of supported parameters see
+     *                <a href="https://developer.spotify.com/web-api/search-item/">endpoint documentation</a>
+     * @return A paginated list of results
+     * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
+     */
+    @GET("search?type=track")
     Single<Result<TracksPager>> searchTracksResult(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2142,6 +2744,16 @@ public interface SpotifyService {
      */
     @GET("search?type=artist")
     Single<Response<ArtistsPager>> searchArtistsResponse(@Query("q") String q);
+
+    /**
+     * Get Spotify catalog information about artists that match a keyword string.
+     *
+     * @param q The search query's keywords (and optional field filters and operators), for example "roadhouse+blues"
+     * @return A paginated list of results
+     * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
+     */
+    @GET("search?type=artist")
+    Single<ResponseBody> searchArtistsResponseBody(@Query("q") String q);
 
     /**
      * Get Spotify catalog information about artists that match a keyword string.
@@ -2187,6 +2799,18 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=artist")
+    Single<ResponseBody> searchArtistsResponseBody(@Query("q") String q, @QueryMap Map<String, Object> options);
+
+    /**
+     * Get Spotify catalog information about artists that match a keyword string.
+     *
+     * @param q       The search query's keywords (and optional field filters and operators), for example "roadhouse+blues"
+     * @param options Optional parameters. For list of supported parameters see
+     *                <a href="https://developer.spotify.com/web-api/search-item/">endpoint documentation</a>
+     * @return A paginated list of results
+     * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
+     */
+    @GET("search?type=artist")
     Single<Result<ArtistsPager>> searchArtistsResult(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2208,6 +2832,16 @@ public interface SpotifyService {
      */
     @GET("search?type=album")
     Single<Response<AlbumsPager>> searchAlbumsResponse(@Query("q") String q);
+
+    /**
+     * Get Spotify catalog information about albums that match a keyword string.
+     *
+     * @param q The search query's keywords (and optional field filters and operators), for example "roadhouse+blues"
+     * @return A paginated list of results
+     * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
+     */
+    @GET("search?type=album")
+    Single<ResponseBody> searchAlbumsResponseBody(@Query("q") String q);
 
     /**
      * Get Spotify catalog information about albums that match a keyword string.
@@ -2253,6 +2887,18 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=album")
+    Single<ResponseBody> searchAlbumsResponseBody(@Query("q") String q, @QueryMap Map<String, Object> options);
+
+    /**
+     * Get Spotify catalog information about albums that match a keyword string.
+     *
+     * @param q       The search query's keywords (and optional field filters and operators), for example "roadhouse+blues"
+     * @param options Optional parameters. For list of supported parameters see
+     *                <a href="https://developer.spotify.com/web-api/search-item/">endpoint documentation</a>
+     * @return A paginated list of results
+     * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
+     */
+    @GET("search?type=album")
     Single<Result<AlbumsPager>> searchAlbumsResult(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2274,6 +2920,16 @@ public interface SpotifyService {
      */
     @GET("search?type=playlist")
     Single<Response<PlaylistsPager>> searchPlaylistsResponse(@Query("q") String q);
+
+    /**
+     * Get Spotify catalog information about playlists that match a keyword string.
+     *
+     * @param q The search query's keywords (and optional field filters and operators), for example "roadhouse+blues"
+     * @return A paginated list of results
+     * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
+     */
+    @GET("search?type=playlist")
+    Single<ResponseBody> searchPlaylistsResponseBody(@Query("q") String q);
 
     /**
      * Get Spotify catalog information about playlists that match a keyword string.
@@ -2319,6 +2975,18 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=playlist")
+    Single<ResponseBody> searchPlaylistsResponseBody(@Query("q") String q, @QueryMap Map<String, Object> options);
+
+    /**
+     * Get Spotify catalog information about playlists that match a keyword string.
+     *
+     * @param q       The search query's keywords (and optional field filters and operators), for example "roadhouse+blues"
+     * @param options Optional parameters. For list of supported parameters see
+     *                <a href="https://developer.spotify.com/web-api/search-item/">endpoint documentation</a>
+     * @return A paginated list of results
+     * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
+     */
+    @GET("search?type=playlist")
     Single<Result<PlaylistsPager>> searchPlaylistsResult(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /*************
@@ -2344,6 +3012,16 @@ public interface SpotifyService {
      */
     @GET("tracks/{id}")
     Single<Response<Track>> getTrackResponse(@Path("id") String trackId);
+
+    /**
+     * Get Spotify catalog information for a single track identified by their unique Spotify ID.
+     *
+     * @param trackId The Spotify ID for the track.
+     * @return Requested track information
+     * @see <a href="https://developer.spotify.com/web-api/get-track/">Get a Track</a>
+     */
+    @GET("tracks/{id}")
+    Single<ResponseBody> getTrackResponseBody(@Path("id") String trackId);
 
     /**
      * Get Spotify catalog information for a single track identified by their unique Spotify ID.
@@ -2389,6 +3067,18 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-track/">Get a Track</a>
      */
     @GET("tracks/{id}")
+    Single<ResponseBody> getTrackResponseBody(@Path("id") String trackId, @QueryMap Map<String, Object> options);
+
+    /**
+     * Get Spotify catalog information for a single track identified by their unique Spotify ID.
+     *
+     * @param trackId The Spotify ID for the track.
+     * @param options Optional parameters. For list of supported parameters see
+     *                <a href="https://developer.spotify.com/web-api/get-track/">endpoint documentation</a>
+     * @return Requested track information
+     * @see <a href="https://developer.spotify.com/web-api/get-track/">Get a Track</a>
+     */
+    @GET("tracks/{id}")
     Single<Result<Track>> getTrackResult(@Path("id") String trackId, @QueryMap Map<String, Object> options);
 
     /**
@@ -2410,6 +3100,16 @@ public interface SpotifyService {
      */
     @GET("tracks")
     Single<Response<Tracks>> getTracksResponse(@Query("ids") String trackIds);
+
+    /**
+     * Get Several Tracks
+     *
+     * @param trackIds A comma-separated list of the Spotify IDs for the tracks
+     * @return An object whose key is "tracks" and whose value is an array of track objects.
+     * @see <a href="https://developer.spotify.com/web-api/get-several-tracks/">Get Several Tracks</a>
+     */
+    @GET("tracks")
+    Single<ResponseBody> getTracksResponseBody(@Query("ids") String trackIds);
 
     /**
      * Get Several Tracks
@@ -2455,6 +3155,18 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-tracks/">Get Several Tracks</a>
      */
     @GET("tracks")
+    Single<ResponseBody> getTracksResponseBody(@Query("ids") String trackIds, @QueryMap Map<String, Object> options);
+
+    /**
+     * Get Several Tracks
+     *
+     * @param trackIds A comma-separated list of the Spotify IDs for the tracks
+     * @param options  Optional parameters. For list of supported parameters see
+     *                 <a href="https://developer.spotify.com/web-api/get-several-tracks/">endpoint documentation</a>
+     * @return An object whose key is "tracks" and whose value is an array of track objects.
+     * @see <a href="https://developer.spotify.com/web-api/get-several-tracks/">Get Several Tracks</a>
+     */
+    @GET("tracks")
     Single<Result<Tracks>> getTracksResult(@Query("ids") String trackIds, @QueryMap Map<String, Object> options);
     
     /**
@@ -2482,6 +3194,15 @@ public interface SpotifyService {
      * @return An object whose key is "audio_features" and whose value is an array of audio features objects.
      */
     @GET("audio-features")
+    Single<ResponseBody> getTracksAudioFeaturesResponseBody(@Query("ids") String ids);
+
+    /**
+     * Get audio features for multiple tracks based on their Spotify IDs.
+     *
+     * @param ids A comma-separated list of the Spotify IDs for the tracks. Maximum: 100 IDs
+     * @return An object whose key is "audio_features" and whose value is an array of audio features objects.
+     */
+    @GET("audio-features")
     Single<Result<AudioFeaturesTracks>> getTracksAudioFeaturesResult(@Query("ids") String ids);
 
     /**
@@ -2501,6 +3222,15 @@ public interface SpotifyService {
      */
     @GET("audio-features/{id}")
     Single<Response<AudioFeaturesTrack>> getTrackAudioFeaturesResponse(@Path("id") String id);
+
+    /**
+     * Get audio feature information for a single track identified by its unique Spotify ID.
+     *
+     * @param id The Spotify ID for the track.
+     * @return Audio features object
+     */
+    @GET("audio-features/{id}")
+    Single<ResponseBody> getTrackAudioFeaturesResponseBody(@Path("id") String id);
 
     /**
      * Get audio feature information for a single track identified by its unique Spotify ID.
