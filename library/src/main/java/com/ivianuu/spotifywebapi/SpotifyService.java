@@ -2197,7 +2197,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=album")
-    Single<AlbumsPager> searchAlbums(@Query("q") String q);
+    Single<AlbumsPager> searchAlbumsBody(@Query("q") String q);
 
     /**
      * Get Spotify catalog information about albums that match a keyword string.
