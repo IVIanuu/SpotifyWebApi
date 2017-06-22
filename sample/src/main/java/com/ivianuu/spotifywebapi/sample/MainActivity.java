@@ -11,7 +11,6 @@ import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 import static com.ivianuu.spotifywebapi.sample.App.CLIENT_ID;
 import static com.ivianuu.spotifywebapi.sample.App.CLIENT_SECRET;
@@ -49,13 +48,11 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == AUTH_REQUEST_CODE) {
             // handle response
             final AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, data);
-
             switch (response.getType()) {
                 case CODE:
                     // get access token
                     spotifyAuthenticationService.getAccessTokenBody(
                             "authorization_code", response.getCode(), REDIRECT_URI, CLIENT_ID, CLIENT_SECRET)
-                            .subscribeOn(Schedulers.io())
                             .subscribe(new Consumer<AccessToken>() {
                                 @Override
                                 public void accept(AccessToken accessToken) throws Exception {

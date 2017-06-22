@@ -3,36 +3,29 @@ package com.ivianuu.spotifywebapi.sample;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.google.common.collect.ImmutableList;
 import com.ivianuu.spotifyextensions.PaginationHelper;
 import com.ivianuu.spotifywebapi.SpotifyService;
-import com.ivianuu.spotifywebapi.model.Album;
 import com.ivianuu.spotifywebapi.model.AlbumSimple;
-import com.ivianuu.spotifywebapi.model.AlbumsPager;
-import com.ivianuu.spotifywebapi.model.ArtistsPager;
-import com.ivianuu.spotifywebapi.model.FeaturedPlaylists;
 import com.ivianuu.spotifywebapi.model.NewReleases;
 import com.ivianuu.spotifywebapi.model.Pager;
 import com.ivianuu.spotifywebapi.model.PlaylistSimple;
-import com.ivianuu.spotifywebapi.model.PlaylistsPager;
-import com.ivianuu.spotifywebapi.model.Track;
-import com.ivianuu.spotifywebapi.model.TracksPager;
+import com.ivianuu.spotifywebapi.model.PlaylistTrack;
 
 import java.util.HashMap;
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Response;
-import retrofit2.adapter.rxjava2.Result;
 
 /**
  * @author Manuel Wrage (IVIanuu)
@@ -76,7 +69,6 @@ public class PaginationActivity extends AppCompatActivity {
                     @Override
                     public Single<Pager<AlbumSimple>> fetch(@NonNull HashMap<String, Object> options) {
                         return spotifyService.getNewReleasesBody(options)
-                                .subscribeOn(Schedulers.io())
                                 .map(new Function<NewReleases, Pager<AlbumSimple>>() {
                                     @Override
                                     public Pager<AlbumSimple> apply(NewReleases newReleases) throws Exception {
@@ -99,7 +91,6 @@ public class PaginationActivity extends AppCompatActivity {
 
         // load first page
         paginationHelper.fetchNextPage();
-
     }
 
 }
