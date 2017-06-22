@@ -32,7 +32,7 @@ public abstract class UserPublic implements Parcelable {
 
     @Nullable public abstract String display_name();
     public abstract Map<String, String> external_urls();
-    public abstract Followers followers();
+    @Nullable public abstract Followers followers();
     public abstract String href();
     public abstract String id();
     public abstract List<Image> images();
