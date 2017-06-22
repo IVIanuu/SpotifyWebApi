@@ -17,44 +17,32 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
-public class PlayHistory implements Parcelable {
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-    public static final Creator<PlayHistory> CREATOR = new Creator<PlayHistory>() {
-        @Override
-        public PlayHistory createFromParcel(Parcel in) {
-            return new PlayHistory(in);
-        }
+@AutoValue
+public abstract class PlayHistory implements Parcelable {
 
-        @Override
-        public PlayHistory[] newArray(int size) {
-            return new PlayHistory[size];
-        }
-    };
-    public TrackSimple track;
-    public String played_at;
-    public Context context;
+    public abstract Context context();
+    public abstract String played_at();
+    public abstract TrackSimple track();
 
-    public PlayHistory() {
+    public static Builder builder() {
+        return new AutoValue_PlayHistory.Builder();
     }
 
-    protected PlayHistory(Parcel in) {
-        track = in.readParcelable(TrackSimple.class.getClassLoader());
-        played_at = in.readString();
-        context = in.readParcelable(Context.class.getClassLoader());
+    public static TypeAdapter<PlayHistory> typeAdapter(Gson gson) {
+        return new AutoValue_PlayHistory.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(track, 0);
-        dest.writeString(played_at);
-        dest.writeParcelable(context, 0);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder context(Context __);
+        public abstract Builder played_at(String __);
+        public abstract Builder track(TrackSimple __);
+        public abstract PlayHistory build();
     }
 }

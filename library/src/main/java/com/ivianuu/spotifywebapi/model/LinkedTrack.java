@@ -17,50 +17,38 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
 import java.util.Map;
 
-public class LinkedTrack implements Parcelable {
+@AutoValue
+public abstract class LinkedTrack implements Parcelable {
 
-    public static final Parcelable.Creator<LinkedTrack> CREATOR = new Parcelable.Creator<LinkedTrack>() {
-        public LinkedTrack createFromParcel(Parcel source) {
-            return new LinkedTrack(source);
-        }
+    public abstract Map<String, String> external_urls();
+    public abstract String href();
+    public abstract String id();
+    public abstract String type();
+    public abstract String uri();
 
-        public LinkedTrack[] newArray(int size) {
-            return new LinkedTrack[size];
-        }
-    };
-    public Map<String, String> external_urls;
-    public String href;
-    public String id;
-    public String type;
-    public String uri;
-
-    public LinkedTrack() {
+    public static Builder builder() {
+        return new AutoValue_LinkedTrack.Builder();
     }
 
-    protected LinkedTrack(Parcel in) {
-        this.external_urls = in.readHashMap(ClassLoader.getSystemClassLoader());
-        this.href = in.readString();
-        this.id = in.readString();
-        this.type = in.readString();
-        this.uri = in.readString();
+    public static TypeAdapter<LinkedTrack> typeAdapter(Gson gson) {
+        return new AutoValue_LinkedTrack.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeMap(this.external_urls);
-        dest.writeString(this.href);
-        dest.writeString(this.id);
-        dest.writeString(this.type);
-        dest.writeString(this.uri);
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder external_urls(Map<String, String> __);
+        public abstract Builder href(String __);
+        public abstract Builder id(String __);
+        public abstract Builder type(String __);
+        public abstract Builder uri(String __);
+        public abstract LinkedTrack build();
     }
 }

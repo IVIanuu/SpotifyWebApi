@@ -17,43 +17,57 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
-public class Playlist extends PlaylistBase {
-    public static final Parcelable.Creator<Playlist> CREATOR = new Parcelable.Creator<Playlist>() {
-        public Playlist createFromParcel(Parcel source) {
-            return new Playlist(source);
-        }
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-        public Playlist[] newArray(int size) {
-            return new Playlist[size];
-        }
-    };
-    public String description;
-    public Followers followers;
-    public Pager<PlaylistTrack> tracks;
+import java.util.List;
+import java.util.Map;
 
-    public Playlist() {
+@AutoValue
+public abstract class Playlist {
+
+    public abstract Boolean collaborative();
+    @Nullable public abstract String description();
+    public abstract Map<String, String> external_urls();
+    public abstract Followers followers();
+    public abstract String href();
+    public abstract String id();
+    public abstract List<Image> images();
+    public abstract String name();
+    public abstract UserPublic owner();
+    @Nullable public abstract Boolean is_public();
+    public abstract String snapshot_id();
+    public abstract Pager<PlaylistTrack> tracks();
+    public abstract String type();
+    public abstract String uri();
+
+    public static Builder builder() {
+        return new AutoValue_Playlist.Builder();
     }
 
-    protected Playlist(Parcel in) {
-        super(in);
-        this.description = in.readString();
-        this.followers = in.readParcelable(Followers.class.getClassLoader());
-        this.tracks = in.readParcelable(Pager.class.getClassLoader());
+    public static TypeAdapter<Playlist> typeAdapter(Gson gson) {
+        return new AutoValue_Playlist.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeString(this.description);
-        dest.writeParcelable(this.followers, 0);
-        dest.writeParcelable(this.tracks, 0);
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder collaborative(Boolean __);
+        public abstract Builder description(String __);
+        public abstract Builder external_urls(Map<String, String> __);
+        public abstract Builder followers(Followers __);
+        public abstract Builder href(String __);
+        public abstract Builder id(String __);
+        public abstract Builder images(List<Image> __);
+        public abstract Builder name(String __);
+        public abstract Builder owner(UserPublic __);
+        public abstract Builder is_public(Boolean __);
+        public abstract Builder snapshot_id(String __);
+        public abstract Builder tracks(Pager<PlaylistTrack> __);
+        public abstract Builder type(String __);
+        public abstract Builder uri(String __);
+        public abstract Playlist build();
     }
 }

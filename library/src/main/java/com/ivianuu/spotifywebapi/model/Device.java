@@ -17,51 +17,38 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Device implements Parcelable {
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-    public static final Parcelable.Creator<Device> CREATOR = new Parcelable.Creator<Device>() {
-        public Device createFromParcel(Parcel source) {
-            return new Device(source);
-        }
+@AutoValue
+public abstract class Device implements Parcelable {
 
-        public Device[] newArray(int size) {
-            return new Device[size];
-        }
-    };
-    public String id;
-    public boolean is_active;
-    public boolean is_restricted;
-    public String name;
-    public String type;
-    public int volume_percent;
+    public abstract String id();
+    public abstract boolean is_active();
+    public abstract boolean is_restricted();
+    public abstract String name();
+    public abstract String type();
+    public abstract int volume_percent();
 
-    public Device() {
+    public static Builder builder() {
+        return new AutoValue_Device.Builder();
     }
 
-    protected Device(Parcel in) {
-        this.id = in.readString();
-        this.is_active = in.readInt() == 1;
-        this.is_restricted = in.readInt() == 1;
-        this.name = in.readString();
-        this.type = in.readString();
-        this.volume_percent = in.readInt();
+    public static TypeAdapter<Device> typeAdapter(Gson gson) {
+        return new AutoValue_Device.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeInt(is_active ? 1 : 0);
-        dest.writeInt(is_restricted ? 1 : 0);
-        dest.writeString(name);
-        dest.writeString(type);
-        dest.writeInt(volume_percent);
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder id(String __);
+        public abstract Builder is_active(boolean __);
+        public abstract Builder is_restricted(boolean __);
+        public abstract Builder name(String __);
+        public abstract Builder type(String __);
+        public abstract Builder volume_percent(int __);
+        public abstract Device build();
     }
 }

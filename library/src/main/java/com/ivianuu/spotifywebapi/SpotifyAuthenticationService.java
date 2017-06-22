@@ -17,6 +17,8 @@
 
 package com.ivianuu.spotifywebapi;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.ivianuu.spotifywebapi.model.AccessToken;
 
 import io.reactivex.Single;
@@ -191,9 +193,12 @@ public interface SpotifyAuthenticationService {
                 rxJava2CallAdapterFactory = RxJava2CallAdapterFactory.create();
             }
 
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapterFactory(AutoGsonAdapterFactory.create()).create();
+
             Retrofit restAdapter = retrofitBuilder
                     .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .addCallAdapterFactory(rxJava2CallAdapterFactory)
                     .client(okHttpClientBuilder.build())
                     .build();

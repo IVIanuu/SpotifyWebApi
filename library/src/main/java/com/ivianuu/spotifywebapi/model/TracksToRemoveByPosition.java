@@ -17,47 +17,32 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
+
 import java.util.List;
 
-public class TracksToRemoveByPosition implements Parcelable {
+@AutoValue
+public abstract class TracksToRemoveByPosition implements Parcelable {
 
-    public static final Parcelable.Creator<TracksToRemoveByPosition> CREATOR = new Parcelable.Creator<TracksToRemoveByPosition>() {
+    public abstract List<Integer> positions();
+    public abstract String snapshot_id();
 
-        @Override
-        public TracksToRemoveByPosition createFromParcel(Parcel parcel) {
-            return new TracksToRemoveByPosition(parcel);
-        }
-
-        @Override
-        public TracksToRemoveByPosition[] newArray(int i) {
-            return new TracksToRemoveByPosition[i];
-        }
-    };
-
-    public List<Integer> positions;
-    public String snapshot_id;
-
-    public TracksToRemoveByPosition() {
+    public static Builder builder() {
+        return new AutoValue_TracksToRemoveByPosition.Builder();
     }
 
-    public TracksToRemoveByPosition(Parcel in) {
-        this.positions = new ArrayList<>();
-        in.readList(this.positions, List.class.getClassLoader());
-        this.snapshot_id = in.readString();
+    public static TypeAdapter<TracksToRemoveByPosition> typeAdapter(Gson gson) {
+        return new AutoValue_TracksToRemoveByPosition.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeList(positions);
-        parcel.writeString(snapshot_id);
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder positions(List<Integer> __);
+        public abstract Builder snapshot_id(String __);
+        public abstract TracksToRemoveByPosition build();
     }
 }

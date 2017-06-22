@@ -17,56 +17,46 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
+
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
+import com.google.gson.reflect.TypeToken;
+import com.ivianuu.spotifywebapi.ListTypeAdapter;
+import com.ryanharter.auto.value.parcel.ParcelAdapter;
 
 import java.util.List;
 
-public class Pager<T> implements Parcelable {
-    public static final Parcelable.Creator<Pager> CREATOR = new Parcelable.Creator<Pager>() {
-        public Pager createFromParcel(Parcel source) {
-            return new Pager(source);
-        }
+@AutoValue
+public abstract class Pager<T> implements Parcelable {
+    public abstract String href();
+    @ParcelAdapter(ListTypeAdapter.class)
+    public abstract List<T> items();
+    public abstract int limit();
+    @Nullable public abstract String next();
+    public abstract int offset();
+    @Nullable public abstract String previous();
+    public abstract int total();
 
-        public Pager[] newArray(int size) {
-            return new Pager[size];
-        }
-    };
-    public String href;
-    public List<T> items;
-    public int limit;
-    public String next;
-    public int offset;
-    public String previous;
-    public int total;
-
-    public Pager() {
+    public static Builder<Parcelable> builder() {
+        return new AutoValue_Pager.Builder<>();
     }
 
-    protected Pager(Parcel in) {
-        this.href = in.readString();
-        this.items = in.readArrayList(Pager.class.getClassLoader());
-        this.limit = in.readInt();
-        this.next = in.readString();
-        this.offset = in.readInt();
-        this.previous = in.readString();
-        this.total = in.readInt();
+    public static <T> TypeAdapter<Pager<T>> typeAdapter(Gson gson, TypeToken<? extends Pager<T>> typeToken) {
+        return new AutoValue_Pager.GsonTypeAdapter<>(gson, typeToken);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    @AutoValue.Builder
+    public static abstract class Builder<T> {
+        public abstract Builder<T> href(String __);
+        public abstract Builder<T> items(List<T> __);
+        public abstract Builder<T> limit(int __);
+        public abstract Builder<T> next(String __);
+        public abstract Builder<T> offset(int __);
+        public abstract Builder<T> previous(String __);
+        public abstract Builder<T> total(int __);
+        public abstract Pager<T> build();
     }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(href);
-        dest.writeList(items);
-        dest.writeInt(limit);
-        dest.writeString(next);
-        dest.writeInt(offset);
-        dest.writeString(previous);
-        dest.writeInt(total);
-    }
-
 }

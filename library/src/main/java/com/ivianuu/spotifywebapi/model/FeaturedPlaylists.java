@@ -17,38 +17,30 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
-public class FeaturedPlaylists implements Parcelable {
-    public static final Parcelable.Creator<FeaturedPlaylists> CREATOR = new Parcelable.Creator<FeaturedPlaylists>() {
-        public FeaturedPlaylists createFromParcel(Parcel source) {
-            return new FeaturedPlaylists(source);
-        }
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-        public FeaturedPlaylists[] newArray(int size) {
-            return new FeaturedPlaylists[size];
-        }
-    };
-    public String message;
-    public Pager<PlaylistSimple> playlists;
+@AutoValue
+public abstract class FeaturedPlaylists implements Parcelable {
 
-    public FeaturedPlaylists() {
+    public abstract String message();
+    public abstract Pager<PlaylistSimple> playlists();
+
+    public static Builder builder() {
+        return new AutoValue_FeaturedPlaylists.Builder();
     }
 
-    protected FeaturedPlaylists(Parcel in) {
-        this.message = in.readString();
-        this.playlists = in.readParcelable(Pager.class.getClassLoader());
+    public static TypeAdapter<FeaturedPlaylists> typeAdapter(Gson gson) {
+        return new AutoValue_FeaturedPlaylists.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.message);
-        dest.writeParcelable(this.playlists, 0);
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder message(String __);
+        public abstract Builder playlists(Pager<PlaylistSimple> __);
+        public abstract FeaturedPlaylists build();
     }
 }

@@ -17,35 +17,28 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
-public class CategoriesPager implements Parcelable {
-    public static final Parcelable.Creator<CategoriesPager> CREATOR = new Parcelable.Creator<CategoriesPager>() {
-        public CategoriesPager createFromParcel(Parcel source) {
-            return new CategoriesPager(source);
-        }
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-        public CategoriesPager[] newArray(int size) {
-            return new CategoriesPager[size];
-        }
-    };
-    public Pager<Category> categories;
+@AutoValue
+public abstract class CategoriesPager implements Parcelable {
 
-    public CategoriesPager() {
+    public abstract Pager<Category> categories();
+
+    public static Builder builder() {
+        return new AutoValue_CategoriesPager.Builder();
     }
 
-    protected CategoriesPager(Parcel in) {
-        this.categories = in.readParcelable(Pager.class.getClassLoader());
+    public static TypeAdapter<CategoriesPager> typeAdapter(Gson gson) {
+        return new AutoValue_CategoriesPager.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(this.categories, 0);
+    @AutoValue.Builder
+    public static abstract class Builder {
+        public abstract Builder categories(Pager<Category> __);
+        public abstract CategoriesPager build();
     }
 }

@@ -17,62 +17,65 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
 import java.util.List;
 import java.util.Map;
 
-public class Album extends AlbumSimple implements Parcelable {
+@AutoValue
+public abstract class Album implements Parcelable {
 
-    public static final Parcelable.Creator<Album> CREATOR = new Parcelable.Creator<Album>() {
-        public Album createFromParcel(Parcel source) {
-            return new Album(source);
-        }
+    public abstract String album_type();
+    public abstract List<ArtistSimple> artists();
+    public abstract List<String> available_markets();
+    public abstract List<Copyright> copyrights();
+    public abstract List<String> genres();
+    public abstract Map<String, String> external_ids();
+    public abstract Map<String, String> external_urls();
+    public abstract String href();
+    public abstract String id();
+    public abstract List<Image> images();
+    public abstract String name();
+    public abstract Integer popularity();
+    public abstract String release_date();
+    public abstract String release_date_precision();
+    public abstract Pager<TrackSimple> tracks();
+    public abstract String type();
+    public abstract String uri();
 
-        public Album[] newArray(int size) {
-            return new Album[size];
-        }
-    };
-    public List<ArtistSimple> artists;
-    public List<Copyright> copyrights;
-    public Map<String, String> external_ids;
-    public List<String> genres;
-    public Integer popularity;
-    public String release_date;
-    public String release_date_precision;
-    public Pager<TrackSimple> tracks;
-
-    public Album() {
+    public static Builder builder() {
+        return new AutoValue_Album.Builder();
     }
 
-    protected Album(Parcel in) {
-        super(in);
-        this.artists = in.createTypedArrayList(ArtistSimple.CREATOR);
-        this.copyrights = in.createTypedArrayList(Copyright.CREATOR);
-        this.external_ids = in.readHashMap(ClassLoader.getSystemClassLoader());
-        this.genres = in.createStringArrayList();
-        this.popularity = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.release_date = in.readString();
-        this.release_date_precision = in.readString();
-        this.tracks = in.readParcelable(Pager.class.getClassLoader());
+    public static TypeAdapter<Album> albumTypeAdapter(Gson gson) {
+        return new AutoValue_Album.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    @AutoValue.Builder
+    public static abstract class Builder {
+        public abstract Builder album_type(String __);
+        public abstract Builder artists(List<ArtistSimple> __);
+        public abstract Builder available_markets(List<String> __);
+        public abstract Builder copyrights(List<Copyright> __);
+        public abstract Builder genres(List<String> __);
+        public abstract Builder external_ids(Map<String, String> __);
+        public abstract Builder external_urls(Map<String, String> __);
+        public abstract Builder href(String __);
+        public abstract Builder id(String __);
+        public abstract Builder images(List<Image> __);
+        public abstract Builder name(String name);
+        public abstract Builder popularity(Integer __);
+        public abstract Builder release_date(String __);
+        public abstract Builder release_date_precision(String __);
+        public abstract Builder tracks(Pager<TrackSimple> __);
+        public abstract Builder type(String __);
+        public abstract Builder uri(String __);
+        public abstract Album build();
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeTypedList(artists);
-        dest.writeTypedList(copyrights);
-        dest.writeMap(this.external_ids);
-        dest.writeStringList(this.genres);
-        dest.writeValue(this.popularity);
-        dest.writeString(this.release_date);
-        dest.writeString(this.release_date_precision);
-        dest.writeParcelable(this.tracks, flags);
-    }
+
 }

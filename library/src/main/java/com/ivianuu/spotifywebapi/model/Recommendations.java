@@ -17,43 +17,32 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
 import java.util.List;
 
-public class Recommendations implements Parcelable {
+@AutoValue
+public abstract class Recommendations implements Parcelable {
 
-    public static final Creator<Recommendations> CREATOR = new Creator<Recommendations>() {
-        @Override
-        public Recommendations createFromParcel(Parcel in) {
-            return new Recommendations(in);
-        }
+    public abstract List<Seed> seeds();
+    public abstract List<Track> tracks();
 
-        @Override
-        public Recommendations[] newArray(int size) {
-            return new Recommendations[size];
-        }
-    };
-    public List<Seed> seeds;
-    public List<Track> tracks;
-
-    public Recommendations() {
+    public static Builder builder() {
+        return new AutoValue_Recommendations.Builder();
     }
 
-    protected Recommendations(Parcel in) {
-        seeds = in.createTypedArrayList(Seed.CREATOR);
-        tracks = in.createTypedArrayList(Track.CREATOR);
+    public static TypeAdapter<Recommendations> typeAdapter(Gson gson) {
+        return new AutoValue_Recommendations.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeTypedList(seeds);
-        dest.writeTypedList(tracks);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+    @AutoValue.Builder
+    public static abstract class Builder {
+        public abstract Builder seeds(List<Seed> __);
+        public abstract Builder tracks(List<Track> __);
+        public abstract Recommendations build();
     }
 }

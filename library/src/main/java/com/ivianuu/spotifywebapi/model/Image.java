@@ -17,41 +17,33 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
-public class Image implements Parcelable {
-    public static final Parcelable.Creator<Image> CREATOR = new Parcelable.Creator<Image>() {
-        public Image createFromParcel(Parcel source) {
-            return new Image(source);
-        }
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-        public Image[] newArray(int size) {
-            return new Image[size];
-        }
-    };
-    public Integer width;
-    public Integer height;
-    public String url;
+@AutoValue
+public abstract class Image implements Parcelable {
 
-    public Image() {
+    @Nullable public abstract Integer height();
+    public abstract String url();
+    @Nullable public abstract Integer width();
+
+    public static Builder builder() {
+        return new AutoValue_Image.Builder();
     }
 
-    protected Image(Parcel in) {
-        this.width = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.height = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.url = in.readString();
+    public static TypeAdapter<Image> typeAdapter(Gson gson) {
+        return new AutoValue_Image.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(this.width);
-        dest.writeValue(this.height);
-        dest.writeString(this.url);
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder height(Integer __);
+        public abstract Builder url(String __);
+        public abstract Builder width(Integer __);
+        public abstract Image build();
     }
 }

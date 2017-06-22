@@ -17,53 +17,39 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
-public class Seed implements Parcelable {
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-    public static final Creator<Seed> CREATOR = new Creator<Seed>() {
-        @Override
-        public Seed createFromParcel(Parcel in) {
-            return new Seed(in);
-        }
+@AutoValue
+public abstract class Seed implements Parcelable {
 
-        @Override
-        public Seed[] newArray(int size) {
-            return new Seed[size];
-        }
-    };
-    public int afterFilteringSize;
-    public int afterRelinkingSize;
-    public String href;
-    public String id;
-    public int initialPoolSize;
-    public String type;
+    public abstract int afterFilteringSize();
+    public abstract int afterRelinkingSize();
+    @Nullable public abstract String href();
+    public abstract String id();
+    public abstract int initialPoolSize();
+    public abstract String type();
 
-    public Seed() {
+    public static Builder builder() {
+        return new AutoValue_Seed.Builder();
     }
 
-    protected Seed(Parcel in) {
-        afterFilteringSize = in.readInt();
-        afterRelinkingSize = in.readInt();
-        href = in.readString();
-        id = in.readString();
-        initialPoolSize = in.readInt();
-        type = in.readString();
+    public static TypeAdapter<Seed> typeAdapter(Gson gson) {
+        return new AutoValue_Seed.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(afterFilteringSize);
-        dest.writeInt(afterRelinkingSize);
-        dest.writeString(href);
-        dest.writeString(id);
-        dest.writeInt(initialPoolSize);
-        dest.writeString(type);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder afterFilteringSize(int __);
+        public abstract Builder afterRelinkingSize(int __);
+        public abstract Builder href(String __);
+        public abstract Builder id(String __);
+        public abstract Builder initialPoolSize(int __);
+        public abstract Builder type(String __);
+        public abstract Seed build();
     }
 }

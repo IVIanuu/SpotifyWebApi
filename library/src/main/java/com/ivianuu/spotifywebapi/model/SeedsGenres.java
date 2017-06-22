@@ -17,40 +17,30 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
 import java.util.List;
 
-public class SeedsGenres implements Parcelable {
+@AutoValue
+public abstract class SeedsGenres implements Parcelable {
 
-    public static final Creator<SeedsGenres> CREATOR = new Creator<SeedsGenres>() {
-        @Override
-        public SeedsGenres createFromParcel(Parcel in) {
-            return new SeedsGenres(in);
-        }
+    public abstract List<String> genres();
 
-        @Override
-        public SeedsGenres[] newArray(int size) {
-            return new SeedsGenres[size];
-        }
-    };
-    public List<String> genres;
-
-    public SeedsGenres() {
+    public static Builder builder() {
+        return new AutoValue_SeedsGenres.Builder();
     }
 
-    protected SeedsGenres(Parcel in) {
-        genres = in.createStringArrayList();
+    public static TypeAdapter<SeedsGenres> typeAdapter(Gson gson) {
+        return new AutoValue_SeedsGenres.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringList(genres);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder genres(List<String> __);
+        public abstract SeedsGenres build();
     }
 }

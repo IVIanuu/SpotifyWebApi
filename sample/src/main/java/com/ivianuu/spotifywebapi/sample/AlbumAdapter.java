@@ -32,7 +32,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.TrackHolder>
 
     @Override
     public void onBindViewHolder(TrackHolder holder, int position) {
-        holder.title.setText(albums.get(position).name);
+        holder.title.setText(albums.get(position).name());
     }
 
     @Override

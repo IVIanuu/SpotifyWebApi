@@ -17,38 +17,30 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Copyright implements Parcelable {
-    public static final Parcelable.Creator<Copyright> CREATOR = new Parcelable.Creator<Copyright>() {
-        public Copyright createFromParcel(Parcel source) {
-            return new Copyright(source);
-        }
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-        public Copyright[] newArray(int size) {
-            return new Copyright[size];
-        }
-    };
-    public String text;
-    public String type;
+@AutoValue
+public abstract class Copyright implements Parcelable {
 
-    public Copyright() {
+    public abstract String text();
+    public abstract String type();
+
+    public static Builder builder() {
+        return new AutoValue_Copyright.Builder();
     }
 
-    protected Copyright(Parcel in) {
-        this.text = in.readString();
-        this.type = in.readString();
+    public static TypeAdapter<Copyright> typeAdapter(Gson gson) {
+        return new AutoValue_Copyright.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.text);
-        dest.writeString(this.type);
+    @AutoValue.Builder
+    public static abstract class Builder {
+        public abstract Builder text(String __);
+        public abstract Builder type(String __);
+        public abstract Copyright build();
     }
 }

@@ -17,40 +17,30 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
 import java.util.List;
 
-public class AudioFeaturesTracks implements Parcelable {
+@AutoValue
+public abstract class AudioFeaturesTracks implements Parcelable {
 
-    public static final Creator<AudioFeaturesTracks> CREATOR = new Creator<AudioFeaturesTracks>() {
-        @Override
-        public AudioFeaturesTracks createFromParcel(Parcel in) {
-            return new AudioFeaturesTracks(in);
-        }
+    public abstract List<AudioFeaturesTrack> audio_features();
 
-        @Override
-        public AudioFeaturesTracks[] newArray(int size) {
-            return new AudioFeaturesTracks[size];
-        }
-    };
-    public List<AudioFeaturesTrack> audio_features;
-
-    public AudioFeaturesTracks() {
+    public static Builder builder() {
+        return new AutoValue_AudioFeaturesTracks.Builder();
     }
 
-    protected AudioFeaturesTracks(Parcel in) {
-        audio_features = in.createTypedArrayList(AudioFeaturesTrack.CREATOR);
+    public static TypeAdapter<AudioFeaturesTracks> typeAdapter(Gson gson) {
+        return new AutoValue_AudioFeaturesTracks.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeTypedList(audio_features);
+    @AutoValue.Builder
+    public static abstract class Builder {
+        public abstract Builder audio_features(List<AudioFeaturesTrack> __);
+        public abstract AudioFeaturesTracks build();
     }
 }

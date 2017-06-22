@@ -17,57 +17,42 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
-public class CurrentlyPlayingContext implements Parcelable {
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-    public static final Parcelable.Creator<CurrentlyPlayingContext> CREATOR = new Parcelable.Creator<CurrentlyPlayingContext>() {
-        public CurrentlyPlayingContext createFromParcel(Parcel source) {
-            return new CurrentlyPlayingContext(source);
-        }
+@AutoValue
+public abstract class CurrentlyPlayingContext implements Parcelable {
 
-        public CurrentlyPlayingContext[] newArray(int size) {
-            return new CurrentlyPlayingContext[size];
-        }
-    };
-    public Device device;
-    public String repeat_state;
-    public boolean shuffle_state;
-    public Context context;
-    public long timestamp;
-    public int progress_ms;
-    public boolean is_playing;
-    public Track item;
+    public abstract Context context();
+    public abstract Device device();
+    public abstract boolean is_playing();
+    public abstract Track item();
+    public abstract int progress_ms();
+    public abstract String repeat_state();
+    public abstract boolean shuffle_state();
+    public abstract long timestamp();
 
-    public CurrentlyPlayingContext() {
+    public static Builder builder() {
+        return new AutoValue_CurrentlyPlayingContext.Builder();
     }
 
-    protected CurrentlyPlayingContext(Parcel in) {
-        this.device = in.readParcelable(Device.class.getClassLoader());
-        this.repeat_state = in.readString();
-        this.shuffle_state = in.readInt() == 1;
-        this.context = in.readParcelable(Context.class.getClassLoader());
-        this.timestamp = in.readLong();
-        this.progress_ms = in.readInt();
-        this.is_playing = in.readInt() == 1;
-        this.item = in.readParcelable(Track.class.getClassLoader());
+    public static TypeAdapter<CurrentlyPlayingContext> typeAdapter(Gson gson) {
+        return new AutoValue_CurrentlyPlayingContext.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(device, 0);
-        dest.writeString(repeat_state);
-        dest.writeInt(shuffle_state ? 1 : 0);
-        dest.writeParcelable(context, 0);
-        dest.writeLong(timestamp);
-        dest.writeInt(progress_ms);
-        dest.writeInt(is_playing ? 1 : 0);
-        dest.writeParcelable(item, 0);
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder device(Device __);
+        public abstract Builder repeat_state(String __);
+        public abstract Builder shuffle_state(boolean __);
+        public abstract Builder context(Context __);
+        public abstract Builder timestamp(long __);
+        public abstract Builder progress_ms(int __);
+        public abstract Builder is_playing(boolean __);
+        public abstract Builder item(Track __);
+        public abstract CurrentlyPlayingContext build();
     }
 }

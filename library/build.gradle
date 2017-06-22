@@ -25,6 +25,24 @@ android {
 }
 
 dependencies {
+    // Android Support
+    compile 'com.android.support:support-annotations:25.3.1'
+
+    // AutoValue
+    provided "com.google.auto.value:auto-value:1.2"
+    annotationProcessor "com.google.auto.value:auto-value:1.2"
+
+    // AutoValue Gson
+    provided 'com.ryanharter.auto.value:auto-value-gson:0.4.6'
+    annotationProcessor 'com.ryanharter.auto.value:auto-value-gson:0.4.6'
+
+    // AutoValueParcel
+    compile 'com.ryanharter.auto.value:auto-value-parcel-adapter:0.2.5'
+    annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.5'
+
+    // Gson
+    compile 'com.google.code.gson:gson:2.8.1'
+
     // Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'

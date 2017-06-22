@@ -17,54 +17,45 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
-import java.util.ArrayList;
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
+import com.google.gson.reflect.TypeToken;
+import com.ivianuu.spotifywebapi.ListTypeAdapter;
+import com.ryanharter.auto.value.parcel.ParcelAdapter;
+
 import java.util.List;
 
-public class CursorPager<T> implements Parcelable {
-    public static final Creator<CursorPager> CREATOR = new Creator<CursorPager>() {
-        public CursorPager createFromParcel(Parcel source) {
-            return new CursorPager(source);
-        }
+@AutoValue
+public abstract class CursorPager<T> implements Parcelable {
 
-        public CursorPager[] newArray(int size) {
-            return new CursorPager[size];
-        }
-    };
-    public String href;
-    public List<T> items;
-    public int limit;
-    public String next;
-    public Cursor cursors;
-    public int total;
+    public abstract String href();
+    @ParcelAdapter(ListTypeAdapter.class)
+    public abstract List<T> items();
+    public abstract int limit();
+    @Nullable public abstract String next();
+    public abstract Cursor cursors();
+    public abstract int total();
 
-    public CursorPager() {
+    public static Builder builder() {
+        return new AutoValue_CursorPager.Builder();
     }
 
-    protected CursorPager(Parcel in) {
-        this.href = in.readString();
-        this.items = in.readArrayList(ArrayList.class.getClassLoader());
-        this.limit = in.readInt();
-        this.next = in.readString();
-        this.cursors = in.readParcelable(Cursor.class.getClassLoader());
-        this.total = in.readInt();
+    public static <T> TypeAdapter<CursorPager<T>> typeAdapter(Gson gson, TypeToken<? extends CursorPager<T>> typeToken) {
+        return new AutoValue_CursorPager.GsonTypeAdapter<>(gson, typeToken);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    @AutoValue.Builder
+    public static abstract class Builder<T> {
+        public abstract Builder<T> href(String __);
+        public abstract Builder<T> items(List<T> __);
+        public abstract Builder<T> limit(int __);
+        public abstract Builder<T> next(String __);
+        public abstract Builder<T> cursors(Cursor __);
+        public abstract Builder<T> total(int __);
+        public abstract CursorPager<T> build();
     }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(href);
-        dest.writeList(items);
-        dest.writeInt(limit);
-        dest.writeString(next);
-        dest.writeParcelable(this.cursors, flags);
-        dest.writeInt(total);
-    }
-
 }

@@ -17,44 +17,35 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
-public class PlaylistTrack implements Parcelable {
-    public static final Parcelable.Creator<PlaylistTrack> CREATOR = new Parcelable.Creator<PlaylistTrack>() {
-        public PlaylistTrack createFromParcel(Parcel source) {
-            return new PlaylistTrack(source);
-        }
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-        public PlaylistTrack[] newArray(int size) {
-            return new PlaylistTrack[size];
-        }
-    };
-    public String added_at;
-    public UserPublic added_by;
-    public Track track;
-    public Boolean is_local;
+@AutoValue
+public abstract class PlaylistTrack implements Parcelable {
 
-    public PlaylistTrack() {
+    @Nullable public abstract String added_at();
+    @Nullable public abstract UserPublic added_by();
+    public abstract Boolean is_local();
+    public abstract Track track();
+
+    public static Builder builder() {
+        return new AutoValue_PlaylistTrack.Builder();
     }
 
-    protected PlaylistTrack(Parcel in) {
-        this.added_at = in.readString();
-        this.added_by = in.readParcelable(UserPublic.class.getClassLoader());
-        this.track = in.readParcelable(Track.class.getClassLoader());
-        this.is_local = (Boolean) in.readValue(Boolean.class.getClassLoader());
+    public static TypeAdapter<PlaylistTrack> typeAdapter(Gson gson) {
+        return new AutoValue_PlaylistTrack.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.added_at);
-        dest.writeParcelable(this.added_by, flags);
-        dest.writeParcelable(this.track, 0);
-        dest.writeValue(this.is_local);
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder added_at(String __);
+        public abstract Builder added_by(UserPublic __);
+        public abstract Builder is_local(Boolean __);
+        public abstract Builder track(Track __);
+        public abstract PlaylistTrack build();
     }
 }

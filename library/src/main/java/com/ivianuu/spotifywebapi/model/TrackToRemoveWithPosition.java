@@ -17,42 +17,32 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
+
 import java.util.List;
 
-public class TrackToRemoveWithPosition implements Parcelable {
-    public static final Parcelable.Creator<TrackToRemoveWithPosition> CREATOR = new Parcelable.Creator<TrackToRemoveWithPosition>() {
-        public TrackToRemoveWithPosition createFromParcel(Parcel source) {
-            return new TrackToRemoveWithPosition(source);
-        }
+@AutoValue
+public abstract class TrackToRemoveWithPosition implements Parcelable {
 
-        public TrackToRemoveWithPosition[] newArray(int size) {
-            return new TrackToRemoveWithPosition[size];
-        }
-    };
-    public String uri;
-    public List<Integer> positions;
+    public abstract List<Integer> positions();
+    public abstract String uri();
 
-    public TrackToRemoveWithPosition() {
+    public static Builder builder() {
+        return new AutoValue_TrackToRemoveWithPosition.Builder();
     }
 
-    protected TrackToRemoveWithPosition(Parcel in) {
-        this.uri = in.readString();
-        this.positions = new ArrayList<Integer>();
-        in.readList(this.positions, List.class.getClassLoader());
+    public static TypeAdapter<TrackToRemoveWithPosition> typeAdapter(Gson gson) {
+        return new AutoValue_TrackToRemoveWithPosition.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.uri);
-        dest.writeList(this.positions);
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder positions(List<Integer> __);
+        public abstract Builder uri(String __);
+        public abstract TrackToRemoveWithPosition build();
     }
 }

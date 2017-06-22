@@ -17,59 +17,46 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
+
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
 import java.util.List;
 import java.util.Map;
 
-public class UserPublic implements Parcelable {
-    public static final Creator<UserPublic> CREATOR = new Creator<UserPublic>() {
-        public UserPublic createFromParcel(Parcel source) {
-            return new UserPublic(source);
-        }
+@AutoValue
+public abstract class UserPublic implements Parcelable {
 
-        public UserPublic[] newArray(int size) {
-            return new UserPublic[size];
-        }
-    };
-    public String display_name;
-    public Map<String, String> external_urls;
-    public Followers followers;
-    public String href;
-    public String id;
-    public List<Image> images;
-    public String type;
-    public String uri;
+    @Nullable public abstract String display_name();
+    public abstract Map<String, String> external_urls();
+    public abstract Followers followers();
+    public abstract String href();
+    public abstract String id();
+    public abstract List<Image> images();
+    public abstract String type();
+    public abstract String uri();
 
-    public UserPublic() {
+    public static Builder builder() {
+        return new AutoValue_UserPublic.Builder();
     }
 
-    protected UserPublic(Parcel in) {
-        this.display_name = in.readString();
-        this.external_urls = in.readHashMap(Map.class.getClassLoader());
-        this.followers = in.readParcelable(Followers.class.getClassLoader());
-        this.href = in.readString();
-        this.id = in.readString();
-        this.images = in.createTypedArrayList(Image.CREATOR);
-        this.type = in.readString();
-        this.uri = in.readString();
+    public static TypeAdapter<UserPublic> typeAdapter(Gson gson) {
+        return new AutoValue_UserPublic.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.display_name);
-        dest.writeMap(this.external_urls);
-        dest.writeParcelable(this.followers, 0);
-        dest.writeString(this.href);
-        dest.writeString(this.id);
-        dest.writeTypedList(images);
-        dest.writeString(this.type);
-        dest.writeString(this.uri);
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder display_name(String __);
+        public abstract Builder external_urls(Map<String, String> __);
+        public abstract Builder followers(Followers __);
+        public abstract Builder href(String __);
+        public abstract Builder id(String __);
+        public abstract Builder images(List<Image> __);
+        public abstract Builder type(String __);
+        public abstract Builder uri(String __);
+        public abstract UserPublic build();
     }
 }

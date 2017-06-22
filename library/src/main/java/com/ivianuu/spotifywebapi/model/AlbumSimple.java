@@ -17,63 +17,49 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
+
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
 import java.util.List;
 import java.util.Map;
 
-public class AlbumSimple implements Parcelable {
+@AutoValue
+public abstract class AlbumSimple implements Parcelable {
 
-    public static final Parcelable.Creator<AlbumSimple> CREATOR = new Parcelable.Creator<AlbumSimple>() {
-        public AlbumSimple createFromParcel(Parcel source) {
-            return new AlbumSimple(source);
-        }
+    public abstract String album_type();
+    @Nullable public abstract List<String> available_markets();
+    public abstract Map<String, String> external_urls();
+    public abstract String href();
+    public abstract String id();
+    public abstract List<Image> images();
+    public abstract String name();
+    public abstract String type();
+    public abstract String uri();
 
-        public AlbumSimple[] newArray(int size) {
-            return new AlbumSimple[size];
-        }
-    };
-    public String album_type;
-    public List<String> available_markets;
-    public Map<String, String> external_urls;
-    public String href;
-    public String id;
-    public List<Image> images;
-    public String name;
-    public String type;
-    public String uri;
-
-    public AlbumSimple() {
+    public static Builder builder() {
+        return new AutoValue_AlbumSimple.Builder();
     }
 
-    protected AlbumSimple(Parcel in) {
-        this.album_type = in.readString();
-        this.available_markets = in.createStringArrayList();
-        this.external_urls = in.readHashMap(ClassLoader.getSystemClassLoader());
-        this.href = in.readString();
-        this.id = in.readString();
-        this.images = in.createTypedArrayList(Image.CREATOR);
-        this.name = in.readString();
-        this.type = in.readString();
-        this.uri = in.readString();
+    public static TypeAdapter<AlbumSimple> typeAdapter(Gson gson) {
+        return new AutoValue_AlbumSimple.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    @AutoValue.Builder
+    public static abstract class Builder {
+        public abstract Builder album_type(String __);
+        public abstract Builder available_markets(List<String> __);
+        public abstract Builder external_urls(Map<String, String> __);
+        public abstract Builder href(String __);
+        public abstract Builder id(String __);
+        public abstract Builder images(List<Image> __);
+        public abstract Builder name(String __);
+        public abstract Builder type(String __);
+        public abstract Builder uri(String __);
+        public abstract AlbumSimple build();
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.album_type);
-        dest.writeStringList(this.available_markets);
-        dest.writeMap(this.external_urls);
-        dest.writeString(this.href);
-        dest.writeString(this.id);
-        dest.writeTypedList(images);
-        dest.writeString(this.name);
-        dest.writeString(this.type);
-        dest.writeString(this.uri);
-    }
 }

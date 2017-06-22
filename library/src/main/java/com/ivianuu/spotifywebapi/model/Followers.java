@@ -17,38 +17,31 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
-public class Followers implements Parcelable {
-    public static final Parcelable.Creator<Followers> CREATOR = new Parcelable.Creator<Followers>() {
-        public Followers createFromParcel(Parcel source) {
-            return new Followers(source);
-        }
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-        public Followers[] newArray(int size) {
-            return new Followers[size];
-        }
-    };
-    public String href;
-    public Integer total;
+@AutoValue
+public abstract class Followers implements Parcelable {
 
-    public Followers() {
+    @Nullable public abstract String href();
+    public abstract Integer total();
+
+    public static Builder builder() {
+        return new AutoValue_Followers.Builder();
     }
 
-    protected Followers(Parcel in) {
-        this.href = in.readString();
-        this.total = in.readInt();
+    public static TypeAdapter<Followers> typeAdapter(Gson gson) {
+        return new AutoValue_Followers.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.href);
-        dest.writeInt(this.total);
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder href(String __);
+        public abstract Builder total(Integer __);
+        public abstract Followers build();
     }
 }

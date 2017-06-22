@@ -17,57 +17,37 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.SerializedName;
 
-public class AccessToken implements Parcelable {
+@AutoValue
+public abstract class AccessToken implements Parcelable {
 
-    public static final Creator<AccessToken> CREATOR = new Creator<AccessToken>() {
-        @Override
-        public AccessToken createFromParcel(Parcel in) {
-            return new AccessToken(in);
-        }
+    @SerializedName("access_token") public abstract String accessToken();
+    @SerializedName("expires_in") public abstract int expiresIn();
+    @SerializedName("refresh_token") public abstract String refreshToken();
+    @SerializedName("scope") public abstract String scope();
+    @SerializedName("token_type") public abstract String tokenType();
 
-        @Override
-        public AccessToken[] newArray(int size) {
-            return new AccessToken[size];
-        }
-    };
-
-    @SerializedName("access_token")
-    public String accessToken;
-    @SerializedName("token_type")
-    public String tokenType;
-    @SerializedName("scope")
-    public String scope;
-    @SerializedName("expires_in")
-    public int expiresIn;
-    @SerializedName("refresh_token")
-    public String refreshToken;
-
-    public AccessToken() {
-
+    public static Builder builder() {
+        return new AutoValue_AccessToken.Builder();
     }
 
-    protected AccessToken(Parcel in) {
-        this.accessToken = in.readString();
-        this.tokenType = in.readString();
-        this.expiresIn = in.readInt();
-        this.refreshToken = in.readString();
+    public static TypeAdapter<AccessToken> typeAdapter(Gson gson) {
+        return new AutoValue_AccessToken.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(accessToken);
-        dest.writeString(tokenType);
-        dest.writeInt(expiresIn);
-        dest.writeString(refreshToken);
+    @AutoValue.Builder
+    public static abstract class Builder {
+        public abstract Builder accessToken(String __);
+        public abstract Builder expiresIn(int __);
+        public abstract Builder refreshToken(String __);
+        public abstract Builder scope(String __);
+        public abstract Builder tokenType(String __);
+        public abstract AccessToken build();
     }
 }

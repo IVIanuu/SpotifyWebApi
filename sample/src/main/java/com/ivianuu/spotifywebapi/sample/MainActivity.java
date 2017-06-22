@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
                             .subscribe(new Consumer<AccessToken>() {
                                 @Override
                                 public void accept(AccessToken accessToken) throws Exception {
-                                    ((App) getApplicationContext()).setAccessToken(accessToken.accessToken);
-                                    ((App) getApplicationContext()).setRefreshToken(accessToken.refreshToken);
+                                    ((App) getApplicationContext()).setAccessToken(accessToken.accessToken());
+                                    ((App) getApplicationContext()).setRefreshToken(accessToken.refreshToken());
 
                                     startActivity(new Intent(MainActivity.this, PaginationActivity.class));
                                 }

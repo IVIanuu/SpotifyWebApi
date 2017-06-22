@@ -17,35 +17,28 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
-public class SnapshotId implements Parcelable {
-    public static final Parcelable.Creator<SnapshotId> CREATOR = new Parcelable.Creator<SnapshotId>() {
-        public SnapshotId createFromParcel(Parcel source) {
-            return new SnapshotId(source);
-        }
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-        public SnapshotId[] newArray(int size) {
-            return new SnapshotId[size];
-        }
-    };
-    public String snapshot_id;
+@AutoValue
+public abstract class SnapshotId implements Parcelable {
 
-    public SnapshotId() {
+    public abstract String snapshot_id();
+
+    public static Builder builder() {
+        return new AutoValue_SnapshotId.Builder();
     }
 
-    protected SnapshotId(Parcel in) {
-        this.snapshot_id = in.readString();
+    public static TypeAdapter<SnapshotId> typeAdapter(Gson gson) {
+        return new AutoValue_SnapshotId.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.snapshot_id);
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder snapshot_id(String __);
+        public abstract SnapshotId build();
     }
 }

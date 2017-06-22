@@ -17,35 +17,28 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Cursor implements Parcelable {
-    public static final Creator<Cursor> CREATOR = new Creator<Cursor>() {
-        public Cursor createFromParcel(Parcel source) {
-            return new Cursor(source);
-        }
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-        public Cursor[] newArray(int size) {
-            return new Cursor[size];
-        }
-    };
-    public String after;
+@AutoValue
+public abstract class Cursor implements Parcelable {
 
-    public Cursor() {
+    public abstract String after();
+
+    public static Builder builder() {
+        return new AutoValue_Cursor.Builder();
     }
 
-    protected Cursor(Parcel in) {
-        this.after = in.readString();
+    public static TypeAdapter<Cursor> typeAdapter(Gson gson) {
+        return new AutoValue_Cursor.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.after);
+    @AutoValue.Builder
+    public static abstract class Builder {
+        public abstract Builder after(String __);
+        public abstract Cursor build();
     }
 }

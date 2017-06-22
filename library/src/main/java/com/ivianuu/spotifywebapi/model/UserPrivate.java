@@ -17,45 +17,53 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
+import android.support.annotation.Nullable;
 
-public class UserPrivate extends UserPublic {
-    public static final Creator<UserPrivate> CREATOR = new Creator<UserPrivate>() {
-        public UserPrivate createFromParcel(Parcel source) {
-            return new UserPrivate(source);
-        }
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-        public UserPrivate[] newArray(int size) {
-            return new UserPrivate[size];
-        }
-    };
-    public String birthdate;
-    public String country;
-    public String email;
-    public String product;
+import java.util.List;
+import java.util.Map;
 
-    public UserPrivate() {
+@AutoValue
+public abstract class UserPrivate  {
+
+    public abstract String birthdate();
+    public abstract String country();
+    public abstract String email();
+    @Nullable public abstract String display_name();
+    public abstract Map<String, String> external_urls();
+    public abstract Followers followers();
+    public abstract String href();
+    public abstract String id();
+    public abstract List<Image> images();
+    public abstract String product();
+    public abstract String type();
+    public abstract String uri();
+
+    public static Builder builder() {
+        return new AutoValue_UserPrivate.Builder();
     }
 
-    protected UserPrivate(Parcel in) {
-        super(in);
-        this.birthdate = in.readString();
-        this.country = in.readString();
-        this.email = in.readString();
-        this.product = in.readString();
+    public static TypeAdapter<UserPublic> typeAdapter(Gson gson) {
+        return new AutoValue_UserPublic.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeString(this.birthdate);
-        dest.writeString(this.country);
-        dest.writeString(this.email);
-        dest.writeString(this.product);
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder birthdate(String __);
+        public abstract Builder country(String __);
+        public abstract Builder email(String __);
+        public abstract Builder display_name(String __);
+        public abstract Builder external_urls(Map<String, String> __);
+        public abstract Builder followers(Followers __);
+        public abstract Builder href(String __);
+        public abstract Builder id(String __);
+        public abstract Builder images(List<Image> __);
+        public abstract Builder product(String __);
+        public abstract Builder type(String __);
+        public abstract Builder uri(String __);
+        public abstract UserPrivate build();
     }
 }

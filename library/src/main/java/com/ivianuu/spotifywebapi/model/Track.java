@@ -17,62 +17,66 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
+
+import java.util.List;
 import java.util.Map;
 
-public class Track extends TrackSimple {
+@AutoValue
+public abstract class Track implements Parcelable {
 
-    public static final Creator<Track> CREATOR = new Creator<Track>() {
-        public Track createFromParcel(Parcel source) {
-            return new Track(source);
-        }
+    public abstract AlbumSimple album();
+    public abstract List<ArtistSimple> artists();
+    @Nullable public abstract List<String> available_markets();
+    public abstract int disc_number();
+    public abstract long duration_ms();
+    public abstract Boolean explicit();
+    public abstract Map<String, String> external_ids();
+    public abstract Map<String, String> external_urls();
+    public abstract String href();
+    public abstract String id();
+    public abstract Boolean is_playable();
+    @Nullable public abstract LinkedTrack linked_from();
+    public abstract String name();
+    public abstract Integer popularity();
+    @Nullable public abstract String preview_url();
+    public abstract int track_number();
+    public abstract String type();
+    public abstract String uri();
 
-        public Track[] newArray(int size) {
-            return new Track[size];
-        }
-    };
-    public AlbumSimple album;
-    public Map<String, String> external_ids;
-    public Integer popularity;
-
-    public Track() {
+    public static Builder builder() {
+        return new AutoValue_Track.Builder();
     }
 
-    protected Track(Parcel in) {
-        super(in);
-        this.album = in.readParcelable(AlbumSimple.class.getClassLoader());
-        this.external_ids = in.readHashMap(Map.class.getClassLoader());
-        this.popularity = (Integer) in.readValue(Integer.class.getClassLoader());
+    public static TypeAdapter<Track> typeAdapter(Gson gson) {
+        return new AutoValue_Track.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeParcelable(this.album, 0);
-        dest.writeMap(this.external_ids);
-        dest.writeValue(this.popularity);
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 17;
-        hash = 31 * hash + this.id.hashCode();
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null)
-            return false;
-        if (!(o instanceof Track)) return false;
-
-        Track other = (Track) o;
-        return this.id != null && other.id != null && this.id.equals(other.id);
+    @AutoValue.Builder
+    public static abstract class Builder {
+        public abstract Builder album(AlbumSimple __);
+        public abstract Builder artists(List<ArtistSimple> __);
+        public abstract Builder available_markets(List<String> __);
+        public abstract Builder disc_number(int __);
+        public abstract Builder duration_ms(long __);
+        public abstract Builder explicit(Boolean __);
+        public abstract Builder external_ids(Map<String, String> __);
+        public abstract Builder external_urls(Map<String, String> __);
+        public abstract Builder href(String __);
+        public abstract Builder id(String __);
+        public abstract Builder is_playable(Boolean __);
+        public abstract Builder linked_from(LinkedTrack __);
+        public abstract Builder name(String __);
+        public abstract Builder popularity(Integer __);
+        public abstract Builder preview_url(String __);
+        public abstract Builder track_number(int __);
+        public abstract Builder type(String __);
+        public abstract Builder uri(String __);
+        public abstract Track build();
     }
 }

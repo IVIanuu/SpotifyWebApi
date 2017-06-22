@@ -17,40 +17,30 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
+
 import java.util.List;
 
-public class TracksToRemove implements Parcelable {
+@AutoValue
+public abstract class TracksToRemove implements Parcelable {
 
-    public static final Parcelable.Creator<TracksToRemove> CREATOR = new Parcelable.Creator<TracksToRemove>() {
-        public TracksToRemove createFromParcel(Parcel source) {
-            return new TracksToRemove(source);
-        }
+    public abstract List<TrackToRemove> tracks();
 
-        public TracksToRemove[] newArray(int size) {
-            return new TracksToRemove[size];
-        }
-    };
-    public List<TrackToRemove> tracks;
-
-    public TracksToRemove() {
+    public static Builder builder() {
+        return new AutoValue_TracksToRemove.Builder();
     }
 
-    protected TracksToRemove(Parcel in) {
-        this.tracks = new ArrayList<>();
-        in.readList(this.tracks, List.class.getClassLoader());
+    public static TypeAdapter<TracksToRemove> typeAdapter(Gson gson) {
+        return new AutoValue_TracksToRemove.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeList(this.tracks);
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder tracks(List<TrackToRemove> __);
+        public abstract TracksToRemove build();
     }
 }

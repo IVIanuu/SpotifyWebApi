@@ -17,89 +17,62 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
-public class AudioFeaturesTrack implements Parcelable {
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-    public static final Creator<AudioFeaturesTrack> CREATOR = new Creator<AudioFeaturesTrack>() {
-        @Override
-        public AudioFeaturesTrack createFromParcel(Parcel in) {
-            return new AudioFeaturesTrack(in);
-        }
+@AutoValue
+public abstract class AudioFeaturesTrack implements Parcelable {
 
-        @Override
-        public AudioFeaturesTrack[] newArray(int size) {
-            return new AudioFeaturesTrack[size];
-        }
-    };
-    public float acousticness;
-    public String analysis_url;
-    public float danceability;
-    public int duration_ms;
-    public float energy;
-    public String id;
-    public float instrumentalness;
-    public int key;
-    public float liveness;
-    public float loudness;
-    public int mode;
-    public float speechiness;
-    public float tempo;
-    public int time_signature;
-    public String track_href;
-    public String type;
-    public String uri;
-    public float valence;
+    public abstract float acousticness();
+    public abstract String analysis_url();
+    public abstract float danceability();
+    public abstract int duration_ms();
+    public abstract float energy();
+    public abstract String id();
+    public abstract float instrumentalness();
+    public abstract int key();
+    public abstract float liveness();
+    public abstract float loudness();
+    public abstract int mode();
+    public abstract float speechiness();
+    public abstract float tempo();
+    public abstract int time_signature();
+    public abstract String track_href();
+    public abstract String type();
+    public abstract String uri();
+    public abstract float valence();
 
-    public AudioFeaturesTrack() {
+    public static Builder builder() {
+        return new AutoValue_AudioFeaturesTrack.Builder();
     }
 
-    protected AudioFeaturesTrack(Parcel in) {
-        acousticness = in.readFloat();
-        analysis_url = in.readString();
-        danceability = in.readFloat();
-        duration_ms = in.readInt();
-        energy = in.readFloat();
-        id = in.readString();
-        instrumentalness = in.readFloat();
-        key = in.readInt();
-        liveness = in.readFloat();
-        loudness = in.readFloat();
-        mode = in.readInt();
-        speechiness = in.readFloat();
-        tempo = in.readFloat();
-        time_signature = in.readInt();
-        track_href = in.readString();
-        type = in.readString();
-        uri = in.readString();
-        valence = in.readFloat();
+    public static TypeAdapter<AudioFeaturesTrack> typeAdapter(Gson gson) {
+        return new AutoValue_AudioFeaturesTrack.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeFloat(acousticness);
-        dest.writeString(analysis_url);
-        dest.writeFloat(danceability);
-        dest.writeInt(duration_ms);
-        dest.writeFloat(energy);
-        dest.writeString(id);
-        dest.writeFloat(instrumentalness);
-        dest.writeInt(key);
-        dest.writeFloat(liveness);
-        dest.writeFloat(loudness);
-        dest.writeInt(mode);
-        dest.writeFloat(speechiness);
-        dest.writeFloat(tempo);
-        dest.writeInt(time_signature);
-        dest.writeString(track_href);
-        dest.writeString(type);
-        dest.writeString(uri);
-        dest.writeFloat(valence);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder acousticness(float __);
+        public abstract Builder analysis_url(String __);
+        public abstract Builder danceability(float __);
+        public abstract Builder duration_ms(int __);
+        public abstract Builder energy(float __);
+        public abstract Builder id(String __);
+        public abstract Builder instrumentalness(float __);
+        public abstract Builder key(int __);
+        public abstract Builder liveness(float __);
+        public abstract Builder loudness(float __);
+        public abstract Builder mode(int __);
+        public abstract Builder speechiness(float __);
+        public abstract Builder tempo(float __);
+        public abstract Builder time_signature(int __);
+        public abstract Builder track_href(String __);
+        public abstract Builder type(String __);
+        public abstract Builder uri(String __);
+        public abstract Builder valence(float __);
+        public abstract AudioFeaturesTrack build();
     }
 }

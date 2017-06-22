@@ -120,12 +120,12 @@ public final class PaginationHelper<T> {
                     public void accept(Pager<T> tPager) throws Exception {
                         Log.d(TAG, "fetch success");
                         // update lists
-                        allItems.addAll(tPager.items);
+                        allItems.addAll(tPager.items());
 
                         latestItems.clear();
-                        latestItems.addAll(tPager.items);
+                        latestItems.addAll(tPager.items());
 
-                        allReceived = tPager.next == null;
+                        allReceived = tPager.next() == null;
                         if (!firstPageFetched) firstPageFetched = true;
                     }
                 }, new Consumer<Throwable>() {

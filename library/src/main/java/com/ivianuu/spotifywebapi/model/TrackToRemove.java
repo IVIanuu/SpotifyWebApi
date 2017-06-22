@@ -17,36 +17,28 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
-public class TrackToRemove implements Parcelable {
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-    public static final Parcelable.Creator<TrackToRemove> CREATOR = new Parcelable.Creator<TrackToRemove>() {
-        public TrackToRemove createFromParcel(Parcel source) {
-            return new TrackToRemove(source);
-        }
+@AutoValue
+public abstract class TrackToRemove implements Parcelable {
 
-        public TrackToRemove[] newArray(int size) {
-            return new TrackToRemove[size];
-        }
-    };
-    public String uri;
+    public abstract String uri();
 
-    public TrackToRemove() {
+    public static Builder builder() {
+        return new AutoValue_TrackToRemove.Builder();
     }
 
-    protected TrackToRemove(Parcel in) {
-        this.uri = in.readString();
+    public static TypeAdapter<TrackToRemove> typeAdapter(Gson gson) {
+        return new AutoValue_TrackToRemove.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.uri);
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder uri(String __);
+        public abstract TrackToRemove build();
     }
 }

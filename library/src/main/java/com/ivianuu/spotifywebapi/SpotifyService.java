@@ -17,6 +17,8 @@
 
 package com.ivianuu.spotifywebapi;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.ivianuu.spotifywebapi.model.Album;
 import com.ivianuu.spotifywebapi.model.Albums;
 import com.ivianuu.spotifywebapi.model.AlbumsPager;
@@ -3322,10 +3324,13 @@ public interface SpotifyService {
                 rxJava2CallAdapterFactory = RxJava2CallAdapterFactory.create();
             }
 
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapterFactory(AutoGsonAdapterFactory.create()).create();
+
             Retrofit restAdapter = retrofitBuilder
                     .baseUrl(BASE_URL)
                     .addConverterFactory(NullOnEmptyConverterFactory.create()) // fix for "https://github.com/square/retrofit/issues/1554#issuecomment-178633697"
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .addCallAdapterFactory(rxJava2CallAdapterFactory)
                     .client(okHttpClientBuilder.build())
                     .build();

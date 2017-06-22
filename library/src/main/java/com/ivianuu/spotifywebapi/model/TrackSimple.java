@@ -17,81 +17,61 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
+
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
 import java.util.List;
 import java.util.Map;
 
-public class TrackSimple implements Parcelable {
+@AutoValue
+public abstract class TrackSimple implements Parcelable {
 
-    public static final Creator<TrackSimple> CREATOR = new Creator<TrackSimple>() {
-        public TrackSimple createFromParcel(Parcel source) {
-            return new TrackSimple(source);
-        }
+    public abstract List<ArtistSimple> artists();
+    @Nullable public abstract List<String> available_markets();
+    public abstract int disc_number();
+    public abstract long duration_ms();
+    public abstract Boolean explicit();
+    public abstract Map<String, String> external_urls();
+    public abstract String href();
+    public abstract String id();
+    public abstract Boolean is_playable();
+    @Nullable public abstract LinkedTrack linked_from();
+    public abstract String name();
+    @Nullable public abstract String preview_url();
+    public abstract int track_number();
+    public abstract String type();
+    public abstract String uri();
 
-        public TrackSimple[] newArray(int size) {
-            return new TrackSimple[size];
-        }
-    };
-    public List<ArtistSimple> artists;
-    public List<String> available_markets;
-    public Boolean is_playable;
-    public LinkedTrack linked_from;
-    public int disc_number;
-    public long duration_ms;
-    public Boolean explicit;
-    public Map<String, String> external_urls;
-    public String href;
-    public String id;
-    public String name;
-    public String preview_url;
-    public int track_number;
-    public String type;
-    public String uri;
 
-    public TrackSimple() {
+    public static Builder builder() {
+        return new AutoValue_TrackSimple.Builder();
     }
 
-    protected TrackSimple(Parcel in) {
-        this.artists = in.createTypedArrayList(ArtistSimple.CREATOR);
-        this.available_markets = in.createStringArrayList();
-        this.is_playable = (Boolean) in.readValue(Boolean.class.getClassLoader());
-        this.linked_from = in.readParcelable(LinkedTrack.class.getClassLoader());
-        this.disc_number = in.readInt();
-        this.duration_ms = in.readLong();
-        this.explicit = (Boolean) in.readValue(Boolean.class.getClassLoader());
-        this.external_urls = in.readHashMap(Map.class.getClassLoader());
-        this.href = in.readString();
-        this.id = in.readString();
-        this.name = in.readString();
-        this.preview_url = in.readString();
-        this.track_number = in.readInt();
-        this.type = in.readString();
-        this.uri = in.readString();
+    public static TypeAdapter<TrackSimple> typeAdapter(Gson gson) {
+        return new AutoValue_TrackSimple.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeTypedList(artists);
-        dest.writeStringList(this.available_markets);
-        dest.writeValue(this.is_playable);
-        dest.writeParcelable(this.linked_from, 0);
-        dest.writeInt(this.disc_number);
-        dest.writeLong(this.duration_ms);
-        dest.writeValue(this.explicit);
-        dest.writeMap(this.external_urls);
-        dest.writeString(this.href);
-        dest.writeString(this.id);
-        dest.writeString(this.name);
-        dest.writeString(this.preview_url);
-        dest.writeInt(this.track_number);
-        dest.writeString(this.type);
-        dest.writeString(this.uri);
+    @AutoValue.Builder
+    public static abstract class Builder {
+        public abstract Builder artists(List<ArtistSimple> __);
+        public abstract Builder available_markets(List<String> __);
+        public abstract Builder disc_number(int __);
+        public abstract Builder duration_ms(long __);
+        public abstract Builder explicit(Boolean __);
+        public abstract Builder external_urls(Map<String, String> __);
+        public abstract Builder href(String __);
+        public abstract Builder id(String __);
+        public abstract Builder is_playable(Boolean __);
+        public abstract Builder linked_from(LinkedTrack __);
+        public abstract Builder name(String __);
+        public abstract Builder preview_url(String __);
+        public abstract Builder track_number(int __);
+        public abstract Builder type(String __);
+        public abstract Builder uri(String __);
+        public abstract TrackSimple build();
     }
 }

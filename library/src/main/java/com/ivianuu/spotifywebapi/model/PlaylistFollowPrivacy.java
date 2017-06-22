@@ -17,38 +17,29 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.SerializedName;
 
-public class PlaylistFollowPrivacy implements Parcelable {
-    public static final Parcelable.Creator<PlaylistFollowPrivacy> CREATOR = new Parcelable.Creator<PlaylistFollowPrivacy>() {
-        public PlaylistFollowPrivacy createFromParcel(Parcel source) {
-            return new PlaylistFollowPrivacy(source);
-        }
+@AutoValue
+public abstract class PlaylistFollowPrivacy implements Parcelable {
 
-        public PlaylistFollowPrivacy[] newArray(int size) {
-            return new PlaylistFollowPrivacy[size];
-        }
-    };
-    @SerializedName("public")
-    public Boolean is_public;
+    @SerializedName("public") public abstract Boolean is_public();
 
-    public PlaylistFollowPrivacy() {
+    public static Builder builder() {
+        return new AutoValue_PlaylistFollowPrivacy.Builder();
     }
 
-    protected PlaylistFollowPrivacy(Parcel in) {
-        this.is_public = (Boolean) in.readValue(Boolean.class.getClassLoader());
+    public static TypeAdapter<PlaylistFollowPrivacy> typeAdapter(Gson gson) {
+        return new AutoValue_PlaylistFollowPrivacy.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(this.is_public);
+    @AutoValue.Builder
+    public static abstract class Builder {
+        public abstract Builder is_public(Boolean __);
+        public abstract PlaylistFollowPrivacy build();
     }
 }

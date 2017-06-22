@@ -17,38 +17,30 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
 
-public class PlaylistTracksInformation implements Parcelable {
-    public static final Parcelable.Creator<PlaylistTracksInformation> CREATOR = new Parcelable.Creator<PlaylistTracksInformation>() {
-        public PlaylistTracksInformation createFromParcel(Parcel source) {
-            return new PlaylistTracksInformation(source);
-        }
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-        public PlaylistTracksInformation[] newArray(int size) {
-            return new PlaylistTracksInformation[size];
-        }
-    };
-    public String href;
-    public int total;
+@AutoValue
+public abstract class PlaylistTracksInformation implements Parcelable {
 
-    public PlaylistTracksInformation() {
+    public abstract String href();
+    public abstract int total();
+
+    public static Builder builder() {
+        return new AutoValue_PlaylistTracksInformation.Builder();
     }
 
-    protected PlaylistTracksInformation(Parcel in) {
-        this.href = in.readString();
-        this.total = in.readInt();
+    public static TypeAdapter<PlaylistTracksInformation> typeAdapter(Gson gson) {
+        return new AutoValue_PlaylistTracksInformation.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.href);
-        dest.writeInt(this.total);
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder href(String __);
+        public abstract Builder total(int __);
+        public abstract PlaylistTracksInformation build();
     }
 }

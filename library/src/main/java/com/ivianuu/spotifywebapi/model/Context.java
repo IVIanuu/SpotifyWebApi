@@ -17,49 +17,31 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.google.auto.value.AutoValue;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.Map;
 
-public class Context implements Parcelable {
+@AutoValue
+public abstract class Context implements Parcelable {
 
-    public static final Creator<Context> CREATOR = new Creator<Context>() {
-        @Override
-        public Context createFromParcel(Parcel in) {
-            return new Context(in);
-        }
+    @SerializedName("href") public abstract String href();
+    @SerializedName("external_urls") public abstract Map<String, String> external_urls();
+    @SerializedName("type") public abstract String type();
+    @SerializedName("uri") public abstract String uri();
 
-        @Override
-        public Context[] newArray(int size) {
-            return new Context[size];
-        }
-    };
-    public String type;
-    public String href;
-    public Map<String, String> external_urls;
-    public String uri;
-
-    public Context() {
+    public static Builder builder() {
+        return new AutoValue_Context.Builder();
     }
 
-    protected Context(Parcel in) {
-        type = in.readString();
-        href = in.readString();
-        external_urls = in.readHashMap(Map.class.getClassLoader());
-        uri = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(type);
-        dest.writeString(href);
-        dest.writeMap(external_urls);
-        dest.writeString(uri);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Builder type(String __);
+        public abstract Builder href(String __);
+        public abstract Builder external_urls(Map<String, String> __);
+        public abstract Builder uri(String __);
+        public abstract Context build();
     }
 }

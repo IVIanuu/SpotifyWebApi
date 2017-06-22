@@ -17,48 +17,49 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
 import java.util.List;
+import java.util.Map;
 
-public class Artist extends ArtistSimple {
+@AutoValue
+public abstract class Artist implements Parcelable {
+    
+    public abstract Map<String, String> external_urls();
+    public abstract Followers followers();
+    public abstract List<String> genres();
+    public abstract String href();
+    public abstract String id();
+    public abstract List<Image> images();
+    public abstract String name();
+    public abstract Integer popularity();
+    public abstract String type();
+    public abstract String uri();
 
-    public static final Creator<Artist> CREATOR = new Creator<Artist>() {
-        public Artist createFromParcel(Parcel source) {
-            return new Artist(source);
-        }
-
-        public Artist[] newArray(int size) {
-            return new Artist[size];
-        }
-    };
-    public Followers followers;
-    public List<String> genres;
-    public List<Image> images;
-    public Integer popularity;
-
-    public Artist() {
+    public static Builder builder() {
+        return new AutoValue_Artist.Builder();
     }
 
-    protected Artist(Parcel in) {
-        super(in);
-        this.followers = in.readParcelable(Followers.class.getClassLoader());
-        this.genres = in.createStringArrayList();
-        this.images = in.createTypedArrayList(Image.CREATOR);
-        this.popularity = (Integer) in.readValue(Integer.class.getClassLoader());
+    public static TypeAdapter<Artist> typeAdapter(Gson gson) {
+        return new AutoValue_Artist.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeParcelable(this.followers, flags);
-        dest.writeStringList(this.genres);
-        dest.writeTypedList(images);
-        dest.writeValue(this.popularity);
+    @AutoValue.Builder
+    public static abstract class Builder {
+        public abstract Builder external_urls(Map<String, String> __);
+        public abstract Builder followers(Followers __);
+        public abstract Builder genres(List<String> __);
+        public abstract Builder href(String __);
+        public abstract Builder id(String __);
+        public abstract Builder images(List<Image> __);
+        public abstract Builder name(String __);
+        public abstract Builder popularity(Integer __);
+        public abstract Builder type(String __);
+        public abstract Builder uri(String __);
+        public abstract Artist build();
     }
 }

@@ -17,46 +17,36 @@
 
 package com.ivianuu.spotifywebapi.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
 import java.util.List;
 
-public class Category implements Parcelable {
-    public static final Parcelable.Creator<Category> CREATOR = new Parcelable.Creator<Category>() {
-        public Category createFromParcel(Parcel source) {
-            return new Category(source);
-        }
+@AutoValue
+public abstract class Category implements Parcelable {
 
-        public Category[] newArray(int size) {
-            return new Category[size];
-        }
-    };
-    public String href;
-    public List<Image> icons;
-    public String id;
-    public String name;
+    public abstract String href();
+    public abstract List<Image> icons();
+    public abstract String id();
+    public abstract String name();
 
-    public Category() {
+    public static Builder builder() {
+        return new AutoValue_Category.Builder();
     }
 
-    protected Category(Parcel in) {
-        this.href = in.readString();
-        this.icons = in.createTypedArrayList(Image.CREATOR);
-        this.id = in.readString();
-        this.name = in.readString();
+    public static TypeAdapter<Category> typeAdapter(Gson gson) {
+        return new AutoValue_Category.GsonTypeAdapter(gson);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.href);
-        dest.writeTypedList(icons);
-        dest.writeString(this.id);
-        dest.writeString(this.name);
+    @AutoValue.Builder
+    public static abstract class Builder {
+        public abstract Builder href(String __);
+        public abstract Builder icons(List<Image> __);
+        public abstract Builder id(String __);
+        public abstract Builder name(String __);
+        public abstract Category build();
     }
 }
