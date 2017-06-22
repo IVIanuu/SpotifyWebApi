@@ -18,6 +18,7 @@
 package com.ivianuu.spotifywebapi.model;
 
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
@@ -28,7 +29,7 @@ public abstract class AccessToken implements Parcelable {
 
     public abstract String access_token();
     public abstract int expires_in();
-    public abstract String refresh_token();
+    @Nullable public abstract String refresh_token();
     public abstract String scope();
     public abstract String token_type();
 
