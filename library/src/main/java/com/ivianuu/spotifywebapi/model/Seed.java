@@ -34,6 +34,8 @@ public abstract class Seed implements Parcelable {
     public abstract int initialPoolSize();
     public abstract String type();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_Seed.Builder();
     }

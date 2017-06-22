@@ -32,6 +32,8 @@ public abstract class PlaylistTrack implements Parcelable {
     public abstract Boolean is_local();
     public abstract Track track();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_PlaylistTrack.Builder();
     }

@@ -28,6 +28,8 @@ public abstract class CategoriesPager implements Parcelable {
 
     public abstract Pager<Category> categories();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_CategoriesPager.Builder();
     }

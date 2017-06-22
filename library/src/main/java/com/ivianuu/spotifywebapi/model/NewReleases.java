@@ -28,6 +28,8 @@ public abstract class NewReleases implements Parcelable {
 
     public abstract Pager<AlbumSimple> albums();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_NewReleases.Builder();
     }

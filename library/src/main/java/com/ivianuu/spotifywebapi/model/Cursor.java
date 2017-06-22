@@ -28,6 +28,8 @@ public abstract class Cursor implements Parcelable {
 
     public abstract String after();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_Cursor.Builder();
     }

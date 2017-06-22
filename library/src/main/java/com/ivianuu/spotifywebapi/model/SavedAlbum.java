@@ -29,6 +29,8 @@ public abstract class SavedAlbum implements Parcelable {
     public abstract String added_at();
     public abstract Album album();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_SavedAlbum.Builder();
     }

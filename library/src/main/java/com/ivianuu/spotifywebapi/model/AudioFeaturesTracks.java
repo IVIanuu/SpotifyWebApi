@@ -30,6 +30,8 @@ public abstract class AudioFeaturesTracks implements Parcelable {
 
     public abstract List<AudioFeaturesTrack> audio_features();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_AudioFeaturesTracks.Builder();
     }

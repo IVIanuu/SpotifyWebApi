@@ -42,6 +42,8 @@ public abstract class PlaylistSimple {
     public abstract String type();
     public abstract String uri();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_PlaylistSimple.Builder();
     }

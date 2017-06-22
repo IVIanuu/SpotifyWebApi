@@ -31,6 +31,8 @@ public abstract class Image implements Parcelable {
     public abstract String url();
     @Nullable public abstract Integer width();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_Image.Builder();
     }

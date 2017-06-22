@@ -40,6 +40,8 @@ public abstract class Pager<T> implements Parcelable {
     @Nullable public abstract String previous();
     public abstract int total();
 
+    public abstract Builder<T> toBuilder();
+
     public static Builder<Parcelable> builder() {
         return new AutoValue_Pager.Builder<>();
     }

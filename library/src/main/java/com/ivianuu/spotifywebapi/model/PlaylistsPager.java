@@ -28,6 +28,8 @@ public abstract class PlaylistsPager implements Parcelable {
 
     public abstract Pager<PlaylistSimple> playlists();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_PlaylistsPager.Builder();
     }

@@ -30,6 +30,8 @@ public abstract class PlayHistory implements Parcelable {
     public abstract String played_at();
     public abstract TrackSimple track();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_PlayHistory.Builder();
     }

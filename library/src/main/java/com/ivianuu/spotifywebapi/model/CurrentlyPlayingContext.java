@@ -36,6 +36,8 @@ public abstract class CurrentlyPlayingContext implements Parcelable {
     public abstract boolean shuffle_state();
     public abstract long timestamp();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_CurrentlyPlayingContext.Builder();
     }

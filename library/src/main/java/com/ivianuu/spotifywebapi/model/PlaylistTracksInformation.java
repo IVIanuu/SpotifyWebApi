@@ -29,6 +29,8 @@ public abstract class PlaylistTracksInformation implements Parcelable {
     public abstract String href();
     public abstract int total();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_PlaylistTracksInformation.Builder();
     }

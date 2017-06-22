@@ -28,6 +28,8 @@ public abstract class TrackToRemove implements Parcelable {
 
     public abstract String uri();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_TrackToRemove.Builder();
     }

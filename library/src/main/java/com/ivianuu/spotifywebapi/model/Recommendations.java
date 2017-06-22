@@ -31,6 +31,8 @@ public abstract class Recommendations implements Parcelable {
     public abstract List<Seed> seeds();
     public abstract List<Track> tracks();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_Recommendations.Builder();
     }

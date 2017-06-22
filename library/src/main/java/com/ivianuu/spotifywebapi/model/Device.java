@@ -33,6 +33,8 @@ public abstract class Device implements Parcelable {
     public abstract String type();
     public abstract int volume_percent();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_Device.Builder();
     }

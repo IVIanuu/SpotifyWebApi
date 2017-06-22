@@ -29,6 +29,8 @@ public abstract class PlaylistFollowPrivacy implements Parcelable {
 
     @SerializedName("public") public abstract Boolean is_public();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_PlaylistFollowPrivacy.Builder();
     }

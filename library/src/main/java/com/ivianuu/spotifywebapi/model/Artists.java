@@ -30,6 +30,8 @@ public abstract class Artists implements Parcelable {
 
     public abstract List<Artist> artists();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_Artists.Builder();
     }

@@ -45,6 +45,8 @@ public abstract class AudioFeaturesTrack implements Parcelable {
     public abstract String uri();
     public abstract float valence();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_AudioFeaturesTrack.Builder();
     }

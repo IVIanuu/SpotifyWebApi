@@ -30,6 +30,8 @@ public abstract class Followers implements Parcelable {
     @Nullable public abstract String href();
     public abstract Integer total();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_Followers.Builder();
     }

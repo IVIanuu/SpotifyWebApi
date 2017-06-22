@@ -9,9 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.google.common.collect.ImmutableList;
 import com.ivianuu.spotifyextensions.PaginationHelper;
 import com.ivianuu.spotifywebapi.SpotifyService;
+import com.ivianuu.spotifywebapi.model.AccessToken;
 import com.ivianuu.spotifywebapi.model.AlbumSimple;
 import com.ivianuu.spotifywebapi.model.NewReleases;
 import com.ivianuu.spotifywebapi.model.Pager;

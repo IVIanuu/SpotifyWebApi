@@ -27,10 +27,12 @@ import java.util.Map;
 @AutoValue
 public abstract class Context implements Parcelable {
 
-    @SerializedName("href") public abstract String href();
-    @SerializedName("external_urls") public abstract Map<String, String> external_urls();
-    @SerializedName("type") public abstract String type();
-    @SerializedName("uri") public abstract String uri();
+    public abstract String href();
+    public abstract Map<String, String> external_urls();
+    public abstract String type();
+    public abstract String uri();
+
+    public abstract Builder toBuilder();
 
     public static Builder builder() {
         return new AutoValue_Context.Builder();

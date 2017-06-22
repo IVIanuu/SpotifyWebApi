@@ -29,6 +29,8 @@ public abstract class SavedTrack implements Parcelable {
     public abstract String added_at();
     public abstract Track track();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_SavedTrack.Builder();
     }

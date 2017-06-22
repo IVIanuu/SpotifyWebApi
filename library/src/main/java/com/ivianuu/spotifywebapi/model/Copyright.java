@@ -29,6 +29,8 @@ public abstract class Copyright implements Parcelable {
     public abstract String text();
     public abstract String type();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_Copyright.Builder();
     }

@@ -28,6 +28,8 @@ public abstract class ArtistsCursorPager implements Parcelable {
 
     public abstract CursorPager<Artist> artists();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_ArtistsCursorPager.Builder();
     }

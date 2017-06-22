@@ -29,6 +29,8 @@ public abstract class ArtistsPager implements Parcelable {
 
     public abstract Pager<Artist> artists();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_ArtistsPager.Builder();
     }

@@ -33,6 +33,8 @@ public abstract class AccessToken implements Parcelable {
     public abstract String scope();
     public abstract String token_type();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_AccessToken.Builder();
     }

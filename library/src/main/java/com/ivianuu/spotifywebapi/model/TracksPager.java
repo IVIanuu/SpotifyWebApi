@@ -28,6 +28,8 @@ public abstract class TracksPager implements Parcelable {
 
     public abstract Pager<Track> tracks();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_TracksPager.Builder();
     }

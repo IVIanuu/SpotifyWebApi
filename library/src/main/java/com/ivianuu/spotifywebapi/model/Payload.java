@@ -30,6 +30,8 @@ public abstract class Payload implements Parcelable {
 
     public abstract List<Device> devices();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_Payload.Builder();
     }

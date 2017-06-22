@@ -30,6 +30,8 @@ public abstract class Albums implements Parcelable {
 
     public abstract List<Album> albums();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_Albums.Builder();
     }

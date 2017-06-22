@@ -28,6 +28,8 @@ public abstract class SnapshotId implements Parcelable {
 
     public abstract String snapshot_id();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_SnapshotId.Builder();
     }

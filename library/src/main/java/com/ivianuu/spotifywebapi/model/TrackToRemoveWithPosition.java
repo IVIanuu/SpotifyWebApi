@@ -31,6 +31,8 @@ public abstract class TrackToRemoveWithPosition implements Parcelable {
     public abstract List<Integer> positions();
     public abstract String uri();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_TrackToRemoveWithPosition.Builder();
     }

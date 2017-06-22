@@ -29,6 +29,8 @@ public abstract class FeaturedPlaylists implements Parcelable {
     public abstract String message();
     public abstract Pager<PlaylistSimple> playlists();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_FeaturedPlaylists.Builder();
     }

@@ -40,6 +40,8 @@ public abstract class CursorPager<T> implements Parcelable {
     public abstract Cursor cursors();
     public abstract int total();
 
+    public abstract Builder<T> toBuilder();
+
     public static Builder builder() {
         return new AutoValue_CursorPager.Builder();
     }

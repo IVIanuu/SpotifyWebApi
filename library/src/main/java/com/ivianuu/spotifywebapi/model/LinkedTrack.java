@@ -34,6 +34,8 @@ public abstract class LinkedTrack implements Parcelable {
     public abstract String type();
     public abstract String uri();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_LinkedTrack.Builder();
     }

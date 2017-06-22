@@ -33,6 +33,8 @@ public abstract class Category implements Parcelable {
     public abstract String id();
     public abstract String name();
 
+    public abstract Builder toBuilder();
+
     public static Builder builder() {
         return new AutoValue_Category.Builder();
     }
