@@ -12,9 +12,15 @@ import com.ivianuu.spotifyextensions.PaginationHelper;
 import com.ivianuu.spotifywebapi.SpotifyService;
 import com.ivianuu.spotifywebapi.model.Album;
 import com.ivianuu.spotifywebapi.model.AlbumSimple;
+import com.ivianuu.spotifywebapi.model.AlbumsPager;
+import com.ivianuu.spotifywebapi.model.ArtistsPager;
+import com.ivianuu.spotifywebapi.model.FeaturedPlaylists;
 import com.ivianuu.spotifywebapi.model.NewReleases;
 import com.ivianuu.spotifywebapi.model.Pager;
+import com.ivianuu.spotifywebapi.model.PlaylistSimple;
+import com.ivianuu.spotifywebapi.model.PlaylistsPager;
 import com.ivianuu.spotifywebapi.model.Track;
+import com.ivianuu.spotifywebapi.model.TracksPager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -94,17 +100,6 @@ public class PaginationActivity extends AppCompatActivity {
         // load first page
         paginationHelper.fetchNextPage();
 
-        spotifyService.getTopTracksBody()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Pager<Track>>() {
-                    @Override
-                    public void accept(Pager<Track> trackPager) throws Exception {
-                        for (Track track : trackPager.items()) {
-                            Log.d("testtt", track.name());
-                        }
-                    }
-                });
     }
 
 }

@@ -27,11 +27,11 @@ import com.google.gson.annotations.SerializedName;
 @AutoValue
 public abstract class AccessToken implements Parcelable {
 
-    @SerializedName("access_token") public abstract String accessToken();
-    @SerializedName("expires_in") public abstract int expiresIn();
-    @SerializedName("refresh_token") public abstract String refreshToken();
-    @SerializedName("scope") public abstract String scope();
-    @SerializedName("token_type") public abstract String tokenType();
+    public abstract String access_token();
+    public abstract int expires_in();
+    public abstract String refresh_token();
+    public abstract String scope();
+    public abstract String token_type();
 
     public static Builder builder() {
         return new AutoValue_AccessToken.Builder();
@@ -43,11 +43,11 @@ public abstract class AccessToken implements Parcelable {
 
     @AutoValue.Builder
     public static abstract class Builder {
-        public abstract Builder accessToken(String __);
-        public abstract Builder expiresIn(int __);
-        public abstract Builder refreshToken(String __);
+        public abstract Builder access_token(String __);
+        public abstract Builder expires_in(int __);
+        public abstract Builder refresh_token(String __);
         public abstract Builder scope(String __);
-        public abstract Builder tokenType(String __);
+        public abstract Builder token_type(String __);
         public abstract AccessToken build();
     }
 }

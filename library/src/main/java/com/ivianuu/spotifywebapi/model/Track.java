@@ -40,7 +40,7 @@ public abstract class Track implements Parcelable {
     public abstract Map<String, String> external_urls();
     public abstract String href();
     public abstract String id();
-    public abstract Boolean is_playable();
+    @Nullable public abstract Boolean is_playable();
     @Nullable public abstract LinkedTrack linked_from();
     public abstract String name();
     public abstract Integer popularity();

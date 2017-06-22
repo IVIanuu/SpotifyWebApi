@@ -29,16 +29,16 @@ import java.util.Map;
 @AutoValue
 public abstract class UserPrivate  {
 
-    public abstract String birthdate();
-    public abstract String country();
-    public abstract String email();
+    @Nullable public abstract String birthdate();
+    @Nullable public abstract String country();
+    @Nullable public abstract String email();
     @Nullable public abstract String display_name();
     public abstract Map<String, String> external_urls();
     public abstract Followers followers();
     public abstract String href();
     public abstract String id();
     public abstract List<Image> images();
-    public abstract String product();
+    @Nullable public abstract String product();
     public abstract String type();
     public abstract String uri();
 
@@ -46,8 +46,8 @@ public abstract class UserPrivate  {
         return new AutoValue_UserPrivate.Builder();
     }
 
-    public static TypeAdapter<UserPublic> typeAdapter(Gson gson) {
-        return new AutoValue_UserPublic.GsonTypeAdapter(gson);
+    public static TypeAdapter<UserPrivate> typeAdapter(Gson gson) {
+        return new AutoValue_UserPrivate.GsonTypeAdapter(gson);
     }
 
     @AutoValue.Builder
