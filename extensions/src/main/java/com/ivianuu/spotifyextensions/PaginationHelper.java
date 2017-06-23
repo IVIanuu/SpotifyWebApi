@@ -56,7 +56,6 @@ public final class PaginationHelper<T> {
     private boolean firstPageFetched;
 
     private List<T> allItems = new ArrayList<>();
-    private List<T> latestItems = new ArrayList<>();
 
     private PaginationHelper(Builder<T> builder) {
         this.options = builder.defaultOptions;
@@ -66,64 +65,50 @@ public final class PaginationHelper<T> {
         this.fetcher = builder.fetcher;
 
         options.put(SpotifyService.QUERY_PARAMETER.LIMIT, limit);
-        Log.d(TAG, "init");
     }
 
     /**
      * Fetches the next page
      */
     public boolean fetchNextPage() {
-        Log.d(TAG, "next page");
         if (allReceived || fetching) {
-            Log.d(TAG, "should not fetch next page");
             // load only if not all items are received and we not already fetching a page
             return false;
         }
 
-        if (isFirstPageFetched()) {
-            Log.d(TAG, "first page is fetched so apply options");
+        if (firstPageFetched) {
             // update options
             offset += limit;
             options.put(SpotifyService.QUERY_PARAMETER.OFFSET, offset);
         }
-
-        Log.d(TAG, "start fetching offset: " + offset);
 
         // fetch
         fetchingDisposable = fetcher.fetch(options).toObservable()
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        Log.d(TAG, "on subscribe");
                         fetching = true;
-                        fetchingPublisher.onNext(true);
+                        fetchingSubject.onNext(true);
                     }
                 })
                 .doAfterTerminate(new Action() {
                     @Override
                     public void run() throws Exception {
-                        Log.d(TAG, "on terminate");
                         fetching = false;
-                        fetchingPublisher.onNext(false);
+                        fetchingSubject.onNext(false);
                     }
                 })
                 .doOnComplete(new Action() {
                     @Override
                     public void run() throws Exception {
-                        Log.d(TAG, "on complete");
-                        allItemsPublisher.onNext(allItems);
-                        latestItemsPublisher.onNext(latestItems);
+                        allItemsSubject.onNext(allItems);
                     }
                 })
                 .subscribe(new Consumer<Pager<T>>() {
                     @Override
                     public void accept(Pager<T> tPager) throws Exception {
-                        Log.d(TAG, "fetch success");
                         // update lists
                         allItems.addAll(tPager.items());
-
-                        latestItems.clear();
-                        latestItems.addAll(tPager.items());
 
                         allReceived = tPager.next() == null;
                         if (!firstPageFetched) firstPageFetched = true;
@@ -136,7 +121,7 @@ public final class PaginationHelper<T> {
                         options.put(SpotifyService.QUERY_PARAMETER.OFFSET, offset);
 
                         // forward errors
-                        errorPublisher.onNext(throwable);
+                        errorSubject.onNext(throwable);
                     }
                 });
 
@@ -152,7 +137,6 @@ public final class PaginationHelper<T> {
         allReceived = false;
         firstPageFetched = false;
         allItems.clear();
-        latestItems.clear();
         cancelFetching();
     }
 
@@ -167,82 +151,26 @@ public final class PaginationHelper<T> {
     }
 
     // OBSERVER
-    private final PublishSubject<List<T>> allItemsPublisher = PublishSubject.create();
+    private final PublishSubject<List<T>> allItemsSubject = PublishSubject.create();
 
     /**
      * Observe item changes
      */
-    public Observable<List<T>> observeAllItems() {
-        return allItemsPublisher;
+    public Observable<List<T>> allItems() {
+        return allItemsSubject;
     }
 
     /**
      * Observe errors
      */
-    private final PublishSubject<Throwable> errorPublisher = PublishSubject.create();
-    public Observable<Throwable> observeError() {
-        return errorPublisher;
+    private final PublishSubject<Throwable> errorSubject = PublishSubject.create();
+    public Observable<Throwable> error() {
+        return errorSubject;
     }
 
-    /**
-     * Observe latest item changes
-     */
-    private final PublishSubject<List<T>> latestItemsPublisher = PublishSubject.create();
-    public Observable<List<T>> observeLatestItems() {
-        return latestItemsPublisher;
-    }
-
-    private final PublishSubject<Boolean> fetchingPublisher = PublishSubject.create();
-    public Observable<Boolean> observeFetching() {
-        return fetchingPublisher;
-    }
-
-    // Getter
-
-    /**
-     * @return the limit
-     */
-    public int getLimit() {
-        return limit;
-    }
-
-    /**
-     * @return the current offset
-     */
-    public int getOffset() {
-        return offset;
-    }
-
-    /**
-     * @return all items fetched yet
-     */
-    public List<T> getAllItems() {
-        return allItems;
-    }
-
-    /**
-     * @return latest fetched items
-     */
-    public List<T> getLatestItems() {
-        return latestItems;
-    }
-
-    /**
-     * @return fetching state
-     */
-    public boolean isFetching() {
-        return fetching;
-    }
-
-    /**
-     * @return all items received
-     */
-    public boolean allReceived() {
-        return allReceived;
-    }
-
-    public boolean isFirstPageFetched() {
-        return firstPageFetched;
+    private final PublishSubject<Boolean> fetchingSubject = PublishSubject.create();
+    public Observable<Boolean> fetching() {
+        return fetchingSubject;
     }
 
     public static class Builder<T> {

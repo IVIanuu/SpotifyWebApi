@@ -31,6 +31,7 @@ import io.reactivex.functions.Function;
  * @author Manuel Wrage (IVIanuu)
  */
 
+// TODO: 23.06.2017 WIP 
 public class PaginationActivity extends AppCompatActivity {
 
     private SpotifyService spotifyService;
@@ -78,16 +79,6 @@ public class PaginationActivity extends AppCompatActivity {
                     }
                 })
                 .build();
-
-        paginationHelper.observeLatestItems()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<AlbumSimple>>() {
-                    @Override
-                    public void accept(List<AlbumSimple> albumSimples) throws Exception {
-                        // add albums to our recycler view
-                        albumAdapter.addAlbums(albumSimples);
-                    }
-                });
 
         // load first page
         paginationHelper.fetchNextPage();

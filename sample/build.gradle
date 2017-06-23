@@ -27,7 +27,7 @@ android {
 
 dependencies {
     // Spotify Web Api
-    compile project(':library')
+    compile project(':spotifywebapi')
 
     // Spotify Extensions
     compile project(':extensions')
