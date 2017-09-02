@@ -17,6 +17,9 @@
 
 package com.ivianuu.spotifywebapi;
 
+import android.support.annotation.CheckResult;
+import android.support.annotation.NonNull;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ivianuu.spotifywebapi.model.Album;
@@ -87,14 +90,15 @@ public interface SpotifyService {
     /*************
      * Albums *
      *************/
-    
+
     /**
      * Get Spotify catalog information for a single album.
      * @param albumId  The Spotify ID for the album.
-     * @return Requested album information 
+     * @return Requested album information
      * @see <a href="https://developer.spotify.com/web-api/get-album/">Get an Album</a>
      */
     @GET("albums/{id}")
+    @CheckResult @NonNull
     Single<Album> getAlbumBody(@Path("id") String albumId);
 
     /**
@@ -104,6 +108,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-album/">Get an Album</a>
      */
     @GET("albums/{id}")
+    @CheckResult @NonNull
     Single<Response<Album>> getAlbumResponse(@Path("id") String albumId);
 
     /**
@@ -113,6 +118,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-album/">Get an Album</a>
      */
     @GET("albums/{id}")
+    @CheckResult @NonNull
     Single<ResponseBody> getAlbumResponseBody(@Path("id") String albumId);
 
     /**
@@ -122,6 +128,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-album/">Get an Album</a>
      */
     @GET("albums/{id}")
+    @CheckResult @NonNull
     Single<Result<Album>> getAlbumResult(@Path("id") String albumId);
 
     /**
@@ -130,10 +137,11 @@ public interface SpotifyService {
      * @param albumId The Spotify ID for the album.
      * @param options Optional parameters. For list of supported parameters see
      *                <a href="https://developer.spotify.com/web-api/get-album/">endpoint documentation</a>
-     * @return Requested album information 
+     * @return Requested album information
      * @see <a href="https://developer.spotify.com/web-api/get-album/">Get an Album</a>
      */
     @GET("albums/{id}")
+    @CheckResult @NonNull
     Single<Album> getAlbumBody(@Path("id") String albumId, @QueryMap Map<String, Object> options);
 
     /**
@@ -146,6 +154,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-album/">Get an Album</a>
      */
     @GET("albums/{id}")
+    @CheckResult @NonNull
     Single<Response<Album>> getAlbumResponse(@Path("id") String albumId, @QueryMap Map<String, Object> options);
 
     /**
@@ -158,6 +167,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-album/">Get an Album</a>
      */
     @GET("albums/{id}")
+    @CheckResult @NonNull
     Single<ResponseBody> getAlbumResponseBody(@Path("id") String albumId, @QueryMap Map<String, Object> options);
 
     /**
@@ -170,8 +180,9 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-album/">Get an Album</a>
      */
     @GET("albums/{id}")
+    @CheckResult @NonNull
     Single<Result<Album>> getAlbumResult(@Path("id") String albumId, @QueryMap Map<String, Object> options);
-    
+
     /**
      * Get Spotify catalog information for multiple albums identified by their Spotify IDs.
      *
@@ -180,6 +191,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-albums/">Get Several Albums</a>
      */
     @GET("albums")
+    @CheckResult @NonNull
     Single<Albums> getAlbumsBody(@Query("ids") String albumIds);
 
     /**
@@ -190,6 +202,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-albums/">Get Several Albums</a>
      */
     @GET("albums")
+    @CheckResult @NonNull
     Single<Response<Albums>> getAlbumsResponse(@Query("ids") String albumIds);
 
     /**
@@ -200,6 +213,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-albums/">Get Several Albums</a>
      */
     @GET("albums")
+    @CheckResult @NonNull
     Single<ResponseBody> getAlbumsResponseBody(@Query("ids") String albumIds);
 
     /**
@@ -210,6 +224,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-albums/">Get Several Albums</a>
      */
     @GET("albums")
+    @CheckResult @NonNull
     Single<Result<Albums>> getAlbumsResult(@Query("ids") String albumIds);
 
     /**
@@ -222,6 +237,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-albums/">Get Several Albums</a>
      */
     @GET("albums")
+    @CheckResult @NonNull
     Single<Albums> getAlbumsBody(@Query("ids") String albumIds, @QueryMap Map<String, Object> options);
 
     /**
@@ -234,6 +250,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-albums/">Get Several Albums</a>
      */
     @GET("albums")
+    @CheckResult @NonNull
     Single<Response<Albums>> getAlbumsResponse(@Query("ids") String albumIds, @QueryMap Map<String, Object> options);
 
     /**
@@ -246,6 +263,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-albums/">Get Several Albums</a>
      */
     @GET("albums")
+    @CheckResult @NonNull
     Single<ResponseBody> getAlbumsResponseBody(@Query("ids") String albumIds, @QueryMap Map<String, Object> options);
 
     /**
@@ -258,16 +276,18 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-albums/">Get Several Albums</a>
      */
     @GET("albums")
+    @CheckResult @NonNull
     Single<Result<Albums>> getAlbumsResult(@Query("ids") String albumIds, @QueryMap Map<String, Object> options);
 
     /**
      * Get Spotify catalog information about an album’s tracks.
      *
      * @param albumId The Spotify ID for the album.
-     * @return List of simplified album objects wrapped in a Pager object 
+     * @return List of simplified album objects wrapped in a Pager object
      * @see <a href="https://developer.spotify.com/web-api/get-albums-tracks/">Get an Album’s Tracks</a>
      */
     @GET("albums/{id}/tracks")
+    @CheckResult @NonNull
     Single<Pager<Track>> getAlbumTracksBody(@Path("id") String albumId);
 
     /**
@@ -278,6 +298,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-albums-tracks/">Get an Album’s Tracks</a>
      */
     @GET("albums/{id}/tracks")
+    @CheckResult @NonNull
     Single<Response<Pager<Track>>> getAlbumTracksResponse(@Path("id") String albumId);
 
     /**
@@ -288,6 +309,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-albums-tracks/">Get an Album’s Tracks</a>
      */
     @GET("albums/{id}/tracks")
+    @CheckResult @NonNull
     Single<ResponseBody> getAlbumTracksResponseBody(@Path("id") String albumId);
 
     /**
@@ -298,6 +320,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-albums-tracks/">Get an Album’s Tracks</a>
      */
     @GET("albums/{id}/tracks")
+    @CheckResult @NonNull
     Single<Result<Pager<Track>>> getAlbumTracksResult(@Path("id") String albumId);
 
     /**
@@ -306,10 +329,11 @@ public interface SpotifyService {
      * @param albumId The Spotify ID for the album.
      * @param options Optional parameters. For list of supported parameters see
      *                <a href="https://developer.spotify.com/web-api/get-albums-tracks/">endpoint documentation</a>
-     * @return List of simplified album objects wrapped in a Pager object 
+     * @return List of simplified album objects wrapped in a Pager object
      * @see <a href="https://developer.spotify.com/web-api/get-albums-tracks/">Get an Album’s Tracks</a>
      */
     @GET("albums/{id}/tracks")
+    @CheckResult @NonNull
     Single<Pager<Track>> getAlbumTracksBody(@Path("id") String albumId, @QueryMap Map<String, Object> options);
 
     /**
@@ -322,6 +346,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-albums-tracks/">Get an Album’s Tracks</a>
      */
     @GET("albums/{id}/tracks")
+    @CheckResult @NonNull
     Single<Response<Pager<Track>>> getAlbumTracksResponse(@Path("id") String albumId, @QueryMap Map<String, Object> options);
 
     /**
@@ -334,6 +359,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-albums-tracks/">Get an Album’s Tracks</a>
      */
     @GET("albums/{id}/tracks")
+    @CheckResult @NonNull
     Single<ResponseBody> getAlbumTracksResponseBody(@Path("id") String albumId, @QueryMap Map<String, Object> options);
 
     /**
@@ -346,6 +372,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-albums-tracks/">Get an Album’s Tracks</a>
      */
     @GET("albums/{id}/tracks")
+    @CheckResult @NonNull
     Single<Result<Pager<Track>>> getAlbumTracksResult(@Path("id") String albumId, @QueryMap Map<String, Object> options);
 
     /*************
@@ -356,10 +383,11 @@ public interface SpotifyService {
      * Get Spotify catalog information for a single artist identified by their unique Spotify ID.
      *
      * @param artistId The Spotify ID for the artist.
-     * @return Requested artist information 
+     * @return Requested artist information
      * @see <a href="https://developer.spotify.com/web-api/get-artist/">Get an Artist</a>
      */
     @GET("artists/{id}")
+    @CheckResult @NonNull
     Single<Artist> getArtistBody(@Path("id") String artistId);
 
     /**
@@ -370,6 +398,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artist/">Get an Artist</a>
      */
     @GET("artists/{id}")
+    @CheckResult @NonNull
     Single<Response<Artist>> getArtistResponse(@Path("id") String artistId);
 
     /**
@@ -380,6 +409,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artist/">Get an Artist</a>
      */
     @GET("artists/{id}")
+    @CheckResult @NonNull
     Single<ResponseBody> getArtistResponseBody(@Path("id") String artistId);
 
     /**
@@ -390,6 +420,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artist/">Get an Artist</a>
      */
     @GET("artists/{id}")
+    @CheckResult @NonNull
     Single<Result<Artist>> getArtistResult(@Path("id") String artistId);
 
     /**
@@ -400,6 +431,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-artists/">Get Several Artists</a>
      */
     @GET("artists")
+    @CheckResult @NonNull
     Single<Artists> getArtistsBody(@Query("ids") String artistIds);
 
     /**
@@ -410,6 +442,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-artists/">Get Several Artists</a>
      */
     @GET("artists")
+    @CheckResult @NonNull
     Single<Response<Artists>> getArtistsResponse(@Query("ids") String artistIds);
 
     /**
@@ -420,6 +453,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-artists/">Get Several Artists</a>
      */
     @GET("artists")
+    @CheckResult @NonNull
     Single<ResponseBody> getArtistsResponseBody(@Query("ids") String artistIds);
 
     /**
@@ -430,6 +464,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-artists/">Get Several Artists</a>
      */
     @GET("artists")
+    @CheckResult @NonNull
     Single<Result<Artists>> getArtistsResult(@Query("ids") String artistIds);
 
     /**
@@ -440,6 +475,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artists-albums/">Get an Artist's Albums</a>
      */
     @GET("artists/{id}/albums")
+    @CheckResult @NonNull
     Single<Pager<Album>> getArtistAlbumsBody(@Path("id") String artistId);
 
     /**
@@ -450,6 +486,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artists-albums/">Get an Artist's Albums</a>
      */
     @GET("artists/{id}/albums")
+    @CheckResult @NonNull
     Single<Response<Pager<Album>>> getArtistAlbumsResponse(@Path("id") String artistId);
 
     /**
@@ -460,6 +497,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artists-albums/">Get an Artist's Albums</a>
      */
     @GET("artists/{id}/albums")
+    @CheckResult @NonNull
     Single<ResponseBody> getArtistAlbumsResponseBody(@Path("id") String artistId);
 
     /**
@@ -470,6 +508,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artists-albums/">Get an Artist's Albums</a>
      */
     @GET("artists/{id}/albums")
+    @CheckResult @NonNull
     Single<Result<Pager<Album>>> getArtistAlbumsResult(@Path("id") String artistId);
 
     /**
@@ -482,6 +521,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artists-albums/">Get an Artist's Albums</a>
      */
     @GET("artists/{id}/albums")
+    @CheckResult @NonNull
     Single<Pager<Album>> getArtistAlbumsBody(@Path("id") String artistId, @QueryMap Map<String, Object> options);
 
     /**
@@ -494,6 +534,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artists-albums/">Get an Artist's Albums</a>
      */
     @GET("artists/{id}/albums")
+    @CheckResult @NonNull
     Single<Response<Pager<Album>>> getArtistAlbumsResponse(@Path("id") String artistId, @QueryMap Map<String, Object> options);
 
     /**
@@ -506,6 +547,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artists-albums/">Get an Artist's Albums</a>
      */
     @GET("artists/{id}/albums")
+    @CheckResult @NonNull
     Single<ResponseBody> getArtistAlbumsResponseBody(@Path("id") String artistId, @QueryMap Map<String, Object> options);
 
     /**
@@ -518,6 +560,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artists-albums/">Get an Artist's Albums</a>
      */
     @GET("artists/{id}/albums")
+    @CheckResult @NonNull
     Single<Result<Pager<Album>>> getArtistAlbumsResult(@Path("id") String artistId, @QueryMap Map<String, Object> options);
 
     /**
@@ -529,6 +572,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artists-top-tracks/">Get an Artist’s Top Tracks</a>
      */
     @GET("artists/{id}/top-tracks")
+    @CheckResult @NonNull
     Single<Tracks> getArtistTopTracksBody(@Path("id") String artistId, @Query(COUNTRY) String country);
 
     /**
@@ -540,6 +584,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artists-top-tracks/">Get an Artist’s Top Tracks</a>
      */
     @GET("artists/{id}/top-tracks")
+    @CheckResult @NonNull
     Single<Response<Tracks>> getArtistTopTracksResponse(@Path("id") String artistId, @Query(COUNTRY) String country);
 
     /**
@@ -551,6 +596,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artists-top-tracks/">Get an Artist’s Top Tracks</a>
      */
     @GET("artists/{id}/top-tracks")
+    @CheckResult @NonNull
     Single<ResponseBody> getArtistTopTracksResponseBody(@Path("id") String artistId, @Query(COUNTRY) String country);
 
     /**
@@ -562,6 +608,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-artists-top-tracks/">Get an Artist’s Top Tracks</a>
      */
     @GET("artists/{id}/top-tracks")
+    @CheckResult @NonNull
     Single<Result<Tracks>> getArtistTopTracksResult(@Path("id") String artistId, @Query(COUNTRY) String country);
 
     /**
@@ -572,6 +619,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-related-artists/">Get an Artist’s Related Artists</a>
      */
     @GET("artists/{id}/related-artists")
+    @CheckResult @NonNull
     Single<Artists> getRelatedArtistsBody(@Path("id") String artistId);
 
     /**
@@ -582,6 +630,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-related-artists/">Get an Artist’s Related Artists</a>
      */
     @GET("artists/{id}/related-artists")
+    @CheckResult @NonNull
     Single<Response<Artists>> getRelatedArtistsResponse(@Path("id") String artistId);
 
     /**
@@ -592,6 +641,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-related-artists/">Get an Artist’s Related Artists</a>
      */
     @GET("artists/{id}/related-artists")
+    @CheckResult @NonNull
     Single<ResponseBody> getRelatedArtistsResponseBody(@Path("id") String artistId);
 
     /**
@@ -602,6 +652,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-related-artists/">Get an Artist’s Related Artists</a>
      */
     @GET("artists/{id}/related-artists")
+    @CheckResult @NonNull
     Single<Result<Artists>> getRelatedArtistsResult(@Path("id") String artistId);
 
     /*************
@@ -615,6 +666,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-featured-playlists/">Get a List of Featured Playlists</a>
      */
     @GET("browse/featured-playlists")
+    @CheckResult @NonNull
     Single<FeaturedPlaylists> getFeaturedPlaylistsBody();
 
     /**
@@ -624,6 +676,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-featured-playlists/">Get a List of Featured Playlists</a>
      */
     @GET("browse/featured-playlists")
+    @CheckResult @NonNull
     Single<Response<FeaturedPlaylists>> getFeaturedPlaylistsResponse();
 
     /**
@@ -633,6 +686,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-featured-playlists/">Get a List of Featured Playlists</a>
      */
     @GET("browse/featured-playlists")
+    @CheckResult @NonNull
     Single<ResponseBody> getFeaturedPlaylistsResponseBody();
 
     /**
@@ -642,6 +696,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-featured-playlists/">Get a List of Featured Playlists</a>
      */
     @GET("browse/featured-playlists")
+    @CheckResult @NonNull
     Single<Result<FeaturedPlaylists>> getFeaturedPlaylistsResult();
 
     /**
@@ -653,6 +708,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-featured-playlists/">Get a List of Featured Playlists</a>
      */
     @GET("browse/featured-playlists")
+    @CheckResult @NonNull
     Single<FeaturedPlaylists> getFeaturedPlaylistsBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -664,6 +720,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-featured-playlists/">Get a List of Featured Playlists</a>
      */
     @GET("browse/featured-playlists")
+    @CheckResult @NonNull
     Single<Response<FeaturedPlaylists>> getFeaturedPlaylistsResponse(@QueryMap Map<String, Object> options);
 
     /**
@@ -675,6 +732,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-featured-playlists/">Get a List of Featured Playlists</a>
      */
     @GET("browse/featured-playlists")
+    @CheckResult @NonNull
     Single<ResponseBody> getFeaturedPlaylistsResponseBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -686,6 +744,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-featured-playlists/">Get a List of Featured Playlists</a>
      */
     @GET("browse/featured-playlists")
+    @CheckResult @NonNull
     Single<Result<FeaturedPlaylists>> getFeaturedPlaylistsResult(@QueryMap Map<String, Object> options);
 
     /**
@@ -695,6 +754,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-new-releases/">Get a List of New Releases</a>
      */
     @GET("browse/new-releases")
+    @CheckResult @NonNull
     Single<NewReleases> getNewReleasesBody();
 
     /**
@@ -704,6 +764,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-new-releases/">Get a List of New Releases</a>
      */
     @GET("browse/new-releases")
+    @CheckResult @NonNull
     Single<Response<NewReleases>> getNewReleasesResponse();
 
     /**
@@ -713,6 +774,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-new-releases/">Get a List of New Releases</a>
      */
     @GET("browse/new-releases")
+    @CheckResult @NonNull
     Single<ResponseBody> getNewReleasesResponseBody();
 
     /**
@@ -722,6 +784,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-new-releases/">Get a List of New Releases</a>
      */
     @GET("browse/new-releases")
+    @CheckResult @NonNull
     Single<Result<NewReleases>> getNewReleasesResult();
 
     /**
@@ -733,6 +796,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-new-releases/">Get a List of New Releases</a>
      */
     @GET("browse/new-releases")
+    @CheckResult @NonNull
     Single<NewReleases> getNewReleasesBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -744,6 +808,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-new-releases/">Get a List of New Releases</a>
      */
     @GET("browse/new-releases")
+    @CheckResult @NonNull
     Single<Response<NewReleases>> getNewReleasesResponse(@QueryMap Map<String, Object> options);
 
     /**
@@ -755,6 +820,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-new-releases/">Get a List of New Releases</a>
      */
     @GET("browse/new-releases")
+    @CheckResult @NonNull
     Single<ResponseBody> getNewReleasesResponseBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -766,6 +832,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-new-releases/">Get a List of New Releases</a>
      */
     @GET("browse/new-releases")
+    @CheckResult @NonNull
     Single<Result<NewReleases>> getNewReleasesResult(@QueryMap Map<String, Object> options);
 
     /**
@@ -777,6 +844,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-categories/">Get a List of Categories</a>
      */
     @GET("browse/categories")
+    @CheckResult @NonNull
     Single<CategoriesPager> getCategoriesBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -788,6 +856,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-categories/">Get a List of Categories</a>
      */
     @GET("browse/categories")
+    @CheckResult @NonNull
     Single<Response<CategoriesPager>> getCategoriesResponse(@QueryMap Map<String, Object> options);
 
     /**
@@ -799,6 +868,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-categories/">Get a List of Categories</a>
      */
     @GET("browse/categories")
+    @CheckResult @NonNull
     Single<ResponseBody> getCategoriesResponseBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -810,6 +880,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-categories/">Get a List of Categories</a>
      */
     @GET("browse/categories")
+    @CheckResult @NonNull
     Single<Result<CategoriesPager>> getCategoriesResult(@QueryMap Map<String, Object> options);
 
     /**
@@ -821,6 +892,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-category/">Get a Spotify Category</a>
      */
     @GET("browse/categories/{category_id}")
+    @CheckResult @NonNull
     Single<Category> getCategoryBody(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
 
     /**
@@ -832,6 +904,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-category/">Get a Spotify Category</a>
      */
     @GET("browse/categories/{category_id}")
+    @CheckResult @NonNull
     Single<Response<Category>> getCategoryResponse(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
 
     /**
@@ -843,6 +916,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-category/">Get a Spotify Category</a>
      */
     @GET("browse/categories/{category_id}")
+    @CheckResult @NonNull
     Single<ResponseBody> getCategoryResponseBody(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
 
     /**
@@ -854,6 +928,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-category/">Get a Spotify Category</a>
      */
     @GET("browse/categories/{category_id}")
+    @CheckResult @NonNull
     Single<Result<Category>> getCategoryResult(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
 
     /**
@@ -865,6 +940,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-categorys-playlists/">Get playlists for a Spotify Category</a>
      */
     @GET("browse/categories/{category_id}/playlists")
+    @CheckResult @NonNull
     Single<PlaylistsPager> getPlaylistsForCategoryBody(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
 
     /**
@@ -876,6 +952,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-categorys-playlists/">Get playlists for a Spotify Category</a>
      */
     @GET("browse/categories/{category_id}/playlists")
+    @CheckResult @NonNull
     Single<Response<PlaylistsPager>> getPlaylistsForCategoryResponse(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
 
     /**
@@ -887,6 +964,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-categorys-playlists/">Get playlists for a Spotify Category</a>
      */
     @GET("browse/categories/{category_id}/playlists")
+    @CheckResult @NonNull
     Single<ResponseBody> getPlaylistsForCategoryResponseBody(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
 
     /**
@@ -898,6 +976,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-categorys-playlists/">Get playlists for a Spotify Category</a>
      */
     @GET("browse/categories/{category_id}/playlists")
+    @CheckResult @NonNull
     Single<Result<PlaylistsPager>> getPlaylistsForCategoryResult(@Path("category_id") String categoryId, @QueryMap Map<String, Object> options);
 
     /**
@@ -908,6 +987,7 @@ public interface SpotifyService {
      * @return Recommendations response object
      */
     @GET("recommendations")
+    @CheckResult @NonNull
     Single<Recommendations> getRecommendationsBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -918,6 +998,7 @@ public interface SpotifyService {
      * @return Recommendations response object
      */
     @GET("recommendations")
+    @CheckResult @NonNull
     Single<Response<Recommendations>> getRecommendationsResponse(@QueryMap Map<String, Object> options);
 
     /**
@@ -928,6 +1009,7 @@ public interface SpotifyService {
      * @return Recommendations response object
      */
     @GET("recommendations")
+    @CheckResult @NonNull
     Single<ResponseBody> getRecommendationsResponseBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -938,6 +1020,7 @@ public interface SpotifyService {
      * @return Recommendations response object
      */
     @GET("recommendations")
+    @CheckResult @NonNull
     Single<Result<Recommendations>> getRecommendationsResult(@QueryMap Map<String, Object> options);
 
     /**
@@ -946,6 +1029,7 @@ public interface SpotifyService {
      * @return An object whose key is "genres" and whose value is an array of available genres.
      */
     @GET("recommendations/available-genre-seeds")
+    @CheckResult @NonNull
     Single<SeedsGenres> getSeedsGenresBody();
 
     /**
@@ -954,6 +1038,7 @@ public interface SpotifyService {
      * @return An object whose key is "genres" and whose value is an array of available genres.
      */
     @GET("recommendations/available-genre-seeds")
+    @CheckResult @NonNull
     Single<Response<SeedsGenres>> getSeedsGenresResponse();
 
     /**
@@ -962,6 +1047,7 @@ public interface SpotifyService {
      * @return An object whose key is "genres" and whose value is an array of available genres.
      */
     @GET("recommendations/available-genre-seeds")
+    @CheckResult @NonNull
     Single<ResponseBody> getSeedsGenresResponseBody();
 
     /**
@@ -970,12 +1056,13 @@ public interface SpotifyService {
      * @return An object whose key is "genres" and whose value is an array of available genres.
      */
     @GET("recommendations/available-genre-seeds")
+    @CheckResult @NonNull
     Single<Result<SeedsGenres>> getSeedsGenresResult();
 
     /*************
      * Follow *
      *************/
-    
+
     /**
      * Get the current user's followed artists.
      *
@@ -983,6 +1070,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-followed-artists/">Get User's Followed Artists</a>
      */
     @GET("me/following?type=artist")
+    @CheckResult @NonNull
     Single<ArtistsCursorPager> getFollowedArtistsBody();
 
     /**
@@ -992,6 +1080,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-followed-artists/">Get User's Followed Artists</a>
      */
     @GET("me/following?type=artist")
+    @CheckResult @NonNull
     Single<Response<ArtistsCursorPager>> getFollowedArtistsResponse();
 
     /**
@@ -1001,6 +1090,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-followed-artists/">Get User's Followed Artists</a>
      */
     @GET("me/following?type=artist")
+    @CheckResult @NonNull
     Single<ResponseBody> getFollowedArtistsResponseBody();
 
     /**
@@ -1010,6 +1100,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-followed-artists/">Get User's Followed Artists</a>
      */
     @GET("me/following?type=artist")
+    @CheckResult @NonNull
     Single<Result<ArtistsCursorPager>> getFollowedArtistsResult();
 
     /**
@@ -1021,6 +1112,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-followed-artists/">Get User's Followed Artists</a>
      */
     @GET("me/following?type=artist")
+    @CheckResult @NonNull
     Single<ArtistsCursorPager> getFollowedArtistsBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -1032,6 +1124,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-followed-artists/">Get User's Followed Artists</a>
      */
     @GET("me/following?type=artist")
+    @CheckResult @NonNull
     Single<Response<ArtistsCursorPager>> getFollowedArtistsResponse(@QueryMap Map<String, Object> options);
 
     /**
@@ -1043,6 +1136,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-followed-artists/">Get User's Followed Artists</a>
      */
     @GET("me/following?type=artist")
+    @CheckResult @NonNull
     Single<ResponseBody> getFollowedArtistsResponseBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -1054,6 +1148,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-followed-artists/">Get User's Followed Artists</a>
      */
     @GET("me/following?type=artist")
+    @CheckResult @NonNull
     Single<Result<ArtistsCursorPager>> getFollowedArtistsResult(@QueryMap Map<String, Object> options);
 
     /**
@@ -1064,6 +1159,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/follow-artists-users/">Follow Artists or Users</a>
      */
     @PUT("me/following?type=artist")
+    @CheckResult @NonNull
     Completable followArtists(@Query("ids") String ids);
 
     /**
@@ -1074,6 +1170,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/follow-artists-users/">Follow Artists or Users</a>
      */
     @PUT("me/following?type=user")
+    @CheckResult @NonNull
     Completable followUsers(@Query("ids") String ids);
 
     /**
@@ -1084,6 +1181,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/unfollow-artists-users/">Unfollow Artists or Users</a>
      */
     @DELETE("me/following?type=artist")
+    @CheckResult @NonNull
     Completable unfollowArtists(@Query("ids") String ids);
 
     /**
@@ -1094,6 +1192,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/unfollow-artists-users/">Unfollow Artists or Users</a>
      */
     @DELETE("me/following?type=user")
+    @CheckResult @NonNull
     Completable unfollowUsers(@Query("ids") String ids);
 
     /**
@@ -1104,6 +1203,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-current-user-follows/">Check if Current User Follows Artists or Users</a>
      */
     @GET("me/following/contains?type=user")
+    @CheckResult @NonNull
     Single<Boolean[]> isFollowingUsersBody(@Query("ids") String ids);
 
     /**
@@ -1114,6 +1214,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-current-user-follows/">Check if Current User Follows Artists or Users</a>
      */
     @GET("me/following/contains?type=user")
+    @CheckResult @NonNull
     Single<Response<Boolean[]>> isFollowingUsersResponse(@Query("ids") String ids);
 
     /**
@@ -1124,6 +1225,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-current-user-follows/">Check if Current User Follows Artists or Users</a>
      */
     @GET("me/following/contains?type=user")
+    @CheckResult @NonNull
     Single<ResponseBody> isFollowingUsersResponseBody(@Query("ids") String ids);
 
     /**
@@ -1134,6 +1236,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-current-user-follows/">Check if Current User Follows Artists or Users</a>
      */
     @GET("me/following/contains?type=user")
+    @CheckResult @NonNull
     Single<Result<Boolean[]>> isFollowingUsersResult(@Query("ids") String ids);
 
     /**
@@ -1144,6 +1247,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-current-user-follows/">Check if Current User Follows Artists or Users</a>
      */
     @GET("me/following/contains?type=artist")
+    @CheckResult @NonNull
     Single<Boolean[]> isFollowingArtistsBody(@Query("ids") String ids);
 
     /**
@@ -1154,6 +1258,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-current-user-follows/">Check if Current User Follows Artists or Users</a>
      */
     @GET("me/following/contains?type=artist")
+    @CheckResult @NonNull
     Single<Response<Boolean[]>> isFollowingArtistsResponse(@Query("ids") String ids);
 
     /**
@@ -1164,6 +1269,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-current-user-follows/">Check if Current User Follows Artists or Users</a>
      */
     @GET("me/following/contains?type=artist")
+    @CheckResult @NonNull
     Single<ResponseBody> isFollowingArtistsResponseBody(@Query("ids") String ids);
 
     /**
@@ -1174,6 +1280,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-current-user-follows/">Check if Current User Follows Artists or Users</a>
      */
     @GET("me/following/contains?type=artist")
+    @CheckResult @NonNull
     Single<Result<Boolean[]>> isFollowingArtistsResult(@Query("ids") String ids);
 
     /**
@@ -1185,8 +1292,9 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/follow-playlist/">Follow a Playlist</a>
      */
     @PUT("users/{user_id}/playlists/{playlist_id}/followers")
+    @CheckResult @NonNull
     Completable followPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
-    
+
     /**
      * Add the current user as a follower of a playlist.
      *
@@ -1197,6 +1305,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/follow-playlist/">Follow a Playlist</a>
      */
     @PUT("users/{user_id}/playlists/{playlist_id}/followers")
+    @CheckResult @NonNull
     Completable followPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body PlaylistFollowPrivacy playlistFollowPrivacy);
 
     /**
@@ -1208,8 +1317,9 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/unfollow-playlist/">Unfollow a Playlist</a>
      */
     @DELETE("users/{user_id}/playlists/{playlist_id}/followers")
+    @CheckResult @NonNull
     Completable unfollowPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
-    
+
     /**
      * Check to see if one or more Spotify users are following a specified playlist.
      *
@@ -1220,6 +1330,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-user-following-playlist/">Check if Users Follow a Playlist</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/followers/contains")
+    @CheckResult @NonNull
     Single<Boolean[]> areFollowingPlaylistBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("ids") String ids);
 
     /**
@@ -1232,6 +1343,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-user-following-playlist/">Check if Users Follow a Playlist</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/followers/contains")
+    @CheckResult @NonNull
     Single<Response<Boolean[]>> areFollowingPlaylistResponse(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("ids") String ids);
 
     /**
@@ -1244,6 +1356,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-user-following-playlist/">Check if Users Follow a Playlist</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/followers/contains")
+    @CheckResult @NonNull
     Single<ResponseBody> areFollowingPlaylistResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("ids") String ids);
 
     /**
@@ -1256,6 +1369,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-user-following-playlist/">Check if Users Follow a Playlist</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/followers/contains")
+    @CheckResult @NonNull
     Single<Result<Boolean[]>> areFollowingPlaylistResult(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("ids") String ids);
 
     /*************
@@ -1270,6 +1384,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/save-tracks-user/">Save Tracks for User</a>
      */
     @PUT("me/tracks")
+    @CheckResult @NonNull
     Completable addToMySavedTracks(@Query("ids") String ids);
 
     /**
@@ -1279,6 +1394,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-tracks/">Get a User’s Saved Tracks</a>
      */
     @GET("me/tracks")
+    @CheckResult @NonNull
     Single<Pager<SavedTrack>> getMySavedTracksBody();
 
     /**
@@ -1288,6 +1404,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-tracks/">Get a User’s Saved Tracks</a>
      */
     @GET("me/tracks")
+    @CheckResult @NonNull
     Single<Response<Pager<SavedTrack>>> getMySavedTracksResponse();
 
     /**
@@ -1297,6 +1414,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-tracks/">Get a User’s Saved Tracks</a>
      */
     @GET("me/tracks")
+    @CheckResult @NonNull
     Single<ResponseBody> getMySavedTracksResponseBody();
 
     /**
@@ -1306,6 +1424,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-tracks/">Get a User’s Saved Tracks</a>
      */
     @GET("me/tracks")
+    @CheckResult @NonNull
     Single<Result<Pager<SavedTrack>>> getMySavedTracksResult();
 
     /**
@@ -1317,6 +1436,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-tracks/">Get a User’s Saved Tracks</a>
      */
     @GET("me/tracks")
+    @CheckResult @NonNull
     Single<Pager<SavedTrack>> getMySavedTracksBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -1328,6 +1448,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-tracks/">Get a User’s Saved Tracks</a>
      */
     @GET("me/tracks")
+    @CheckResult @NonNull
     Single<Response<Pager<SavedTrack>>> getMySavedTracksResponse(@QueryMap Map<String, Object> options);
 
     /**
@@ -1339,6 +1460,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-tracks/">Get a User’s Saved Tracks</a>
      */
     @GET("me/tracks")
+    @CheckResult @NonNull
     Single<ResponseBody> getMySavedTracksResponseBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -1350,6 +1472,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-tracks/">Get a User’s Saved Tracks</a>
      */
     @GET("me/tracks")
+    @CheckResult @NonNull
     Single<Result<Pager<SavedTrack>>> getMySavedTracksResult(@QueryMap Map<String, Object> options);
 
     /**
@@ -1360,8 +1483,9 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-user/">Remove User’s Saved Tracks</a>
      */
     @DELETE("me/tracks")
+    @CheckResult @NonNull
     Completable removeFromMySavedTracks(@Query("ids") String ids);
-    
+
     /**
      * Check if one or more tracks is already saved in the current Spotify user’s “Your Music” library.
      *
@@ -1370,6 +1494,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-users-saved-tracks/">Check User’s Saved Tracks</a>
      */
     @GET("me/tracks/contains")
+    @CheckResult @NonNull
     Single<Boolean[]> containsMySavedTracksBody(@Query("ids") String ids);
 
     /**
@@ -1380,6 +1505,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-users-saved-tracks/">Check User’s Saved Tracks</a>
      */
     @GET("me/tracks/contains")
+    @CheckResult @NonNull
     Single<Response<Boolean[]>> containsMySavedTracksResponse(@Query("ids") String ids);
 
     /**
@@ -1390,6 +1516,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-users-saved-tracks/">Check User’s Saved Tracks</a>
      */
     @GET("me/tracks/contains")
+    @CheckResult @NonNull
     Single<ResponseBody> containsMySavedTracksResponseBody(@Query("ids") String ids);
 
     /**
@@ -1400,8 +1527,9 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-users-saved-tracks/">Check User’s Saved Tracks</a>
      */
     @GET("me/tracks/contains")
+    @CheckResult @NonNull
     Single<Result<Boolean[]>> containsMySavedTracksResult(@Query("ids") String ids);
-    
+
     /**
      * Save one or more albums to the current user’s “Your Music” library.
      *
@@ -1410,6 +1538,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/save-albums-user/">Save Albums for User</a>
      */
     @PUT("me/albums")
+    @CheckResult @NonNull
     Completable addToMySavedAlbums(@Query("ids") String ids);
 
     /**
@@ -1419,6 +1548,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-albums/">Get a User’s Saved Albums</a>
      */
     @GET("me/albums")
+    @CheckResult @NonNull
     Single<Pager<SavedAlbum>> getMySavedAlbumsBody();
 
     /**
@@ -1428,6 +1558,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-albums/">Get a User’s Saved Albums</a>
      */
     @GET("me/albums")
+    @CheckResult @NonNull
     Single<Response<Pager<SavedAlbum>>> getMySavedAlbumsResponse();
 
     /**
@@ -1437,6 +1568,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-albums/">Get a User’s Saved Albums</a>
      */
     @GET("me/albums")
+    @CheckResult @NonNull
     Single<ResponseBody> getMySavedAlbumsResponseBody();
 
     /**
@@ -1446,6 +1578,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-albums/">Get a User’s Saved Albums</a>
      */
     @GET("me/albums")
+    @CheckResult @NonNull
     Single<Result<Pager<SavedAlbum>>> getMySavedAlbumsResult();
 
     /**
@@ -1457,6 +1590,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-albums/">Get a User’s Saved Albums</a>
      */
     @GET("me/albums")
+    @CheckResult @NonNull
     Single<Pager<SavedAlbum>> getMySavedAlbumsBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -1468,6 +1602,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-albums/">Get a User’s Saved Albums</a>
      */
     @GET("me/albums")
+    @CheckResult @NonNull
     Single<Response<Pager<SavedAlbum>>> getMySavedAlbumsResponse(@QueryMap Map<String, Object> options);
 
     /**
@@ -1479,6 +1614,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-albums/">Get a User’s Saved Albums</a>
      */
     @GET("me/albums")
+    @CheckResult @NonNull
     Single<ResponseBody> getMySavedAlbumsResponseBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -1490,6 +1626,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-saved-albums/">Get a User’s Saved Albums</a>
      */
     @GET("me/albums")
+    @CheckResult @NonNull
     Single<Result<Pager<SavedAlbum>>> getMySavedAlbumsResult(@QueryMap Map<String, Object> options);
 
     /**
@@ -1500,6 +1637,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-albums-user/">Remove User’s Saved Albums</a>
      */
     @DELETE("me/albums")
+    @CheckResult @NonNull
     Completable removeFromMySavedAlbums(@Query("ids") String ids);
 
     /**
@@ -1510,6 +1648,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-users-saved-albums/">Check User’s Saved Albums</a>
      */
     @GET("me/albums/contains")
+    @CheckResult @NonNull
     Single<Boolean[]> containsMySavedAlbumsBody(@Query("ids") String ids);
 
     /**
@@ -1520,6 +1659,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-users-saved-albums/">Check User’s Saved Albums</a>
      */
     @GET("me/albums/contains")
+    @CheckResult @NonNull
     Single<Response<Boolean[]>> containsMySavedAlbumsResponse(@Query("ids") String ids);
 
     /**
@@ -1530,6 +1670,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-users-saved-albums/">Check User’s Saved Albums</a>
      */
     @GET("me/albums/contains")
+    @CheckResult @NonNull
     Single<ResponseBody> containsMySavedAlbumsResponseBody(@Query("ids") String ids);
 
     /**
@@ -1540,6 +1681,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/check-users-saved-albums/">Check User’s Saved Albums</a>
      */
     @GET("me/albums/contains")
+    @CheckResult @NonNull
     Single<Result<Boolean[]>> containsMySavedAlbumsResult(@Query("ids") String ids);
 
     /*************
@@ -1553,6 +1695,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/artists")
+    @CheckResult @NonNull
     Single<Pager<Artist>> getTopArtistsBody();
 
     /**
@@ -1562,6 +1705,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/artists")
+    @CheckResult @NonNull
     Single<Response<Pager<Artist>>> getTopArtistsResponse();
 
     /**
@@ -1571,6 +1715,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/artists")
+    @CheckResult @NonNull
     Single<ResponseBody> getTopArtistsResponseBody();
 
     /**
@@ -1580,6 +1725,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/artists")
+    @CheckResult @NonNull
     Single<Result<Pager<Artist>>> getTopArtistsResult();
 
     /**
@@ -1591,6 +1737,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/artists")
+    @CheckResult @NonNull
     Single<Pager<Artist>> getTopArtistsBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -1602,6 +1749,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/artists")
+    @CheckResult @NonNull
     Single<Response<Pager<Artist>>> getTopArtistsResponse(@QueryMap Map<String, Object> options);
 
     /**
@@ -1613,6 +1761,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/artists")
+    @CheckResult @NonNull
     Single<ResponseBody> getTopArtistsResponseBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -1624,6 +1773,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/artists")
+    @CheckResult @NonNull
     Single<Result<Pager<Artist>>> getTopArtistsResult(@QueryMap Map<String, Object> options);
 
     /**
@@ -1633,6 +1783,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/tracks")
+    @CheckResult @NonNull
     Single<Pager<Track>> getTopTracksBody();
 
     /**
@@ -1642,6 +1793,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/tracks")
+    @CheckResult @NonNull
     Single<Response<Pager<Track>>> getTopTracksResponse();
 
     /**
@@ -1651,6 +1803,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/tracks")
+    @CheckResult @NonNull
     Single<ResponseBody> getTopTracksResponseBody();
 
     /**
@@ -1660,6 +1813,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/tracks")
+    @CheckResult @NonNull
     Single<Result<Pager<Track>>> getTopTracksResult();
 
     /**
@@ -1671,6 +1825,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/tracks")
+    @CheckResult @NonNull
     Single<Pager<Track>> getTopTracksBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -1682,6 +1837,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/tracks")
+    @CheckResult @NonNull
     Single<Response<Pager<Track>>> getTopTracksResponse(@QueryMap Map<String, Object> options);
 
     /**
@@ -1693,6 +1849,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/tracks")
+    @CheckResult @NonNull
     Single<ResponseBody> getTopTracksResponseBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -1704,6 +1861,7 @@ public interface SpotifyService {
      * The object in turn contains a paging object of Artists or Tracks
      */
     @GET("me/top/tracks")
+    @CheckResult @NonNull
     Single<Result<Pager<Track>>> getTopTracksResult(@QueryMap Map<String, Object> options);
 
     /**
@@ -1711,6 +1869,7 @@ public interface SpotifyService {
      * @return The object in turn contains a paging object of Play history items
      */
     @GET("me/player/recently-played")
+    @CheckResult @NonNull
     Single<Pager<PlayHistory>> getRecentlyPlayedTracksBody();
 
     /**
@@ -1718,6 +1877,7 @@ public interface SpotifyService {
      * @return The object in turn contains a paging object of Play history items
      */
     @GET("me/player/recently-played")
+    @CheckResult @NonNull
     Single<Response<Pager<PlayHistory>>> getRecentlyPlayedTracksResponse();
 
     /**
@@ -1725,6 +1885,7 @@ public interface SpotifyService {
      * @return The object in turn contains a paging object of Play history items
      */
     @GET("me/player/recently-played")
+    @CheckResult @NonNull
     Single<ResponseBody> getRecentlyPlayedTracksResponseBody();
 
     /**
@@ -1732,6 +1893,7 @@ public interface SpotifyService {
      * @return The object in turn contains a paging object of Play history items
      */
     @GET("me/player/recently-played")
+    @CheckResult @NonNull
     Single<Result<Pager<PlayHistory>>> getRecentlyPlayedTracksResult();
 
     /**
@@ -1741,6 +1903,7 @@ public interface SpotifyService {
       * @return The object in turn contains a paging object of Play history items
      */
     @GET("me/player/recently-played")
+    @CheckResult @NonNull
     Single<Pager<PlayHistory>> getRecentlyPlayedTracksBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -1750,6 +1913,7 @@ public interface SpotifyService {
       * @return The object in turn contains a paging object of Play history items
      */
     @GET("me/player/recently-played")
+    @CheckResult @NonNull
     Single<Response<Pager<PlayHistory>>> getRecentlyPlayedTracksResponse(@QueryMap Map<String, Object> options);
 
     /**
@@ -1759,6 +1923,7 @@ public interface SpotifyService {
       * @return The object in turn contains a paging object of Play history items
      */
     @GET("me/player/recently-played")
+    @CheckResult @NonNull
     Single<ResponseBody> getRecentlyPlayedTracksResponseBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -1768,6 +1933,7 @@ public interface SpotifyService {
       * @return The object in turn contains a paging object of Play history items
      */
     @GET("me/player/recently-played")
+    @CheckResult @NonNull
     Single<Result<Pager<PlayHistory>>> getRecentlyPlayedTracksResult(@QueryMap Map<String, Object> options);
 
     /*************
@@ -1775,114 +1941,149 @@ public interface SpotifyService {
      *************/
 
     @GET("me/player/devices")
+    @CheckResult @NonNull
     Single<Payload> getUsersAvailableDevicesBody();
 
     @GET("me/player/devices")
+    @CheckResult @NonNull
     Single<Response<Payload>> getUsersAvailableDevicesResponse();
 
     @GET("me/player/devices")
+    @CheckResult @NonNull
     Single<ResponseBody> getUsersAvailableDevicesResponseBody();
 
     @GET("me/player/devices")
+    @CheckResult @NonNull
     Single<Result<Payload>> getUsersAvailableDevicesResult();
 
     @GET("me/player")
+    @CheckResult @NonNull
     Single<CurrentlyPlayingContext> getCurrentPlaybackBody();
 
     @GET("me/player")
+    @CheckResult @NonNull
     Single<Response<CurrentlyPlayingContext>> getCurrentPlaybackResponse();
 
     @GET("me/player")
+    @CheckResult @NonNull
     Single<ResponseBody> getCurrentPlaybackResponseBody();
 
     @GET("me/player")
+    @CheckResult @NonNull
     Single<Result<CurrentlyPlayingContext>> getCurrentPlaybackResult();
 
     @GET("me/player")
+    @CheckResult @NonNull
     Single<CurrentlyPlayingContext> getCurrentPlaybackBody(@QueryMap Map<String, Object> options);
 
     @GET("me/player")
+    @CheckResult @NonNull
     Single<Response<CurrentlyPlayingContext>> getCurrentPlaybackResponse(@QueryMap Map<String, Object> options);
 
     @GET("me/player")
+    @CheckResult @NonNull
     Single<ResponseBody> getCurrentPlaybackResponseBody(@QueryMap Map<String, Object> options);
 
     @GET("me/player")
+    @CheckResult @NonNull
     Single<Result<CurrentlyPlayingContext>> getCurrentPlaybackResult(@QueryMap Map<String, Object> options);
-    
+
     @GET("me/player")
+    @CheckResult @NonNull
     Single<CurrentlyPlayingContext> getCurrentlyPlayingTrackBody();
 
     @GET("me/player")
+    @CheckResult @NonNull
     Single<Response<CurrentlyPlayingContext>> getCurrentlyPlayingTrackResponse();
 
     @GET("me/player")
+    @CheckResult @NonNull
     Single<ResponseBody> getCurrentlyPlayingTrackResponseBody();
 
     @GET("me/player")
+    @CheckResult @NonNull
     Single<Result<CurrentlyPlayingContext>> getCurrentlyPlayingTrackResult(@QueryMap Map<String, Object> options);
-    
+
     @PUT("me/player")
+    @CheckResult @NonNull
     Completable transferUserPlayback(@Body Map<String, Object> body);
-    
+
     @PUT("me/player/play")
+    @CheckResult @NonNull
     Completable startUserPlayback(@Body TracksToRemove body);
 
     @PUT("me/player/play")
+    @CheckResult @NonNull
     Completable startUserPlayback(@Query("device_id") String device_id, @Body Map<String, Object> body);
 
     @PUT("me/player/play")
+    @CheckResult @NonNull
     Completable resumeUserPlayback();
 
     @PUT("me/player/play")
+    @CheckResult @NonNull
     Completable resumeUserPlayback(@Query("device_id") String device_id);
 
     @PUT("me/player/pause")
+    @CheckResult @NonNull
     Completable pauseUserPlayback();
 
     @PUT("me/player/pause")
+    @CheckResult @NonNull
     Completable pauseUserPlayback(@Query("device_id") String device_id);
 
     @PUT("me/player/next")
+    @CheckResult @NonNull
     Completable skipToTheNextTrack();
-    
+
     @PUT("me/player/next")
+    @CheckResult @NonNull
     Completable skipToTheNextTrack(@Query("device_id") String device_id);
-    
+
     @PUT("me/player/previous")
+    @CheckResult @NonNull
     Completable skipToThePreviousTrack();
-    
+
     @PUT("me/player/previous")
+    @CheckResult @NonNull
     Completable skipToThePreviousTrack(@Query("device_id") String device_id);
 
     @PUT("me/player/seek")
+    @CheckResult @NonNull
     Completable seekToPositionInCurrentTrack(@Query("position_ms") int position_ms);
-    
+
     @PUT("me/player/seek")
+    @CheckResult @NonNull
     Completable seekToPositionInCurrentTrack(@Query("position_ms") int position_ms, @Query("device_id") String device_id);
 
     @PUT("me/player/repeat")
+    @CheckResult @NonNull
     Completable setRepeatMode(@Query("state") String state);
 
     @PUT("me/player/repeat")
+    @CheckResult @NonNull
     Completable setRepeatMode(@Query("state") String state, @Query("device_id") String device_id);
 
     @PUT("me/player/volume")
+    @CheckResult @NonNull
     Completable setVolume(@Query("volume_percent") int volume_percent);
-    
+
     @PUT("me/player/volume")
+    @CheckResult @NonNull
     Completable setVolume(@Query("volume_percent") int volume_percent, @Query("device_id") String device_id);
-    
+
     @PUT("me/player/shuffle")
+    @CheckResult @NonNull
     Completable toggleShuffle(@Query("state") boolean state);
 
     @PUT("me/player/shuffle")
+    @CheckResult @NonNull
     Completable toggleShuffle(@Query("state") boolean state, @Query("device_id") String device_id);
 
     /*************
      * Playlists *
      *************/
-    
+
     /**
      * Get a list of the playlists owned or followed by a Spotify user.
      *
@@ -1893,6 +2094,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-users-playlists/">Get a List of a User’s Playlists</a>
      */
     @GET("users/{id}/playlists")
+    @CheckResult @NonNull
     Single<Pager<PlaylistSimple>> getPlaylistsBase(@Path("id") String userId, @QueryMap Map<String, Object> options);
 
     /**
@@ -1905,6 +2107,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-users-playlists/">Get a List of a User’s Playlists</a>
      */
     @GET("users/{id}/playlists")
+    @CheckResult @NonNull
     Single<Response<Pager<PlaylistSimple>>> getPlaylistsResponse(@Path("id") String userId, @QueryMap Map<String, Object> options);
 
     /**
@@ -1917,6 +2120,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-users-playlists/">Get a List of a User’s Playlists</a>
      */
     @GET("users/{id}/playlists")
+    @CheckResult @NonNull
     Single<ResponseBody> getPlaylistsResponseBody(@Path("id") String userId, @QueryMap Map<String, Object> options);
 
     /**
@@ -1929,6 +2133,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-users-playlists/">Get a List of a User’s Playlists</a>
      */
     @GET("users/{id}/playlists")
+    @CheckResult @NonNull
     Single<Result<Pager<PlaylistSimple>>> getPlaylistsResult(@Path("id") String userId, @QueryMap Map<String, Object> options);
 
     /**
@@ -1939,6 +2144,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-users-playlists/">Get a List of a User’s Playlists</a>
      */
     @GET("users/{id}/playlists")
+    @CheckResult @NonNull
     Single<Pager<PlaylistSimple>> getPlaylistsBody(@Path("id") String userId);
 
     /**
@@ -1949,6 +2155,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-users-playlists/">Get a List of a User’s Playlists</a>
      */
     @GET("users/{id}/playlists")
+    @CheckResult @NonNull
     Single<Response<Pager<PlaylistSimple>>> getPlaylistsResponse(@Path("id") String userId);
 
     /**
@@ -1959,6 +2166,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-users-playlists/">Get a List of a User’s Playlists</a>
      */
     @GET("users/{id}/playlists")
+    @CheckResult @NonNull
     Single<ResponseBody> getPlaylistsResponseBody(@Path("id") String userId);
 
     /**
@@ -1969,6 +2177,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-list-users-playlists/">Get a List of a User’s Playlists</a>
      */
     @GET("users/{id}/playlists")
+    @CheckResult @NonNull
     Single<Result<Pager<PlaylistSimple>>> getPlaylistsResult(@Path("id") String userId);
 
     // TODO: 21.06.2017 check if options are avai
@@ -1979,6 +2188,7 @@ public interface SpotifyService {
      * @return List of user's playlists wrapped in a {@code Pager} object
      */
     @GET("me/playlists")
+    @CheckResult @NonNull
     Single<Pager<PlaylistSimple>> getMyPlaylistsBody();
 
     /**
@@ -1987,6 +2197,7 @@ public interface SpotifyService {
      * @return List of user's playlists wrapped in a {@code Pager} object
      */
     @GET("me/playlists")
+    @CheckResult @NonNull
     Single<Response<Pager<PlaylistSimple>>> getMyPlaylistsResponse();
 
     /**
@@ -1995,6 +2206,7 @@ public interface SpotifyService {
      * @return List of user's playlists wrapped in a {@code Pager} object
      */
     @GET("me/playlists")
+    @CheckResult @NonNull
     Single<ResponseBody> getMyPlaylistsResponseBody();
 
     /**
@@ -2003,6 +2215,7 @@ public interface SpotifyService {
      * @return List of user's playlists wrapped in a {@code Pager} object
      */
     @GET("me/playlists")
+    @CheckResult @NonNull
     Single<Result<Pager<PlaylistSimple>>> getMyPlaylistsResult();
 
     /**
@@ -2013,6 +2226,7 @@ public interface SpotifyService {
      * @return List of user's playlists wrapped in a {@code Pager} object
      */
     @GET("me/playlists")
+    @CheckResult @NonNull
     Single<Pager<PlaylistSimple>> getMyPlaylistsBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -2023,6 +2237,7 @@ public interface SpotifyService {
      * @return List of user's playlists wrapped in a {@code Pager} object
      */
     @GET("me/playlists")
+    @CheckResult @NonNull
     Single<Response<PlaylistSimple>> getMyPlaylistsResponse(@QueryMap Map<String, Object> options);
 
     /**
@@ -2033,6 +2248,7 @@ public interface SpotifyService {
      * @return List of user's playlists wrapped in a {@code Pager} object
      */
     @GET("me/playlists")
+    @CheckResult @NonNull
     Single<ResponseBody> getMyPlaylistsResponseBody(@QueryMap Map<String, Object> options);
 
     /**
@@ -2043,8 +2259,9 @@ public interface SpotifyService {
      * @return List of user's playlists wrapped in a {@code Pager} object
      */
     @GET("me/playlists")
+    @CheckResult @NonNull
     Single<Result<Pager<PlaylistSimple>>> getMyPlaylistsResult(@QueryMap Map<String, Object> options);
-    
+
     /**
      * Get a playlist owned by a Spotify user.
      *
@@ -2056,6 +2273,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlist/">Get a Playlist</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}")
+    @CheckResult @NonNull
     Single<Playlist> getPlaylistBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
 
     /**
@@ -2069,6 +2287,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlist/">Get a Playlist</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}")
+    @CheckResult @NonNull
     Single<Response<Playlist>> getPlaylistResponse(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
 
     /**
@@ -2082,6 +2301,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlist/">Get a Playlist</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}")
+    @CheckResult @NonNull
     Single<ResponseBody> getPlaylistResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
 
     /**
@@ -2095,6 +2315,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlist/">Get a Playlist</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}")
+    @CheckResult @NonNull
     Single<Result<Playlist>> getPlaylistResult(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
 
     // TODO: 21.06.2017 hahah
@@ -2107,6 +2328,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlist/">Get a Playlist</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}")
+    @CheckResult @NonNull
     Single<Playlist> getPlaylistBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     /**
@@ -2118,6 +2340,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlist/">Get a Playlist</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}")
+    @CheckResult @NonNull
     Single<Response<Playlist>> getPlaylistResponse(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     /**
@@ -2129,6 +2352,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlist/">Get a Playlist</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}")
+    @CheckResult @NonNull
     Single<ResponseBody> getPlaylistResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     /**
@@ -2140,8 +2364,9 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlist/">Get a Playlist</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}")
+    @CheckResult @NonNull
     Single<Result<Playlist>> getPlaylistResult(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
-    
+
     /**
      * Get full details of the tracks of a playlist owned by a Spotify user.
      *
@@ -2153,6 +2378,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlists-tracks/">Get a Playlist’s Tracks</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<Pager<PlaylistTrack>> getPlaylistTracksBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
 
     /**
@@ -2166,6 +2392,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlists-tracks/">Get a Playlist’s Tracks</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<Response<Pager<PlaylistTrack>>> getPlaylistTracksResponse(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
 
     /**
@@ -2179,6 +2406,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlists-tracks/">Get a Playlist’s Tracks</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<ResponseBody> getPlaylistTracksResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
 
     /**
@@ -2192,6 +2420,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlists-tracks/">Get a Playlist’s Tracks</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<Result<Pager<PlaylistTrack>>> getPlaylistTracksResult(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> options);
 
     /**
@@ -2203,6 +2432,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlists-tracks/">Get a Playlist’s Tracks</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<Pager<PlaylistTrack>> getPlaylistTracksBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     /**
@@ -2214,6 +2444,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlists-tracks/">Get a Playlist’s Tracks</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<Response<Pager<PlaylistTrack>>> getPlaylistTracksResponse(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     /**
@@ -2225,6 +2456,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlists-tracks/">Get a Playlist’s Tracks</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<ResponseBody> getPlaylistTracksResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     /**
@@ -2236,6 +2468,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-playlists-tracks/">Get a Playlist’s Tracks</a>
      */
     @GET("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<Result<Pager<PlaylistTrack>>> getPlaylistTracksResult(@Path("user_id") String userId, @Path("playlist_id") String playlistId);
 
     /**
@@ -2247,6 +2480,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/create-playlist/">Create a Playlist</a>
      */
     @POST("users/{user_id}/playlists")
+    @CheckResult @NonNull
     Single<Playlist> createPlaylistBody(@Path("user_id") String userId, @Body Map<String, Object> options);
 
     /**
@@ -2258,6 +2492,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/create-playlist/">Create a Playlist</a>
      */
     @POST("users/{user_id}/playlists")
+    @CheckResult @NonNull
     Single<Response<Playlist>> createPlaylistResponse(@Path("user_id") String userId, @Body Map<String, Object> options);
 
     /**
@@ -2269,6 +2504,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/create-playlist/">Create a Playlist</a>
      */
     @POST("users/{user_id}/playlists")
+    @CheckResult @NonNull
     Single<ResponseBody> createPlaylistResponseBody(@Path("user_id") String userId, @Body Map<String, Object> options);
 
     /**
@@ -2280,8 +2516,9 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/create-playlist/">Create a Playlist</a>
      */
     @POST("users/{user_id}/playlists")
+    @CheckResult @NonNull
     Single<Result<Playlist>> createPlaylistResult(@Path("user_id") String userId, @Body Map<String, Object> options);
-    
+
     /**
      * Change a playlist’s name and public/private state. (The user must, of course, own the playlist.)
      *
@@ -2292,8 +2529,9 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/change-playlist-details/">Change a Playlist's Details</a>
      */
     @PUT("users/{user_id}/playlists/{playlist_id}")
+    @CheckResult @NonNull
     Completable changePlaylistDetails(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
-    
+
     /**
      * Add tracks to a playlist
      *
@@ -2305,6 +2543,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/add-tracks-to-playlist/">Add Tracks to a Playlist</a>
      */
     @POST("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<SnapshotId> addTracksToPlaylistBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> queryParameters, @Body Map<String, Object> body);
 
     /**
@@ -2318,6 +2557,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/add-tracks-to-playlist/">Add Tracks to a Playlist</a>
      */
     @POST("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<Response<SnapshotId>> addTracksToPlaylistResponse(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> queryParameters, @Body Map<String, Object> body);
 
     /**
@@ -2331,6 +2571,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/add-tracks-to-playlist/">Add Tracks to a Playlist</a>
      */
     @POST("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<ResponseBody> addTracksToPlaylistResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> queryParameters, @Body Map<String, Object> body);
 
     /**
@@ -2344,6 +2585,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/add-tracks-to-playlist/">Add Tracks to a Playlist</a>
      */
     @POST("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<Result<SnapshotId>> addTracksToPlaylistResult(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @QueryMap Map<String, Object> queryParameters, @Body Map<String, Object> body);
 
     /**
@@ -2356,6 +2598,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
      */
     @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<SnapshotId> removeTracksFromPlaylistBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemove tracksToRemove);
 
     /**
@@ -2368,6 +2611,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
      */
     @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<Response<SnapshotId>> removeTracksFromPlaylistResponse(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemove tracksToRemove);
 
     /**
@@ -2380,6 +2624,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
      */
     @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<ResponseBody> removeTracksFromPlaylistResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemove tracksToRemove);
 
     /**
@@ -2392,6 +2637,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
      */
     @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<Result<SnapshotId>> removeTracksFromPlaylistResult(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemove tracksToRemove);
 
     /**
@@ -2404,6 +2650,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
      */
     @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<SnapshotId> removeTracksFromPlaylistBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveWithPosition tracksToRemoveWithPosition);
 
     /**
@@ -2416,6 +2663,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
      */
     @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<Response<SnapshotId>> removeTracksFromPlaylistResponse(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveWithPosition tracksToRemoveWithPosition);
 
     /**
@@ -2428,6 +2676,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
      */
     @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<ResponseBody> removeTracksFromPlaylistResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveWithPosition tracksToRemoveWithPosition);
 
     /**
@@ -2440,6 +2689,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
      */
     @DELETE("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<Result<SnapshotId>> removeTracksFromPlaylistResult(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveWithPosition tracksToRemoveWithPosition);
 
     /**
@@ -2452,6 +2702,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
      */
     @DELETE("/users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<SnapshotId> removeTracksFromPlaylistBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveByPosition tracksToRemoveByPosition);
 
     /**
@@ -2464,6 +2715,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
      */
     @DELETE("/users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<Response<SnapshotId>> removeTracksFromPlaylistResponse(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveByPosition tracksToRemoveByPosition);
 
     /**
@@ -2476,6 +2728,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
      */
     @DELETE("/users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<ResponseBody> removeTracksFromPlaylistResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveByPosition tracksToRemoveByPosition);
 
     /**
@@ -2488,6 +2741,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/remove-tracks-playlist/">Remove Tracks from a Playlist</a>
      */
     @DELETE("/users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<Result<SnapshotId>> removeTracksFromPlaylistResult(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body TracksToRemoveByPosition tracksToRemoveByPosition);
 
     /**
@@ -2500,6 +2754,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/reorder-playlists-tracks/">Reorder a Playlist</a>
      */
     @PUT("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<SnapshotId> reorderPlaylistTracksBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
 
     /**
@@ -2512,6 +2767,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/reorder-playlists-tracks/">Reorder a Playlist</a>
      */
     @PUT("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<Response<SnapshotId>> reorderPlaylistTracksResponse(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
 
     /**
@@ -2524,6 +2780,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/reorder-playlists-tracks/">Reorder a Playlist</a>
      */
     @PUT("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<ResponseBody> reorderPlaylistTracksResponseBody(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
 
     /**
@@ -2536,6 +2793,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/reorder-playlists-tracks/">Reorder a Playlist</a>
      */
     @PUT("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Single<Result<SnapshotId>> reorderPlaylistTracksResult(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Body Map<String, Object> body);
 
     /**
@@ -2549,12 +2807,13 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/replace-playlists-tracks/">Replace a Playlist’s Tracks</a>
      */
     @PUT("users/{user_id}/playlists/{playlist_id}/tracks")
+    @CheckResult @NonNull
     Completable replaceTracksInPlaylist(@Path("user_id") String userId, @Path("playlist_id") String playlistId, @Query("uris") String trackUris, @Body Object body);
 
     /************
      * Profiles *
      ************/
-    
+
     /**
      * Get the currently logged in user profile information.
      * The contents of the User object may differ depending on application's scope.
@@ -2563,6 +2822,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-current-users-profile/">Get Current User's Profile</a>
      */
     @GET("me")
+    @CheckResult @NonNull
     Single<UserPrivate> getMeBody();
 
     /**
@@ -2573,6 +2833,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-current-users-profile/">Get Current User's Profile</a>
      */
     @GET("me")
+    @CheckResult @NonNull
     Single<Response<UserPrivate>> getMeResponse();
 
     /**
@@ -2583,6 +2844,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-current-users-profile/">Get Current User's Profile</a>
      */
     @GET("me")
+    @CheckResult @NonNull
     Single<ResponseBody> getMeResponseBody();
 
     /**
@@ -2593,6 +2855,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-current-users-profile/">Get Current User's Profile</a>
      */
     @GET("me")
+    @CheckResult @NonNull
     Single<Result<UserPrivate>> getMeResult();
 
     /**
@@ -2603,6 +2866,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-profile/">Get User's Public Profile</a>
      */
     @GET("users/{id}")
+    @CheckResult @NonNull
     Single<UserPublic> getUser(@Path("id") String userId);
 
     /**
@@ -2613,6 +2877,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-profile/">Get User's Public Profile</a>
      */
     @GET("users/{id}")
+    @CheckResult @NonNull
     Single<Response<UserPublic>> getUserResponse(@Path("id") String userId);
 
     /**
@@ -2623,6 +2888,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-profile/">Get User's Public Profile</a>
      */
     @GET("users/{id}")
+    @CheckResult @NonNull
     Single<ResponseBody> getUserResponseBody(@Path("id") String userId);
 
     /**
@@ -2633,6 +2899,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-users-profile/">Get User's Public Profile</a>
      */
     @GET("users/{id}")
+    @CheckResult @NonNull
     Single<Result<UserPublic>> getUserResult(@Path("id") String userId);
 
     /*************
@@ -2647,6 +2914,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=track")
+    @CheckResult @NonNull
     Single<TracksPager> searchTracksBody(@Query("q") String q);
 
     /**
@@ -2657,6 +2925,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=track")
+    @CheckResult @NonNull
     Single<Response<TracksPager>> searchTracksResponse(@Query("q") String q);
 
     /**
@@ -2667,6 +2936,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=track")
+    @CheckResult @NonNull
     Single<ResponseBody> searchTracksResponseBody(@Query("q") String q);
 
     /**
@@ -2677,6 +2947,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=track")
+    @CheckResult @NonNull
     Single<Result<TracksPager>> searchTracksResult(@Query("q") String q);
 
     /**
@@ -2689,6 +2960,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=track")
+    @CheckResult @NonNull
     Single<TracksPager> searchTracksBody(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2701,6 +2973,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=track")
+    @CheckResult @NonNull
     Single<Response<TracksPager>> searchTracksResponse(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2713,6 +2986,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=track")
+    @CheckResult @NonNull
     Single<ResponseBody> searchTracksResponseBody(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2725,6 +2999,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=track")
+    @CheckResult @NonNull
     Single<Result<TracksPager>> searchTracksResult(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2735,6 +3010,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=artist")
+    @CheckResult @NonNull
     Single<ArtistsPager> searchArtistsBody(@Query("q") String q);
 
     /**
@@ -2745,6 +3021,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=artist")
+    @CheckResult @NonNull
     Single<Response<ArtistsPager>> searchArtistsResponse(@Query("q") String q);
 
     /**
@@ -2755,6 +3032,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=artist")
+    @CheckResult @NonNull
     Single<ResponseBody> searchArtistsResponseBody(@Query("q") String q);
 
     /**
@@ -2765,6 +3043,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=artist")
+    @CheckResult @NonNull
     Single<Result<ArtistsPager>> searchArtistsResult(@Query("q") String q);
 
     /**
@@ -2777,6 +3056,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=artist")
+    @CheckResult @NonNull
     Single<ArtistsPager> searchArtistsBody(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2789,6 +3069,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=artist")
+    @CheckResult @NonNull
     Single<Response<ArtistsPager>> searchArtistsResponse(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2801,6 +3082,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=artist")
+    @CheckResult @NonNull
     Single<ResponseBody> searchArtistsResponseBody(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2813,6 +3095,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=artist")
+    @CheckResult @NonNull
     Single<Result<ArtistsPager>> searchArtistsResult(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2823,6 +3106,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=album")
+    @CheckResult @NonNull
     Single<AlbumsPager> searchAlbumsBody(@Query("q") String q);
 
     /**
@@ -2833,6 +3117,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=album")
+    @CheckResult @NonNull
     Single<Response<AlbumsPager>> searchAlbumsResponse(@Query("q") String q);
 
     /**
@@ -2843,6 +3128,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=album")
+    @CheckResult @NonNull
     Single<ResponseBody> searchAlbumsResponseBody(@Query("q") String q);
 
     /**
@@ -2853,6 +3139,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=album")
+    @CheckResult @NonNull
     Single<Result<AlbumsPager>> searchAlbumsResult(@Query("q") String q);
 
     /**
@@ -2865,6 +3152,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=album")
+    @CheckResult @NonNull
     Single<AlbumsPager> searchAlbumsBody(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2877,6 +3165,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=album")
+    @CheckResult @NonNull
     Single<Response<AlbumsPager>> searchAlbumsResponse(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2889,6 +3178,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=album")
+    @CheckResult @NonNull
     Single<ResponseBody> searchAlbumsResponseBody(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2901,6 +3191,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=album")
+    @CheckResult @NonNull
     Single<Result<AlbumsPager>> searchAlbumsResult(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2911,6 +3202,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=playlist")
+    @CheckResult @NonNull
     Single<PlaylistsPager> searchPlaylistsBody(@Query("q") String q);
 
     /**
@@ -2921,6 +3213,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=playlist")
+    @CheckResult @NonNull
     Single<Response<PlaylistsPager>> searchPlaylistsResponse(@Query("q") String q);
 
     /**
@@ -2931,6 +3224,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=playlist")
+    @CheckResult @NonNull
     Single<ResponseBody> searchPlaylistsResponseBody(@Query("q") String q);
 
     /**
@@ -2941,6 +3235,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=playlist")
+    @CheckResult @NonNull
     Single<Result<PlaylistsPager>> searchPlaylistsResult(@Query("q") String q);
 
     /**
@@ -2953,6 +3248,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=playlist")
+    @CheckResult @NonNull
     Single<PlaylistsPager> searchPlaylistsBody(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2965,6 +3261,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=playlist")
+    @CheckResult @NonNull
     Single<Response<PlaylistsPager>> searchPlaylistsResponse(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2977,6 +3274,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=playlist")
+    @CheckResult @NonNull
     Single<ResponseBody> searchPlaylistsResponseBody(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /**
@@ -2989,6 +3287,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/search-item/">Search for an Item</a>
      */
     @GET("search?type=playlist")
+    @CheckResult @NonNull
     Single<Result<PlaylistsPager>> searchPlaylistsResult(@Query("q") String q, @QueryMap Map<String, Object> options);
 
     /*************
@@ -3013,6 +3312,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-track/">Get a Track</a>
      */
     @GET("tracks/{id}")
+    @CheckResult @NonNull
     Single<Response<Track>> getTrackResponse(@Path("id") String trackId);
 
     /**
@@ -3023,6 +3323,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-track/">Get a Track</a>
      */
     @GET("tracks/{id}")
+    @CheckResult @NonNull
     Single<ResponseBody> getTrackResponseBody(@Path("id") String trackId);
 
     /**
@@ -3033,6 +3334,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-track/">Get a Track</a>
      */
     @GET("tracks/{id}")
+    @CheckResult @NonNull
     Single<Result<Track>> getTrackResult(@Path("id") String trackId);
 
     /**
@@ -3045,6 +3347,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-track/">Get a Track</a>
      */
     @GET("tracks/{id}")
+    @CheckResult @NonNull
     Single<Track> getTrackBody(@Path("id") String trackId, @QueryMap Map<String, Object> options);
 
     /**
@@ -3057,6 +3360,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-track/">Get a Track</a>
      */
     @GET("tracks/{id}")
+    @CheckResult @NonNull
     Single<Response<Track>> getTrackResponse(@Path("id") String trackId, @QueryMap Map<String, Object> options);
 
     /**
@@ -3069,6 +3373,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-track/">Get a Track</a>
      */
     @GET("tracks/{id}")
+    @CheckResult @NonNull
     Single<ResponseBody> getTrackResponseBody(@Path("id") String trackId, @QueryMap Map<String, Object> options);
 
     /**
@@ -3081,6 +3386,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-track/">Get a Track</a>
      */
     @GET("tracks/{id}")
+    @CheckResult @NonNull
     Single<Result<Track>> getTrackResult(@Path("id") String trackId, @QueryMap Map<String, Object> options);
 
     /**
@@ -3101,6 +3407,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-tracks/">Get Several Tracks</a>
      */
     @GET("tracks")
+    @CheckResult @NonNull
     Single<Response<Tracks>> getTracksResponse(@Query("ids") String trackIds);
 
     /**
@@ -3111,6 +3418,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-tracks/">Get Several Tracks</a>
      */
     @GET("tracks")
+    @CheckResult @NonNull
     Single<ResponseBody> getTracksResponseBody(@Query("ids") String trackIds);
 
     /**
@@ -3121,6 +3429,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-tracks/">Get Several Tracks</a>
      */
     @GET("tracks")
+    @CheckResult @NonNull
     Single<Result<Tracks>> getTracksResult(@Query("ids") String trackIds);
 
     /**
@@ -3133,6 +3442,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-tracks/">Get Several Tracks</a>
      */
     @GET("tracks")
+    @CheckResult @NonNull
     Single<Tracks> getTracksBody(@Query("ids") String trackIds, @QueryMap Map<String, Object> options);
 
     /**
@@ -3145,6 +3455,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-tracks/">Get Several Tracks</a>
      */
     @GET("tracks")
+    @CheckResult @NonNull
     Single<Response<Tracks>> getTracksResponse(@Query("ids") String trackIds, @QueryMap Map<String, Object> options);
 
     /**
@@ -3157,6 +3468,7 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-tracks/">Get Several Tracks</a>
      */
     @GET("tracks")
+    @CheckResult @NonNull
     Single<ResponseBody> getTracksResponseBody(@Query("ids") String trackIds, @QueryMap Map<String, Object> options);
 
     /**
@@ -3169,8 +3481,9 @@ public interface SpotifyService {
      * @see <a href="https://developer.spotify.com/web-api/get-several-tracks/">Get Several Tracks</a>
      */
     @GET("tracks")
+    @CheckResult @NonNull
     Single<Result<Tracks>> getTracksResult(@Query("ids") String trackIds, @QueryMap Map<String, Object> options);
-    
+
     /**
      * Get audio features for multiple tracks based on their Spotify IDs.
      *
@@ -3178,6 +3491,7 @@ public interface SpotifyService {
      * @return An object whose key is "audio_features" and whose value is an array of audio features objects.
      */
     @GET("audio-features")
+    @CheckResult @NonNull
     Single<AudioFeaturesTracks> getTracksAudioFeaturesBody(@Query("ids") String ids);
 
     /**
@@ -3187,6 +3501,7 @@ public interface SpotifyService {
      * @return An object whose key is "audio_features" and whose value is an array of audio features objects.
      */
     @GET("audio-features")
+    @CheckResult @NonNull
     Single<Response<AudioFeaturesTracks>> getTracksAudioFeaturesResponse(@Query("ids") String ids);
 
     /**
@@ -3196,6 +3511,7 @@ public interface SpotifyService {
      * @return An object whose key is "audio_features" and whose value is an array of audio features objects.
      */
     @GET("audio-features")
+    @CheckResult @NonNull
     Single<ResponseBody> getTracksAudioFeaturesResponseBody(@Query("ids") String ids);
 
     /**
@@ -3205,6 +3521,7 @@ public interface SpotifyService {
      * @return An object whose key is "audio_features" and whose value is an array of audio features objects.
      */
     @GET("audio-features")
+    @CheckResult @NonNull
     Single<Result<AudioFeaturesTracks>> getTracksAudioFeaturesResult(@Query("ids") String ids);
 
     /**
@@ -3214,6 +3531,7 @@ public interface SpotifyService {
      * @return Audio features object
      */
     @GET("audio-features/{id}")
+    @CheckResult @NonNull
     Single<AudioFeaturesTrack> getTrackAudioFeaturesBody(@Path("id") String id);
 
     /**
@@ -3223,6 +3541,7 @@ public interface SpotifyService {
      * @return Audio features object
      */
     @GET("audio-features/{id}")
+    @CheckResult @NonNull
     Single<Response<AudioFeaturesTrack>> getTrackAudioFeaturesResponse(@Path("id") String id);
 
     /**
@@ -3232,6 +3551,7 @@ public interface SpotifyService {
      * @return Audio features object
      */
     @GET("audio-features/{id}")
+    @CheckResult @NonNull
     Single<ResponseBody> getTrackAudioFeaturesResponseBody(@Path("id") String id);
 
     /**
@@ -3241,6 +3561,7 @@ public interface SpotifyService {
      * @return Audio features object
      */
     @GET("audio-features/{id}")
+    @CheckResult @NonNull
     Single<Result<AudioFeaturesTrack>> getTrackAudioFeaturesResult(@Path("id") String id);
 
     interface QUERY_PARAMETER {

@@ -17,6 +17,9 @@
 
 package com.ivianuu.spotifywebapi;
 
+import android.support.annotation.CheckResult;
+import android.support.annotation.NonNull;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ivianuu.spotifywebapi.model.AccessToken;
@@ -53,6 +56,7 @@ public interface SpotifyAuthenticationService {
      */
     @FormUrlEncoded
     @POST("token")
+    @CheckResult @NonNull
     Single<AccessToken> getAccessTokenBody(@Field("grant_type") String grantType, @Field("code") String code, @Field("redirect_uri") String redirectUri, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
 
     /**
@@ -68,6 +72,7 @@ public interface SpotifyAuthenticationService {
      */
     @FormUrlEncoded
     @POST("token")
+    @CheckResult @NonNull
     Single<Response<AccessToken>> getAccessTokenResponse(@Field("grant_type") String grantType, @Field("code") String code, @Field("redirect_uri") String redirectUri, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
 
     /**
@@ -83,6 +88,7 @@ public interface SpotifyAuthenticationService {
      */
     @FormUrlEncoded
     @POST("token")
+    @CheckResult @NonNull
     Single<ResponseBody> getAccessTokenResponseBody(@Field("grant_type") String grantType, @Field("code") String code, @Field("redirect_uri") String redirectUri, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
 
     /**
@@ -98,6 +104,7 @@ public interface SpotifyAuthenticationService {
      */
     @FormUrlEncoded
     @POST("token")
+    @CheckResult @NonNull
     Single<Result<AccessToken>> getAccessTokenResult(@Field("grant_type") String grantType, @Field("code") String code, @Field("redirect_uri") String redirectUri, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
 
 
@@ -113,6 +120,7 @@ public interface SpotifyAuthenticationService {
      */
     @FormUrlEncoded
     @POST("token")
+    @CheckResult @NonNull
     Single<AccessToken> refreshAccessTokenBody(@Field("grant_type") String grantType, @Field("refresh_token") String refreshToken, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
 
     /**
@@ -127,6 +135,7 @@ public interface SpotifyAuthenticationService {
      */
     @FormUrlEncoded
     @POST("token")
+    @CheckResult @NonNull
     Single<Response<AccessToken>> refreshAccessTokenResponse(@Field("grant_type") String grantType, @Field("refresh_token") String refreshToken, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
 
     /**
@@ -141,6 +150,7 @@ public interface SpotifyAuthenticationService {
      */
     @FormUrlEncoded
     @POST("token")
+    @CheckResult @NonNull
     Single<ResponseBody> refreshAccessTokenResponseBody(@Field("grant_type") String grantType, @Field("refresh_token") String refreshToken, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
 
     /**
@@ -155,6 +165,7 @@ public interface SpotifyAuthenticationService {
      */
     @FormUrlEncoded
     @POST("token")
+    @CheckResult @NonNull
     Single<Result<AccessToken>> refreshAccessTokenResult(@Field("grant_type") String grantType, @Field("refresh_token") String refreshToken, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
 
     class Builder {

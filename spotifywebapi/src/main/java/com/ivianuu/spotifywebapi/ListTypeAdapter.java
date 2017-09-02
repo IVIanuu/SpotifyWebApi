@@ -24,7 +24,7 @@ import com.ryanharter.auto.value.parcel.TypeAdapter;
 import java.util.List;
 
 /**
- * @author Manuel Wrage (IVIanuu)
+ * List type adapter
  */
 public class ListTypeAdapter implements TypeAdapter<List<?>> {
 

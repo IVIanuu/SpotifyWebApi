@@ -21,7 +21,7 @@ import com.google.gson.TypeAdapterFactory;
 import com.ryanharter.auto.value.gson.GsonTypeAdapterFactory;
 
 /**
- * @author Manuel Wrage (IVIanuu)
+ * Auto Gson adapter factory
  */
 @GsonTypeAdapterFactory
 public abstract class AutoGsonAdapterFactory implements TypeAdapterFactory {

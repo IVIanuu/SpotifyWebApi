@@ -26,9 +26,8 @@ import retrofit2.Converter;
 import retrofit2.Retrofit;
 
 /**
- * @author Manuel Wrage (IVIanuu)
+ * Null or empty converter factory
  */
-
 final class NullOnEmptyConverterFactory extends Converter.Factory {
 
     static NullOnEmptyConverterFactory create() {

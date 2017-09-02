@@ -30,7 +30,6 @@ import io.reactivex.functions.Function;
 /**
  * @author Manuel Wrage (IVIanuu)
  */
-
 // TODO: 23.06.2017 WIP 
 public class PaginationActivity extends AppCompatActivity {
 
@@ -45,7 +44,7 @@ public class PaginationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pagination);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         final AlbumAdapter albumAdapter = new AlbumAdapter();
         recyclerView.setAdapter(albumAdapter);
