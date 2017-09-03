@@ -17,6 +17,8 @@
 
 package com.ivianuu.spotifywebapi;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.TypeAdapterFactory;
 import com.ryanharter.auto.value.gson.GsonTypeAdapterFactory;
 
@@ -24,9 +26,13 @@ import com.ryanharter.auto.value.gson.GsonTypeAdapterFactory;
  * Auto Gson adapter factory
  */
 @GsonTypeAdapterFactory
-public abstract class AutoGsonAdapterFactory implements TypeAdapterFactory {
+abstract class AutoGsonAdapterFactory implements TypeAdapterFactory {
 
-    public static AutoGsonAdapterFactory create() {
+    /**
+     * Returns a new auto gson adapter factory
+     */
+    @NonNull
+    static AutoGsonAdapterFactory create() {
         return new AutoValueGson_AutoGsonAdapterFactory();
     }
 }

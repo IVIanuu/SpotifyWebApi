@@ -19,16 +19,16 @@ android {
 
 dependencies {
     // Spotify Web Api
-    compile project(':spotifywebapi')
+    implementation project(':spotifywebapi')
 
     // Spotify Extensions
-    compile project(':extensions')
+    implementation project(':extensions')
 
     // Spotify Auth
-    compile 'com.spotify.android:auth:1.0.0-alpha'
+    implementation 'com.spotify.android:auth:1.0.0-alpha'
 
     // Rx Android
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     // Android Support
     compile 'com.android.support:appcompat-v7:26.0.2'

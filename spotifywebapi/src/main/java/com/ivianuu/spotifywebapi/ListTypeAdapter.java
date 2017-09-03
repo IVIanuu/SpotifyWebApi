@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * List type adapter
  */
-public class ListTypeAdapter implements TypeAdapter<List<?>> {
+final class ListTypeAdapter implements TypeAdapter<List<?>> {
 
     @Override
     public List<?> fromParcel(Parcel in) {

@@ -2,7 +2,9 @@
   <dictionary name="IVIanuu">
     <words>
       <w>birthdate</w>
+      <w>spotifyextensions</w>
       <w>spotifysample</w>
+      <w>spotifywebapi</w>
       <w>unfollow</w>
     </words>
   </dictionary>
