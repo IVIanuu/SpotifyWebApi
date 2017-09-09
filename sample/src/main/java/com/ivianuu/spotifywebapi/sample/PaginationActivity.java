@@ -65,17 +65,14 @@ public class PaginationActivity extends AppCompatActivity {
 
                 paginationHelper = new PaginationHelper.Builder<AlbumSimple>()
                 .limit(10)
-                .fetcher(new PaginationHelper.Fetcher<AlbumSimple>() {
-                    @Override
-                    public Single<Pager<AlbumSimple>> fetch(@NonNull HashMap<String, Object> options) {
-                        return spotifyService.getNewReleasesBody(options)
-                                .map(new Function<NewReleases, Pager<AlbumSimple>>() {
-                                    @Override
-                                    public Pager<AlbumSimple> apply(NewReleases newReleases) throws Exception {
-                                        return newReleases.albums();
-                                    }
-                                }); // return the observable and pass in the provided options
-                    }
+                .fetcher(options -> {
+                    return spotifyService.getNewReleasesBody(options)
+                            .map(new Function<NewReleases, Pager<AlbumSimple>>() {
+                                @Override
+                                public Pager<AlbumSimple> apply(NewReleases newReleases) throws Exception {
+                                    return newReleases.albums();
+                                }
+                            }); // return the observable and pass in the provided options
                 })
                 .build();
 
