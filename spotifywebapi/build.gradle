@@ -4,14 +4,12 @@ apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.ivianuu'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -28,30 +26,30 @@ android {
 
 dependencies {
     // Android Support
-    api 'com.android.support:support-annotations:26.0.2'
+    api rootProject.ext.supportAnnotations
 
     // AutoValue
-    provided 'com.google.auto.value:auto-value:1.4.1'
-    annotationProcessor 'com.google.auto.value:auto-value:1.4.1'
+    provided rootProject.ext.autoValue
+    annotationProcessor rootProject.ext.autoValue
 
     // AutoValue Gson
-    provided 'com.ryanharter.auto.value:auto-value-gson:0.5.0'
-    annotationProcessor 'com.ryanharter.auto.value:auto-value-gson:0.5.0'
+    provided rootProject.ext.autoValueGson
+    annotationProcessor rootProject.ext.autoValueGson
 
     // AutoValue Parcel
-    provided 'com.ryanharter.auto.value:auto-value-parcel-adapter:0.2.5'
-    annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.5'
+    provided rootProject.ext.autoValueParcelAdapter
+    annotationProcessor rootProject.ext.autoValueParcel
 
     // Gson
-    api 'com.google.code.gson:gson:2.8.1'
+    api rootProject.ext.gson
 
     // Retrofit
-    api 'com.squareup.retrofit2:retrofit:2.2.0'
-    api 'com.squareup.retrofit2:converter-gson:2.2.0'
-    api 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+    api rootProject.ext.retrofit
+    api rootProject.ext.retrofitGsonConverter
+    api rootProject.ext.retrofitRxJavaAdapter
 
     // Ok http
-    api 'com.squareup.okhttp3:okhttp:3.8.0'
+    api rootProject.ext.okHttp
 }
 
 // build a jar with source files
